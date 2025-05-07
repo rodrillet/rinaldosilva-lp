@@ -20,14 +20,14 @@ import {
   PlayIcon,
 } from "lucide-react"
 import JsonLd from "@/app/components/json-ld"
-import { 
-  getBispoStructuredData, 
-  getBreadcrumbStructuredData, 
-  getWebsiteStructuredData, 
+import {
+  getBispoStructuredData,
+  getBreadcrumbStructuredData,
+  getWebsiteStructuredData,
   getEventStructuredData,
   getOrganizationStructuredData,
   getLocalBusinessStructuredData,
-  getFAQStructuredData
+  getFAQStructuredData,
 } from "@/app/components/structured-data"
 
 export default function Home() {
@@ -40,7 +40,7 @@ export default function Home() {
       location: "São Paulo, SP",
       description: "Três dias de imersão espiritual com pregações, workshops e momentos de adoração.",
       url: "https://rinaldosilva.com/eventos/conferencia-impacto",
-      image: "https://rinaldosilva.com/placeholder.svg?key=conferencia-impacto"
+      image: "https://rinaldosilva.com/placeholder.svg?key=conferencia-impacto",
     },
     {
       name: "Seminário de Liderança",
@@ -48,43 +48,42 @@ export default function Home() {
       location: "Rio de Janeiro, RJ",
       description: "Seminário de capacitação para líderes de ministérios e células.",
       url: "https://rinaldosilva.com/eventos/seminario-lideranca",
-      image: "https://rinaldosilva.com/placeholder.svg?key=seminario-lideranca"
-    }
-  ];
+      image: "https://rinaldosilva.com/placeholder.svg?key=seminario-lideranca",
+    },
+  ]
 
   // FAQs para estruturar em JSON-LD
   const faqs = [
     {
       question: "Como posso agendar uma visita à Igreja Impactados?",
-      answer: "Você pode agendar uma visita clicando no botão 'Agendar Visita' no topo do site ou entrando em contato pelo telefone +55 (11) 99999-9999."
+      answer:
+        "Você pode agendar uma visita clicando no botão 'Agendar Visita' no topo do site ou entrando em contato pelo telefone +55 (11) 99999-9999.",
     },
     {
       question: "Quais são os horários dos cultos na Igreja Impactados?",
-      answer: "Os cultos acontecem aos domingos às 10h e 18h, e às quartas-feiras às 19h30."
+      answer: "Os cultos acontecem aos domingos às 10h e 18h, e às quartas-feiras às 19h30.",
     },
     {
       question: "Como faço para participar da Escola de Dons?",
-      answer: "Você pode se inscrever na Escola de Dons através da página específica do curso em nosso site, acesse 'Escola de Dons' no menu principal."
+      answer:
+        "Você pode se inscrever na Escola de Dons através da página específica do curso em nosso site, acesse 'Escola de Dons' no menu principal.",
     },
     {
       question: "O Bispo Rinaldo Silva faz eventos em outras cidades?",
-      answer: "Sim, o Bispo Rinaldo ministra em diversas cidades brasileiras e internacionalmente. Confira a agenda completa na seção 'Eventos'."
-    }
-  ];
+      answer:
+        "Sim, o Bispo Rinaldo ministra em diversas cidades brasileiras e internacionalmente. Confira a agenda completa na seção 'Eventos'.",
+    },
+  ]
 
   return (
     <div className="flex flex-col min-h-screen">
       <JsonLd data={getBispoStructuredData()} />
-      <JsonLd
-        data={getBreadcrumbStructuredData([
-          { name: "Home", item: "https://rinaldosilva.com/" },
-        ])}
-      />
+      <JsonLd data={getBreadcrumbStructuredData([{ name: "Home", item: "https://rinaldosilva.com/" }])} />
       <JsonLd data={getWebsiteStructuredData()} />
       <JsonLd data={getOrganizationStructuredData()} />
       <JsonLd data={getLocalBusinessStructuredData()} />
       <JsonLd data={getFAQStructuredData(faqs)} />
-      
+
       {/* Adicionar dados estruturados para cada evento */}
       {events.map((event, index) => (
         <JsonLd key={`event-${index}`} data={getEventStructuredData(event)} />

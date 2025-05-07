@@ -44,22 +44,16 @@ export default function CountdownTimer() {
 
   const TimerDigit = ({ value, label }: { value: number; label: string }) => (
     <div className="text-center">
-      <div className="relative group">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#ff6b00] to-[#ff9d00] blur-md rounded-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
-        <div className="relative bg-gradient-to-b from-black/80 to-black/90 text-white text-2xl font-bold w-16 h-16 rounded-lg flex items-center justify-center shadow-lg border border-[#ff6b00]/20 backdrop-blur-md overflow-hidden transform transition-transform group-hover:scale-105">
-          <div className="absolute inset-x-0 -top-1/2 h-full bg-gradient-to-b from-transparent via-[#ff6b00]/20 to-transparent animate-shine"></div>
-          <div className="animate-bounce-light">
-            {String(value).padStart(2, "0")}
-          </div>
+      <div className="relative">
+        <div className="bg-black/80 text-white text-xl font-medium w-14 h-14 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-md overflow-hidden border border-[#d4fb00]/30">
+          {String(value).padStart(2, "0")}
         </div>
       </div>
-      <div className="text-xs mt-2 font-medium text-white">{label}</div>
+      <div className="text-xs mt-1 font-medium text-white/80">{label}</div>
     </div>
   )
 
-  const Separator = () => (
-    <div className="flex items-center text-2xl font-bold text-[#ff6b00] animate-pulse mt-[-8px]">:</div>
-  )
+  const Separator = () => <div className="flex items-center text-xl font-bold text-white mt-[-8px]">:</div>
 
   return (
     <div className="space-y-3">
@@ -74,7 +68,7 @@ export default function CountdownTimer() {
       </div>
       {timeLeft.days < 2 && (
         <div className="flex justify-center mt-3">
-          <p className="text-center text-red-600 text-sm font-bold animate-pulse px-4 py-2 rounded-full bg-gradient-to-r from-white/90 to-white/70 shadow-md border border-red-200 animate-scale">
+          <p className="text-center text-white text-sm font-medium px-4 py-2 rounded-full bg-white/10 shadow-sm border border-white/20">
             ⚠️ ATENÇÃO: Inscrições quase encerrando!
           </p>
         </div>

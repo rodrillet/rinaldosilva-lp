@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, Home } from "lucide-react"
@@ -25,11 +27,7 @@ export default function NotFound() {
             Desculpe, a página que você está procurando não existe ou foi movida para outro endereço.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              onClick={() => window.history.back()}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
+            <Button onClick={() => window.history.back()} variant="outline" className="flex items-center gap-2">
               <ChevronLeft className="h-4 w-4" />
               Voltar
             </Button>
@@ -81,4 +79,4 @@ export default function NotFound() {
       </footer>
     </div>
   )
-} 
+}

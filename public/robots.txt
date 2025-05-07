@@ -20,4 +20,4 @@ Allow: /*.gif$
 Allow: /*.jpg$
 Allow: /*.png$
 Allow: /*.webp$
-Allow: /*.svg$ 
+Allow: /*.svg$

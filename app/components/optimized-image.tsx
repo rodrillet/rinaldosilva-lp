@@ -38,15 +38,16 @@ export default function OptimizedImage({
   const [imageRef, setImageRef] = useState<HTMLDivElement | null>(null)
 
   // Gera um placeholder blur simples se não for fornecido
-  const finalBlurDataURL = blurDataURL || placeholder === "blur" 
-    ? `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width || 100} ${height || 100}'%3E%3Crect width='100%25' height='100%25' fill='%23d4fb0020'/%3E%3C/svg%3E`
-    : undefined
+  const finalBlurDataURL =
+    blurDataURL || placeholder === "blur"
+      ? `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width || 100} ${height || 100}'%3E%3Crect width='100%25' height='100%25' fill='%23d4fb0020'/%3E%3C/svg%3E`
+      : undefined
 
   // Configura o Intersection Observer
   useEffect(() => {
     if (!imageRef || priority) return
 
-    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+    if (typeof window !== "undefined" && "IntersectionObserver" in window) {
       const obs = new IntersectionObserver(
         (entries) => {
           const [entry] = entries
@@ -55,7 +56,7 @@ export default function OptimizedImage({
         {
           rootMargin: "200px", // Carrega a imagem um pouco antes do usuário chegar nela
           threshold: 0.01,
-        }
+        },
       )
 
       setObserver(obs)
@@ -112,4 +113,4 @@ export default function OptimizedImage({
       )}
     </div>
   )
-} 
+}

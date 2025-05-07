@@ -12,15 +12,18 @@ const inter = Inter({
 
 export const metadata = {
   title: "Bispo Rinaldo Silva | Igreja Impactados | Ministério Oficial",
-  description: "Site oficial do Bispo Rinaldo Silva, Bispo Sênior da Igreja Impactados. Conheça seu ministério, mensagens, eventos, conferências, e a renomada Escola de Dons. Transformando vidas há mais de 20 anos através da Palavra de Deus e do poder do Espírito Santo.",
-  keywords: "Rinaldo Silva, Bispo Rinaldo Silva, Pastor Rinaldo, Ministério Rinaldo Silva, Igreja Impactados, Escola de Dons, ministério, pregações, conferências, eventos, dons espirituais, palavra de fé, cura, libertação, avivamento, Espírito Santo, milagres, transformação espiritual, São Paulo, Brasil, Rinaldo Silva oficial, Bispo Rinaldo oficial, pregações Rinaldo Silva, eventos Rinaldo Silva, Escola de Dons Rinaldo Silva",
+  description:
+    "Site oficial do Bispo Rinaldo Silva, Bispo Sênior da Igreja Impactados. Conheça seu ministério, mensagens, eventos, conferências, e a renomada Escola de Dons. Transformando vidas há mais de 20 anos através da Palavra de Deus e do poder do Espírito Santo.",
+  keywords:
+    "Rinaldo Silva, Bispo Rinaldo Silva, Pastor Rinaldo, Ministério Rinaldo Silva, Igreja Impactados, Escola de Dons, ministério, pregações, conferências, eventos, dons espirituais, palavra de fé, cura, libertação, avivamento, Espírito Santo, milagres, transformação espiritual, São Paulo, Brasil, Rinaldo Silva oficial, Bispo Rinaldo oficial, pregações Rinaldo Silva, eventos Rinaldo Silva, Escola de Dons Rinaldo Silva",
   author: "Bispo Rinaldo Silva",
   category: "Religião, Cristianismo, Ministério",
   creator: "Ministério Bispo Rinaldo Silva",
   publisher: "Igreja Impactados",
   openGraph: {
     title: "Bispo Rinaldo Silva | Ministério Oficial",
-    description: "Conheça o ministério do Bispo Rinaldo Silva e sua Escola de Dons. Transformando vidas há mais de 20 anos através do poder do Espírito Santo.",
+    description:
+      "Conheça o ministério do Bispo Rinaldo Silva e sua Escola de Dons. Transformando vidas há mais de 20 anos através do poder do Espírito Santo.",
     type: "website",
     url: "https://rinaldosilva.com",
     locale: "pt_BR",
@@ -30,23 +33,23 @@ export const metadata = {
         url: "/placeholder.svg?key=og-image",
         width: 1200,
         height: 630,
-        alt: "Bispo Rinaldo Silva"
-      }
-    ]
+        alt: "Bispo Rinaldo Silva",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bispo Rinaldo Silva | Ministério Oficial",
     description: "Conheça o ministério do Bispo Rinaldo Silva e sua Escola de Dons.",
-    images: ["/placeholder.svg?key=twitter-image"]
+    images: ["/placeholder.svg?key=twitter-image"],
   },
   generator: "Next.js",
   metadataBase: new URL("https://rinaldosilva.com"),
   alternates: {
     canonical: "https://rinaldosilva.com",
     languages: {
-      'pt-BR': 'https://rinaldosilva.com',
-    }
+      "pt-BR": "https://rinaldosilva.com",
+    },
   },
   robots: {
     index: true,
@@ -55,26 +58,26 @@ export const metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
   verification: {
-    google: 'google-site-verification=suaverificacao', // Substituir pelo código real de verificação
-    yandex: 'yandex-verification',
-    bing: 'msvalidate.01',
+    google: "google-site-verification=suaverificacao", // Substituir pelo código real de verificação
+    yandex: "yandex-verification",
+    bing: "msvalidate.01",
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
     other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/apple-touch-icon-precomposed.png',
+      rel: "apple-touch-icon-precomposed",
+      url: "/apple-touch-icon-precomposed.png",
     },
   },
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
 }
 
 export default function RootLayout({
