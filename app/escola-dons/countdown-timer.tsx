@@ -13,7 +13,7 @@ export default function CountdownTimer() {
   useEffect(() => {
     // Set target date to 7 days from now
     const targetDate = new Date()
-    targetDate.setDate(targetDate.getDate() + 7)
+    targetDate.setDate(targetDate.getDate() + 3) // Reduzindo para 3 dias para criar mais urgência
     targetDate.setHours(23, 59, 59, 0)
 
     const calculateTimeLeft = () => {
@@ -43,31 +43,38 @@ export default function CountdownTimer() {
   }, [])
 
   return (
-    <div className="flex justify-center gap-4 mt-4">
-      <div className="text-center">
-        <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center">
-          {String(timeLeft.days).padStart(2, "0")}
+    <div className="space-y-2">
+      <div className="flex justify-center gap-4 mt-2">
+        <div className="text-center">
+          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+            {String(timeLeft.days).padStart(2, "0")}
+          </div>
+          <div className="text-xs mt-1">Dias</div>
         </div>
-        <div className="text-xs mt-1">Dias</div>
-      </div>
-      <div className="text-center">
-        <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center">
-          {String(timeLeft.hours).padStart(2, "0")}
+        <div className="text-center">
+          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+            {String(timeLeft.hours).padStart(2, "0")}
+          </div>
+          <div className="text-xs mt-1">Horas</div>
         </div>
-        <div className="text-xs mt-1">Horas</div>
-      </div>
-      <div className="text-center">
-        <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center">
-          {String(timeLeft.minutes).padStart(2, "0")}
+        <div className="text-center">
+          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+            {String(timeLeft.minutes).padStart(2, "0")}
+          </div>
+          <div className="text-xs mt-1">Min</div>
         </div>
-        <div className="text-xs mt-1">Min</div>
-      </div>
-      <div className="text-center">
-        <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center">
-          {String(timeLeft.seconds).padStart(2, "0")}
+        <div className="text-center">
+          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+            {String(timeLeft.seconds).padStart(2, "0")}
+          </div>
+          <div className="text-xs mt-1">Seg</div>
         </div>
-        <div className="text-xs mt-1">Seg</div>
       </div>
+      {timeLeft.days < 2 && (
+        <p className="text-center text-red-500 text-sm font-bold animate-pulse">
+          ATENÇÃO: Inscrições quase encerrando!
+        </p>
+      )}
     </div>
   )
 }
