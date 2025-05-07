@@ -466,7 +466,7 @@ export default function EscolaDons() {
                     {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
                         <Image
-                          src={`/placeholder.svg?key=5amfh&key=xeano&key=rxpuz&key=zaluq&key=up4em&key=lpmdr&key=4ikth&key=gzgga&key=pzfv8&key=qr1en&key=kr1bf&key=alnm0&key=o2wkx&key=q7pvk&key=msw84&key=0nh49&key=t0jbm&key=0sn00&key=sgdw4&height=100&width=100&query=pessoa ${i} cristã perfil`}
+                          src={`/placeholder.svg?key=aweyk&key=5amfh&key=xeano&key=rxpuz&key=zaluq&key=up4em&key=lpmdr&key=4ikth&key=gzgga&key=pzfv8&key=qr1en&key=kr1bf&key=alnm0&key=o2wkx&key=q7pvk&key=msw84&key=0nh49&key=t0jbm&key=0sn00&key=sgdw4&height=100&width=100&query=pessoa ${i} cristã perfil`}
                           alt={`Aluno ${i}`}
                           width={32}
                           height={32}
@@ -760,6 +760,7 @@ export default function EscolaDons() {
                     alt="Bispo Rinaldo Silva"
                     fill
                     className="object-cover"
+                    objectPosition="center 30%"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
