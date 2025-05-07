@@ -19,10 +19,45 @@ import {
   Globe,
   PlayIcon,
 } from "lucide-react"
+import JsonLd from "@/app/components/json-ld"
+import { getBispoStructuredData, getBreadcrumbStructuredData, getWebsiteStructuredData, getEventStructuredData } from "@/app/components/structured-data"
 
 export default function Home() {
+  // Dados dos eventos para schema.org
+  const events = [
+    {
+      name: "Conferência Impacto 2023",
+      startDate: "2023-06-15",
+      endDate: "2023-06-17",
+      location: "São Paulo, SP",
+      description: "Três dias de imersão espiritual com pregações, workshops e momentos de adoração.",
+      url: "https://rinaldosilva.com/eventos/conferencia-impacto",
+      image: "https://rinaldosilva.com/placeholder.svg?key=conferencia-impacto"
+    },
+    {
+      name: "Seminário de Liderança",
+      startDate: "2023-07-22",
+      location: "Rio de Janeiro, RJ",
+      description: "Seminário de capacitação para líderes de ministérios e células.",
+      url: "https://rinaldosilva.com/eventos/seminario-lideranca",
+      image: "https://rinaldosilva.com/placeholder.svg?key=seminario-lideranca"
+    }
+  ];
+
   return (
     <div className="flex flex-col min-h-screen">
+      <JsonLd data={getBispoStructuredData()} />
+      <JsonLd
+        data={getBreadcrumbStructuredData([
+          { name: "Home", item: "https://rinaldosilva.com/" },
+        ])}
+      />
+      <JsonLd data={getWebsiteStructuredData()} />
+      {/* Adicionar dados estruturados para cada evento */}
+      {events.map((event, index) => (
+        <JsonLd key={`event-${index}`} data={getEventStructuredData(event)} />
+      ))}
+
       {/* Header/Navigation */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">

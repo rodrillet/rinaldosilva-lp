@@ -68,6 +68,7 @@
 @layer base {
   html {
     font-family: var(--font-inter), system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
 
   * {
@@ -158,6 +159,45 @@
   }
 }
 
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 251, 0, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(212, 251, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 251, 0, 0);
+  }
+}
+
+@keyframes highlight {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes scaleInOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bounce-light {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @layer utilities {
   .animate-shine {
     animation: shine 3s infinite linear;
@@ -175,6 +215,24 @@
     animation: soft-pulse 2s ease-in-out infinite;
   }
   
+  .animate-ripple {
+    animation: ripple 1.5s infinite;
+  }
+  
+  .animate-highlight {
+    background: linear-gradient(-45deg, #d4fb00, #c0e500, #ff6b00, #ff9d00);
+    background-size: 400% 400%;
+    animation: highlight 3s ease infinite;
+  }
+  
+  .animate-scale {
+    animation: scaleInOut 2s ease-in-out infinite;
+  }
+  
+  .animate-bounce-light {
+    animation: bounce-light 2s ease-in-out infinite;
+  }
+  
   .text-gradient-primary {
     background: linear-gradient(90deg, #d4fb00 0%, #c0e500 100%);
     -webkit-background-clip: text;
@@ -187,11 +245,58 @@
     -webkit-text-fill-color: transparent;
   }
   
+  .bg-gradient-shimmer {
+    background: linear-gradient(45deg, 
+      rgba(212, 251, 0, 0.3) 0%, 
+      rgba(255, 107, 0, 0.3) 25%, 
+      rgba(212, 251, 0, 0.3) 50%, 
+      rgba(255, 107, 0, 0.3) 75%, 
+      rgba(212, 251, 0, 0.3) 100%);
+    background-size: 200% 200%;
+    animation: highlight 5s linear infinite;
+  }
+  
   .hover-scale {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .hover-scale:hover {
     transform: scale(1.03);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-glow::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 251, 0, 0.2) 0%, transparent 70%);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -50%;
+    bottom: 0;
+    left: -50%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    animation: shine 2.5s infinite;
   }
 }

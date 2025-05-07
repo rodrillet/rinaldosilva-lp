@@ -25,6 +25,32 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import CountdownTimer from "./countdown-timer"
+import { TestimonialCard } from "./testimonial-card"
+import JsonLd from "@/app/components/json-ld"
+import { getEscolaDonsStructuredData, getBreadcrumbStructuredData, getWebsiteStructuredData } from "@/app/components/structured-data"
+
+// Definindo os metadados para a página
+export const metadata = {
+  title: "Escola de Dons | Bispo Rinaldo Silva | Desenvolva Seus Dons Espirituais",
+  description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. A Escola de Dons é um curso completo com 5 módulos para transformar sua vida ministerial através do poder do Espírito Santo.",
+  keywords: "Escola de Dons, Bispo Rinaldo Silva, dons espirituais, ministério, cura, profecia, discernimento, línguas, fé sobrenatural, milagres",
+  openGraph: {
+    title: "Escola de Dons | Bispo Rinaldo Silva",
+    description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. Transforme sua vida ministerial com a Escola de Dons.",
+    type: "website",
+    url: "https://rinaldosilva.com/escola-dons",
+    locale: "pt_BR",
+    siteName: "Ministério Bispo Rinaldo Silva",
+    images: [
+      {
+        url: "/placeholder.svg?key=escola-dons-og",
+        width: 1200,
+        height: 630,
+        alt: "Escola de Dons | Bispo Rinaldo Silva"
+      }
+    ]
+  }
+};
 
 // Componente para o card de problema
 function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
@@ -37,81 +63,6 @@ function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: st
         <div>
           <h3 className="text-lg font-bold mb-1">{title}</h3>
           <p className="text-gray-600">{description}</p>
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
-
-// Componente para o card de depoimento
-function TestimonialCard({ testimonial, index }: { testimonial: any; index: number }) {
-  return (
-    <Card className="border-none rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover-scale overflow-hidden">
-      <div className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] h-2"></div>
-      <CardContent className="p-8 space-y-4">
-        {testimonial.isVideo ? (
-          <div className="relative aspect-video mb-4 rounded-lg overflow-hidden group">
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10 group-hover:bg-black/40 transition-colors">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] flex items-center justify-center cursor-pointer shadow-lg transform transition-transform group-hover:scale-110">
-                <div className="w-0 h-0 border-t-6 border-t-transparent border-l-10 border-l-black border-b-6 border-b-transparent ml-1"></div>
-              </div>
-            </div>
-            <Image
-              src={testimonial.videoThumbnail || `/placeholder.svg?key=zrvid${index}`}
-              alt={`Depoimento em vídeo de ${testimonial.name}`}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
-          </div>
-        ) : testimonial.isWhatsApp ? (
-          <div className="flex justify-center mb-4">
-            <div className="relative rounded-xl overflow-hidden border-2 border-green-500 shadow-lg group hover:shadow-xl transition-all duration-300">
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
-              <Image
-                src={testimonial.whatsappImage || `/placeholder.svg?key=zrwpp${index}`}
-                alt={`Print de WhatsApp de ${testimonial.name}`}
-                width={250}
-                height={400}
-                className="object-contain"
-              />
-              <div className="absolute top-0 left-0 bg-green-500 text-white text-xs px-2 py-1 rounded-br-md font-medium">
-                WhatsApp
-              </div>
-            </div>
-          </div>
-        ) : null}
-
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full overflow-hidden shadow-md bg-gradient-to-br from-gray-100 to-white p-[2px]">
-            <div className="w-full h-full rounded-full overflow-hidden relative">
-              <Image
-                src={`/placeholder.svg?key=zrj26&height=100&width=100&query=pessoa ${index + 1} cristã retrato`}
-                alt={testimonial.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold text-gradient-primary">{testimonial.name}</h4>
-            <p className="text-sm text-gray-600">{testimonial.role}</p>
-            <p className="text-xs text-gray-500">{testimonial.location}</p>
-          </div>
-        </div>
-        <div className="relative">
-          <div className="absolute -top-2 -left-2 text-4xl text-gradient-primary opacity-30">"</div>
-          <p className="text-gray-700 italic relative z-10 pl-4 leading-relaxed">{testimonial.testimony}</p>
-          <div className="absolute -bottom-4 -right-2 text-4xl text-gradient-primary opacity-30">"</div>
-        </div>
-        <div className="mt-4 bg-gradient-to-r from-[#d4fb00]/10 to-[#c0e500]/10 p-4 rounded-lg shadow-inner">
-          <p className="font-semibold text-sm mb-1">Resultado alcançado:</p>
-          <p className="text-gray-700 font-medium">{testimonial.result}</p>
-        </div>
-        <div className="flex text-[#ff9d00]">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <Star key={i} className="h-4 w-4 fill-current animate-soft-pulse" style={{ animationDelay: `${i * 0.1}s` }} />
-          ))}
         </div>
       </CardContent>
     </Card>
@@ -373,6 +324,15 @@ export default function EscolaDons() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white overflow-x-hidden max-w-[100vw] relative">
+      <JsonLd data={getEscolaDonsStructuredData()} />
+      <JsonLd
+        data={getBreadcrumbStructuredData([
+          { name: "Home", item: "https://rinaldosilva.com/" },
+          { name: "Escola de Dons", item: "https://rinaldosilva.com/escola-dons" },
+        ])}
+      />
+      <JsonLd data={getWebsiteStructuredData()} />
+      
       {/* CTA Flutuante */}
       <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md py-3 border-t border-white/10 transform transition-transform duration-300 bg-gradient-to-r from-black/90 via-black/95 to-black/90">
         <div className="container px-4 sm:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -380,7 +340,7 @@ export default function EscolaDons() {
             <span className="text-gradient-primary font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
           </div>
           <a href="#matricula">
-            <Button className="bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white font-bold text-sm px-4 py-2 w-full sm:w-auto whitespace-nowrap shadow-lg border-none">
+            <Button className="btn-shimmer bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white font-bold text-sm px-4 py-2 w-full sm:w-auto whitespace-nowrap shadow-lg border-none">
               GARANTIR MINHA VAGA
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
@@ -395,7 +355,7 @@ export default function EscolaDons() {
       >
         <div className="container px-4 sm:px-6 mx-auto flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black">RS</div>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#d4fb00] to-[#c0e500] flex items-center justify-center text-black animate-pulse">RS</div>
             <span className="text-white">Escola de Dons</span>
           </div>
 
@@ -427,7 +387,7 @@ export default function EscolaDons() {
           </div>
 
           <a href="#matricula" className="hidden md:block">
-            <Button className="bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] text-white hover:from-[#ff9d00] hover:to-[#ff6b00] font-medium shadow-lg text-sm px-4 py-2 border-none">
+            <Button className="btn-shimmer bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] text-white hover:from-[#ff9d00] hover:to-[#ff6b00] font-medium shadow-lg text-sm px-4 py-2 border-none">
               Inscrever-se
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
@@ -452,11 +412,11 @@ export default function EscolaDons() {
           <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] hover:from-[#c0e500] hover:to-[#d4fb00] text-black px-4 py-1 text-sm rounded-full shadow-sm">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] hover:from-[#c0e500] hover:to-[#d4fb00] text-black px-4 py-1 text-sm rounded-full shadow-sm animate-pulse">
                   Matrículas Abertas
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
-                  Descubra e Desenvolva Seus Dons Espirituais
+                  Descubra e Desenvolva Seus <span className="text-gradient-primary">Dons Espirituais</span>
                 </h1>
                 <p className="text-lg md:text-xl text-gray-300 max-w-[600px] mx-auto lg:mx-0">
                   Seja uma ferramenta de transformação através do propósito dos Dons Espirituais.
@@ -465,11 +425,11 @@ export default function EscolaDons() {
                   <a href="#matricula">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white px-4 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full truncate border-none"
+                      className="btn-shimmer bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white px-4 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full truncate border-none"
                     >
                       <span className="hidden sm:inline">Quero Desenvolver Meus Dons</span>
                       <span className="inline sm:hidden">Desenvolver Meus Dons</span>
-                      <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                      <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0 animate-bounce-light" />
                     </Button>
                   </a>
                   <Button
@@ -477,7 +437,7 @@ export default function EscolaDons() {
                     variant="outline"
                     className="border-white text-white hover:bg-white/20 hover:text-[#d4fb00] transition-colors h-14 w-full sm:w-auto"
                   >
-                    <PlayCircle className="mr-2 h-5 w-5 flex-shrink-0" />
+                    <PlayCircle className="mr-2 h-5 w-5 flex-shrink-0 animate-pulse" />
                     <span className="hidden sm:inline">Ver Apresentação</span>
                     <span className="inline sm:hidden">Ver Vídeo</span>
                   </Button>
@@ -485,7 +445,7 @@ export default function EscolaDons() {
                 <div className="flex items-center justify-center lg:justify-start gap-4 pt-4">
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden animate-float" style={{ animationDelay: `${i * 0.2}s` }}>
                         <Image
                           src={`/placeholder.svg?key=gzgga&key=pzfv8&key=qr1en&key=kr1bf&key=alnm0&key=o2wkx&key=q7pvk&key=msw84&key=0nh49&key=t0jbm&key=0sn00&key=sgdw4&height=100&width=100&query=pessoa ${i} cristã perfil`}
                           alt={`Aluno ${i}`}
@@ -497,37 +457,37 @@ export default function EscolaDons() {
                     ))}
                   </div>
                   <div className="text-sm">
-                    <span className="text-[#d4fb00] font-bold">+1.500 alunos</span> já transformaram suas vidas
+                    <span className="text-gradient-primary font-bold">+1.500 alunos</span> já transformaram suas vidas
                   </div>
                 </div>
               </div>
               <div className="relative mx-auto lg:mx-0 max-w-md w-full" id="matricula">
-                <div className="absolute inset-0 bg-[#d4fb00]/20 rounded-2xl -rotate-3"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#d4fb00]/30 to-[#ff6b00]/30 rounded-2xl -rotate-3 blur-sm animate-pulse"></div>
                 <Card className="relative border-none rounded-2xl overflow-hidden shadow-xl bg-white/90 backdrop-blur-md text-black">
                   <CardContent className="p-6 space-y-6">
-                    <div className="bg-black text-white p-4 -mx-6 -mt-6 mb-6 text-center">
+                    <div className="bg-gradient-to-r from-black/90 to-black/80 text-white p-4 -mx-6 -mt-6 mb-6 text-center">
                       <h3 className="font-bold text-xl">Oferta Especial - Encerra em:</h3>
                       <CountdownTimer />
                     </div>
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" />
                         <p>Acesso imediato a todo conteúdo</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" style={{ animationDelay: "0.1s" }} />
                         <p>Certificado de conclusão</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" style={{ animationDelay: "0.2s" }} />
                         <p>Suporte direto com a equipe</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" style={{ animationDelay: "0.3s" }} />
                         <p>Acesso vitalício</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" />
+                        <CheckCircle2 className="h-5 w-5 text-[#ff6b00] mt-0.5 shrink-0 animate-ripple" />
                         <p className="font-bold">
                           BÔNUS: Grupo exclusivo com o Bispo Rinaldo
                           <span className="text-red-600 text-sm block">Apenas para as próximas 48h</span>
@@ -537,10 +497,10 @@ export default function EscolaDons() {
                     <div className="pt-4 space-y-3">
                       <div className="text-center">
                         <span className="text-gray-500 line-through text-lg">De R$ 197,00</span>
-                        <div className="text-3xl font-bold">Por apenas R$ 97,00</div>
+                        <div className="text-3xl font-bold text-gradient-orange">Por apenas R$ 97,00</div>
                         <div className="text-sm text-gray-500">ou 3x de R$ 34,29</div>
                       </div>
-                      <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full h-12 text-sm sm:text-base font-bold shadow-xl animate-pulse">
+                      <Button className="btn-shimmer bg-gradient-to-r from-[#d4fb00] to-[#c0e500] text-black hover:from-[#c0e500] hover:to-[#d4fb00] w-full h-12 text-sm sm:text-base font-bold shadow-xl animate-scale">
                         <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
                         <span className="inline sm:hidden">INSCREVER AGORA</span>
                         <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
@@ -558,29 +518,29 @@ export default function EscolaDons() {
         </section>
 
         {/* Social Proof Section */}
-        <section className="py-8 bg-gray-50">
+        <section className="py-8 bg-gradient-to-r from-gray-50 to-gray-100">
           <div className="container px-4 sm:px-6 mx-auto">
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
               <div className="text-center">
-                <div className="text-3xl font-bold">1500+</div>
+                <div className="text-3xl font-bold text-gradient-primary">1500+</div>
                 <p className="text-gray-600">Alunos</p>
               </div>
               <Separator orientation="vertical" className="h-12 hidden md:block" />
               <div className="text-center">
-                <div className="text-3xl font-bold">5</div>
+                <div className="text-3xl font-bold text-gradient-primary">5</div>
                 <p className="text-gray-600">Módulos</p>
               </div>
               <Separator orientation="vertical" className="h-12 hidden md:block" />
               <div className="text-center">
-                <div className="text-3xl font-bold">40+</div>
+                <div className="text-3xl font-bold text-gradient-primary">40+</div>
                 <p className="text-gray-600">Horas de Conteúdo</p>
               </div>
               <Separator orientation="vertical" className="h-12 hidden md:block" />
               <div className="text-center">
-                <div className="text-3xl font-bold">4.9/5</div>
-                <div className="flex text-[#d4fb00]">
+                <div className="text-3xl font-bold text-gradient-primary">4.9/5</div>
+                <div className="flex text-[#ff9d00]">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
+                    <Star key={i} className="h-4 w-4 fill-current animate-soft-pulse" style={{ animationDelay: `${i * 0.1}s` }} />
                   ))}
                 </div>
               </div>
@@ -588,109 +548,23 @@ export default function EscolaDons() {
           </div>
         </section>
 
-        {/* Prova de Autoridade */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900 text-white">
+        {/* Depoimentos Section */}
+        <section id="depoimentos" className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
           <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
-                Reconhecimento
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] hover:from-[#c0e500] hover:to-[#d4fb00] text-black px-4 py-1 text-sm rounded-full shadow-sm">
+                Depoimentos
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
-                Ministério Reconhecido Internacionalmente
-              </h2>
-              <p className="text-gray-300">
-                O Bispo Rinaldo Silva tem impactado vidas em mais de 40 países através de seu ministério
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">O Que Nossos Alunos Estão Dizendo</h2>
+              <p className="text-gray-600">
+                Histórias reais de pessoas que transformaram seus ministérios através da Escola de Dons
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
-                <Image
-                  src="/placeholder.svg?key=kmgxg"
-                  alt="Bispo Rinaldo pregando"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <h3 className="text-xl font-bold">Conferência Aviva Nations</h3>
-                  <p className="text-sm text-gray-300">Mais de 5.000 participantes</p>
-                </div>
-              </div>
-              <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
-                <Image
-                  src="/placeholder.svg?key=pldtv"
-                  alt="Bispo Rinaldo ministrando"
-                  fill
-                  className
-                  alt="Bispo Rinaldo ministrando"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <h3 className="text-xl font-bold">Ministração de Cura</h3>
-                  <p className="text-sm text-gray-300">Centenas de testemunhos de cura</p>
-                </div>
-              </div>
-              <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
-                <Image
-                  src="/placeholder.svg?key=kjv5j"
-                  alt="Bispo Rinaldo em entrevista"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <h3 className="text-xl font-bold">Mídia & Entrevistas</h3>
-                  <p className="text-sm text-gray-300">Presença em canais nacionais</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-              <div className="bg-white/10 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-[#d4fb00]">40+</div>
-                <p className="text-sm">Países visitados</p>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-[#d4fb00]">500+</div>
-                <p className="text-sm">Conferências realizadas</p>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-[#d4fb00]">1M+</div>
-                <p className="text-sm">Vidas impactadas</p>
-              </div>
-              <div className="bg-white/10 rounded-lg p-4 text-center">
-                <div className="text-3xl font-bold text-[#d4fb00]">20+</div>
-                <p className="text-sm">Anos de ministério</p>
-              </div>
-            </div>
-
-            <div className="mt-12 text-center">
-              <p className="text-gray-300 mb-6">Mencionado e reconhecido por:</p>
-              <div className="flex flex-wrap justify-center gap-8">
-                <div className="bg-white/5 px-6 py-3 rounded-lg">Igreja Mundial</div>
-                <div className="bg-white/5 px-6 py-3 rounded-lg">Congresso Avivah</div>
-                <div className="bg-white/5 px-6 py-3 rounded-lg">Rede Gospel</div>
-                <div className="bg-white/5 px-6 py-3 rounded-lg">Conferência Global</div>
-                <div className="bg-white/5 px-6 py-3 rounded-lg">Seminário Teológico</div>
-              </div>
-            </div>
-
-            <div className="mt-12 text-center">
-              <a href="#matricula">
-                <Button
-                  size="lg"
-                  className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 py-3 text-base font-bold shadow-xl w-full sm:w-auto"
-                >
-                  Quero Aprender com o Bispo Rinaldo
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </a>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <TestimonialCard key={index} testimonial={testimonial} index={index} />
+              ))}
             </div>
           </div>
         </section>
