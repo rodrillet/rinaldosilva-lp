@@ -20,15 +20,19 @@ interface TestimonialProps {
 }
 
 export function TestimonialCard({ testimonial, index }: TestimonialProps) {
+  if (!testimonial) {
+    return null;
+  }
+  
   return (
     <Card className="border border-neutral-200 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-      <div className="h-1 bg-[#d4fb00]"></div>
+      <div className="h-1 bg-[#a8ff00]"></div>
       <CardContent className="p-6 sm:p-8 space-y-4">
         {testimonial.isVideo ? (
           <div className="relative aspect-video mb-4 rounded-2xl overflow-hidden group">
             <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10 group-hover:bg-black/40 transition-colors">
               <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center cursor-pointer shadow-md transform transition-transform group-hover:scale-110">
-                <Play className="h-5 w-5 text-[#d4fb00] ml-0.5" />
+                <Play className="h-5 w-5 text-[#a8ff00] ml-0.5" />
               </div>
             </div>
             <Image
@@ -69,19 +73,19 @@ export function TestimonialCard({ testimonial, index }: TestimonialProps) {
             </div>
           </div>
           <div>
-            <h4 className="font-medium text-[#d4fb00]">{testimonial.name}</h4>
+            <h4 className="font-medium text-[#000000]">{testimonial.name}</h4>
             <p className="text-sm text-neutral-700">{testimonial.role}</p>
             <p className="text-xs text-neutral-500">{testimonial.location}</p>
           </div>
         </div>
 
         <div className="relative">
-          <div className="absolute -top-2 -left-2 text-4xl text-[#d4fb00]/50 opacity-50">"</div>
+          <div className="absolute -top-2 -left-2 text-4xl text-[#a8ff00]/50 opacity-50">"</div>
           <p className="text-neutral-700 italic relative z-10 pl-4 leading-relaxed">{testimonial.testimony}</p>
-          <div className="absolute -bottom-4 -right-2 text-4xl text-[#d4fb00]/50 opacity-50">"</div>
+          <div className="absolute -bottom-4 -right-2 text-4xl text-[#a8ff00]/50 opacity-50">"</div>
         </div>
 
-        <div className="mt-4 bg-[#d4fb00]/10 p-4 rounded-2xl">
+        <div className="mt-4 bg-[#a8ff00]/10 p-4 rounded-2xl">
           <p className="font-medium text-sm mb-1 text-neutral-700">Resultado alcançado:</p>
           <p className="text-neutral-800 font-medium">{testimonial.result}</p>
         </div>
