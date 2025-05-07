@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata = {
   title: "Bispo Rinaldo Silva | Igreja Impactados",
   description: "Site oficial do Bispo Rinaldo Silva, Bispo Sênior na Igreja Impactados.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({

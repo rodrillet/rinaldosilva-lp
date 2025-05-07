@@ -46,32 +46,32 @@ export default function CountdownTimer() {
     <div className="space-y-2">
       <div className="flex justify-center gap-4 mt-2">
         <div className="text-center">
-          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+          <div className="backdrop-blur-md bg-white/80 text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-lg">
             {String(timeLeft.days).padStart(2, "0")}
           </div>
           <div className="text-xs mt-1">Dias</div>
         </div>
         <div className="text-center">
-          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+          <div className="backdrop-blur-md bg-white/80 text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-lg">
             {String(timeLeft.hours).padStart(2, "0")}
           </div>
           <div className="text-xs mt-1">Horas</div>
         </div>
         <div className="text-center">
-          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+          <div className="backdrop-blur-md bg-white/80 text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-lg">
             {String(timeLeft.minutes).padStart(2, "0")}
           </div>
           <div className="text-xs mt-1">Min</div>
         </div>
         <div className="text-center">
-          <div className="bg-white text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center animate-pulse">
+          <div className="backdrop-blur-md bg-white/80 text-black text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-lg">
             {String(timeLeft.seconds).padStart(2, "0")}
           </div>
           <div className="text-xs mt-1">Seg</div>
         </div>
       </div>
       {timeLeft.days < 2 && (
-        <p className="text-center text-red-500 text-sm font-bold animate-pulse">
+        <p className="text-center text-red-600 text-sm font-bold animate-pulse px-4 py-2 rounded-full backdrop-blur-md bg-white/30 inline-block mx-auto">
           ATENÇÃO: Inscrições quase encerrando!
         </p>
       )}

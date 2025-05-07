@@ -17,42 +17,343 @@ import {
   Star,
   Users,
   Zap,
+  XCircle,
+  Clock,
+  Menu,
 } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import CountdownTimer from "./countdown-timer"
 
-export default function EscolaDons() {
+// Componente para o card de problema
+function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
+      <CardContent className="p-6 flex items-start gap-4">
+        <div className="w-12 h-12 rounded-full bg-[#d4fb00]/20 flex items-center justify-center shrink-0">
+          {React.createElement(icon, { className: "h-6 w-6 text-black" })}
+        </div>
+        <div>
+          <h3 className="text-lg font-bold mb-1">{title}</h3>
+          <p className="text-gray-600">{description}</p>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+// Componente principal
+export default function EscolaDons() {
+  // Dados para os módulos do curso
+  const courseModules = [
+    {
+      title: "Módulo 1: Introdução",
+      description: "Fundamentos essenciais para iniciar sua jornada nos dons espirituais.",
+      lessons: [
+        "Iniciando nos Dons Espirituais",
+        "A importância da sabedoria na prática dos Dons",
+        "A simplicidade dos Dons",
+        "Desenvolvendo um coração receptivo ao Espírito",
+        "Como identificar qual dom você possui",
+      ],
+      icon: BookOpen,
+      capabilities:
+        "Após este módulo você será capaz de entender o propósito dos dons espirituais na igreja atual, identificar seus dons primários e secundários, e criar um ambiente propício para o mover do Espírito.",
+    },
+    {
+      title: "Módulo 2: Dons de Revelação",
+      description: "Compreenda como Deus revela conhecimento sobrenatural através destes dons.",
+      lessons: [
+        "Palavra de Sabedoria - princípios e aplicações",
+        "Palavra do Conhecimento - como receber revelações divinas",
+        "Discernimento de Espíritos - identificando o espiritual",
+        "Exercícios práticos de desenvolvimento",
+        "Testemunhos e estudos de caso reais",
+      ],
+      icon: Brain,
+      capabilities:
+        "Você será capaz de reconhecer e operar nos dons de revelação, receber palavras de conhecimento para situações específicas, e discernir influências espirituais em diferentes contextos.",
+    },
+    {
+      title: "Módulo 3: Dons Vocais",
+      description: "Aprenda como Deus fala através de manifestações vocais sobrenaturais.",
+      lessons: [
+        "Dom de Profecia - falando a vontade de Deus",
+        "Variedade de Línguas - operando no sobrenatural",
+        "Interpretação de Línguas - revelando mensagens",
+        "Como profetizar com precisão e amor",
+        "Diferença entre profecia do AT e NT",
+      ],
+      icon: MessageCircle,
+      capabilities:
+        "Após este módulo você saberá como entregar profecias de edificação com precisão, desenvolver o dom de línguas para edificação pessoal e comunitária, e interpretar mensagens proféticas com sabedoria.",
+    },
+    {
+      title: "Módulo 4: Dons de Poder",
+      description: "Descubra como manifestar o poder sobrenatural de Deus em situações impossíveis.",
+      lessons: [
+        "Dom da Fé - ativando a fé sobrenatural",
+        "Operação de Milagres - manifestando o impossível",
+        "Dons de Cura - restauração física e emocional",
+        "Como ministrar cura passo a passo",
+        "Lidando com aparentes fracassos na ministração",
+      ],
+      icon: Zap,
+      capabilities:
+        "Você será capaz de ministrar cura aos enfermos com confiança, operar na fé sobrenatural em circunstâncias desafiadoras, e ver o poder de Deus manifestado em situações impossíveis através do seu ministério.",
+    },
+    {
+      title: "Módulo 5: Fundamentos e Prática",
+      description: "Aplique os princípios aprendidos e desenvolva uma prática consistente dos dons.",
+      lessons: [
+        "Fundamentos da Cura Divina - princípios bíblicos",
+        "Por que devemos buscar os Dons - propósito eterno",
+        "Aplicação prática no ministério cotidiano",
+        "Como formar equipes de ministração",
+        "Avivamento através dos dons - estudos de caso",
+      ],
+      icon: Flame,
+      capabilities:
+        "Ao finalizar este módulo você estará preparado para levantar e treinar equipes de ministração na sua igreja, operar consistentemente nos dons em um contexto ministerial estruturado, e ver transformação espiritual na sua comunidade.",
+    },
+  ]
+
+  // Dados para os perfis de alunos
+  const studentProfiles = [
+    {
+      icon: Users,
+      title: "Líderes e Pastores",
+      description:
+        "Deseja capacitar sua equipe e elevar o nível espiritual do seu ministério através da operação dos dons.",
+    },
+    {
+      icon: Heart,
+      title: "Servos Dedicados",
+      description: "Serve na igreja mas sente que poderia ter um impacto muito maior através dos dons espirituais.",
+    },
+    {
+      icon: Flame,
+      title: "Buscadores de Avivamento",
+      description: "Tem fome por manifestações sobrenaturais e deseja ser usado(a) poderosamente por Deus.",
+    },
+    {
+      icon: BookOpen,
+      title: "Estudantes da Palavra",
+      description: "Quer entender profundamente o fundamento bíblico dos dons e como operá-los com sabedoria.",
+    },
+    {
+      icon: Zap,
+      title: "Ministradores de Cura",
+      description: "Sente o chamado para o ministério de cura e libertação, mas precisa de direcionamento prático.",
+    },
+    {
+      icon: MessageCircle,
+      title: "Adoradores e Intercessores",
+      description: "Busca levar sua adoração e intercessão a um novo nível através do mover do Espírito Santo.",
+    },
+  ]
+
+  // Dados para os benefícios do curso
+  const courseBenefits = [
+    {
+      title: "Descubra e opere em seus dons espirituais",
+      description:
+        "Você será capaz de identificar seus dons com precisão e operá-los com confiança nas situações cotidianas e ministeriais, impactando vidas ao seu redor.",
+      icon: GraduationCap,
+      transformation: "De confuso sobre seu chamado para ministro seguro e eficaz",
+    },
+    {
+      title: "Transforme sua intimidade com Deus",
+      description:
+        "Desenvolva uma sensibilidade única à voz do Espírito Santo, reconhecendo Sua direção instantaneamente e experimentando uma comunhão sobrenatural diária.",
+      icon: Heart,
+      transformation: "De uma vida cristã morna para uma experiência poderosa com Deus",
+    },
+    {
+      title: "Torne-se um agente de transformação",
+      description:
+        "Você se tornará um instrumento que Deus usará para curar enfermos, libertar cativos e restaurar vidas quebradas através do poder dos dons espirituais.",
+      icon: Users,
+      transformation: "De espectador para protagonista no Reino de Deus",
+    },
+    {
+      title: "Lidere com autoridade espiritual",
+      description:
+        "Conduza seu ministério, família ou empresa com a sabedoria sobrenatural que vem do alto, tomando decisões divinas que produzem frutos extraordinários.",
+      icon: Brain,
+      transformation: "De líder natural para líder sobrenatural",
+    },
+    {
+      title: "Experimente o poder da cura divina",
+      description:
+        "Ministre cura aos enfermos com eficácia, vendo enfermidades físicas, emocionais e espirituais serem curadas pelo poder de Deus através de suas mãos.",
+      icon: Flame,
+      transformation: "De temeroso para confiante na autoridade espiritual",
+    },
+    {
+      title: "Desenvolva um legado ministerial",
+      description:
+        "Capacite outros crentes a operarem nos dons, multiplicando o impacto do Reino e criando um legado espiritual que ultrapassará gerações.",
+      icon: Zap,
+      transformation: "De ministro solitário para multiplicador de discípulos",
+    },
+  ]
+
+  // Dados para os depoimentos
+  const testimonials = [
+    {
+      name: "Carlos Oliveira",
+      role: "Pastor Auxiliar",
+      location: "São Paulo, SP",
+      testimony:
+        "A Escola de Dons mudou completamente minha visão ministerial. Descobri dons que nem sabia que tinha e hoje lidero um ministério de intercessão na minha igreja com mais de 50 pessoas.",
+      result: "Crescimento de 200% no ministério de intercessão em 3 meses",
+      isVideo: false,
+    },
+    {
+      name: "Mariana Santos",
+      role: "Líder de Jovens",
+      location: "Rio de Janeiro, RJ",
+      testimony:
+        "Sempre soube que tinha um chamado para trabalhar com jovens, mas não sabia como desenvolver isso. A Escola de Dons me deu as ferramentas práticas para identificar e aperfeiçoar meus dons de ensino e pastoreio.",
+      result: "50 jovens batizados após aplicar os princípios do curso",
+      isVideo: true,
+      videoThumbnail: "/placeholder.svg?key=video-mariana&height=200&width=350",
+    },
+    {
+      name: "Roberto Almeida",
+      role: "Empresário e Líder",
+      location: "Belo Horizonte, MG",
+      testimony:
+        "Como empresário, não imaginava como poderia usar meus dons na igreja. Através da Escola de Dons, descobri que meu dom de administração poderia impactar significativamente o Reino de Deus.",
+      result: "Reestruturou toda administração da igreja local com excelência",
+      isVideo: false,
+      isWhatsApp: true,
+      whatsappImage: "/placeholder.svg?key=whatsapp-roberto&height=400&width=250",
+    },
+  ]
+
+  // Dados para as perguntas frequentes
+  const faqs = [
+    {
+      question: "Quanto tempo terei acesso ao curso?",
+      answer: "Você terá acesso vitalício a todo o conteúdo da Escola de Dons, incluindo atualizações futuras.",
+    },
+    {
+      question: "Preciso ter conhecimento prévio sobre dons espirituais?",
+      answer:
+        "Não, o curso foi desenvolvido para atender desde iniciantes até pessoas com conhecimento avançado sobre o tema.",
+    },
+    {
+      question: "Como funciona o acesso ao conteúdo?",
+      answer:
+        "Após a confirmação do pagamento, você receberá um e-mail com as instruções de acesso à plataforma onde todo o conteúdo estará disponível.",
+    },
+    {
+      question: "Posso assistir as aulas pelo celular?",
+      answer:
+        "Sim, nossa plataforma é responsiva e você pode acessar todo o conteúdo pelo computador, tablet ou smartphone.",
+    },
+    {
+      question: "O certificado é reconhecido?",
+      answer:
+        "Sim, você receberá um certificado de conclusão emitido pelo Ministério do Bispo Rinaldo Silva, reconhecido por diversas denominações.",
+    },
+    {
+      question: "Como funciona a garantia de 7 dias?",
+      answer:
+        "Se você não ficar satisfeito com o curso por qualquer motivo, basta enviar um e-mail para suporte@escoladedons.com.br em até 7 dias após a compra e faremos o reembolso integral.",
+    },
+    {
+      question: "Existe algum suporte durante o curso?",
+      answer:
+        "Sim, você terá acesso a um grupo exclusivo onde poderá tirar dúvidas diretamente com a equipe do Bispo Rinaldo Silva.",
+    },
+  ]
+
+  // Dados para os itens não adequados
+  const notForYouItems = [
+    {
+      title: "Busca resultados sem comprometimento",
+      description:
+        "Este curso exige dedicação e prática. Se você não está disposto a aplicar o que vai aprender, não terá os resultados esperados.",
+    },
+    {
+      title: "Não acredita na operação dos dons hoje",
+      description:
+        "Se você não crê que os dons espirituais são para a igreja atual, este conteúdo não será relevante para você.",
+    },
+    {
+      title: "Busca apenas teoria sem aplicação prática",
+      description:
+        "Nossa metodologia é focada na prática e aplicação dos dons. Se você busca apenas conhecimento teórico, pode não ser o que espera.",
+    },
+    {
+      title: "Não está aberto a novas experiências espirituais",
+      description:
+        "O desenvolvimento dos dons requer abertura para experimentar o sobrenatural de Deus de formas que talvez você nunca tenha vivenciado antes.",
+    },
+  ]
+
+  return (
+    <div className="flex flex-col min-h-screen bg-white overflow-x-hidden max-w-[100vw] relative">
+      {/* CTA Flutuante */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/90 backdrop-blur-md py-3 border-t border-white/10 transform transition-transform duration-300">
+        <div className="container px-4 sm:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-white text-sm sm:text-base">
+            <span className="text-[#d4fb00] font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
+          </div>
+          <a href="#matricula">
+            <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-sm px-4 py-2 w-full sm:w-auto whitespace-nowrap">
+              GARANTIR MINHA VAGA
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+          </a>
+        </div>
+      </div>
+
       {/* Header/Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+      <header
+        id="top"
+        className="sticky top-0 z-50 w-full backdrop-blur-md bg-black/70 border-b border-white/10 supports-[backdrop-filter]:bg-black/40"
+      >
+        <div className="container px-4 sm:px-6 mx-auto flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl">
             <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black">RS</div>
-            <span>Bispo Rinaldo Silva</span>
+            <span className="text-white">Escola de Dons</span>
           </div>
+
+          {/* Menu para desktop */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#sobre" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <a href="#sobre" className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors">
               Sobre
             </a>
-            <a href="#modulos" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <a href="#modulos" className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors">
               Módulos
             </a>
-            <a href="#beneficios" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <a href="#beneficios" className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors">
               Benefícios
             </a>
-            <a href="#depoimentos" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <a href="#depoimentos" className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors">
               Depoimentos
             </a>
-            <a href="#faq" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <a href="#faq" className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors">
               FAQ
             </a>
           </nav>
-          <a href="#matricula">
-            <Button className="bg-[#ff6b00] text-white hover:bg-[#e85f00] font-medium shadow-lg">
-              Inscrever-se Agora
+
+          {/* Botão de menu para mobile */}
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Abrir menu</span>
+            </Button>
+          </div>
+
+          <a href="#matricula" className="hidden md:block">
+            <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-lg text-sm px-4 py-2">
+              Inscrever-se
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </a>
@@ -63,10 +364,17 @@ export default function EscolaDons() {
         {/* Hero Section */}
         <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-black text-white">
           <div className="absolute inset-0 opacity-30">
-            <Image src="/placeholder.svg?key=qiio6" alt="Fundo Escola de Dons" fill className="object-cover" priority />
+            <Image
+              src="/placeholder.svg?key=qiio6"
+              alt="Fundo Escola de Dons"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80"></div>
-          <div className="container relative z-10">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/90"></div>
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
                 <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
@@ -80,9 +388,13 @@ export default function EscolaDons() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a href="#matricula">
-                    <Button size="lg" className="bg-[#ff6b00] text-white hover:bg-[#e85f00] px-8 h-14 text-lg font-bold shadow-xl animate-pulse">
-                      Quero Desenvolver Meus Dons
-                      <ChevronRight className="ml-2 h-5 w-5" />
+                    <Button
+                      size="lg"
+                      className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 py-3 text-base sm:text-lg font-bold shadow-xl animate-pulse w-full sm:w-auto max-w-full truncate"
+                    >
+                      <span className="hidden sm:inline">Quero Desenvolver Meus Dons</span>
+                      <span className="inline sm:hidden">Desenvolver Meus Dons</span>
+                      <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
                     </Button>
                   </a>
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 h-14">
@@ -95,7 +407,7 @@ export default function EscolaDons() {
                     {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
                         <Image
-                          src={`/placeholder.svg?key=sgdw4&height=100&width=100&query=pessoa ${i} cristã perfil`}
+                          src={`/placeholder.svg?key=gzgga&key=pzfv8&key=qr1en&key=kr1bf&key=alnm0&key=o2wkx&key=q7pvk&key=msw84&key=0nh49&key=t0jbm&key=0sn00&key=sgdw4&height=100&width=100&query=pessoa ${i} cristã perfil`}
                           alt={`Aluno ${i}`}
                           width={32}
                           height={32}
@@ -111,7 +423,7 @@ export default function EscolaDons() {
               </div>
               <div className="relative mx-auto lg:mx-0 max-w-md w-full" id="matricula">
                 <div className="absolute inset-0 bg-[#d4fb00]/20 rounded-2xl -rotate-3"></div>
-                <Card className="relative border-none rounded-2xl overflow-hidden shadow-xl bg-white text-black">
+                <Card className="relative border-none rounded-2xl overflow-hidden shadow-xl bg-white/90 backdrop-blur-md text-black">
                   <CardContent className="p-6 space-y-6">
                     <div className="bg-black text-white p-4 -mx-6 -mt-6 mb-6 text-center">
                       <h3 className="font-bold text-xl">Oferta Especial - Encerra em:</h3>
@@ -134,6 +446,13 @@ export default function EscolaDons() {
                         <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
                         <p>Acesso vitalício</p>
                       </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" />
+                        <p className="font-bold">
+                          BÔNUS: Grupo exclusivo com o Bispo Rinaldo
+                          <span className="text-red-600 text-sm block">Apenas para as próximas 48h</span>
+                        </p>
+                      </div>
                     </div>
                     <div className="pt-4 space-y-3">
                       <div className="text-center">
@@ -141,9 +460,10 @@ export default function EscolaDons() {
                         <div className="text-3xl font-bold">Por apenas R$ 97,00</div>
                         <div className="text-sm text-gray-500">ou 3x de R$ 34,29</div>
                       </div>
-                      <Button className="bg-[#ff6b00] text-white hover:bg-[#e85f00] w-full h-14 text-lg font-bold shadow-xl animate-pulse">
-                        QUERO ME INSCREVER AGORA
-                        <ChevronRight className="ml-2 h-5 w-5" />
+                      <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full h-12 text-sm sm:text-base font-bold shadow-xl animate-pulse">
+                        <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
+                        <span className="inline sm:hidden">INSCREVER AGORA</span>
+                        <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
                       </Button>
                       <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
                         <ShieldCheck className="h-4 w-4" />
@@ -159,7 +479,7 @@ export default function EscolaDons() {
 
         {/* Social Proof Section */}
         <section className="py-8 bg-gray-50">
-          <div className="container">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
               <div className="text-center">
                 <div className="text-3xl font-bold">1500+</div>
@@ -188,9 +508,116 @@ export default function EscolaDons() {
           </div>
         </section>
 
+        {/* Prova de Autoridade */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900 text-white">
+          <div className="container px-4 sm:px-6 mx-auto">
+            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
+              <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
+                Reconhecimento
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                Ministério Reconhecido Internacionalmente
+              </h2>
+              <p className="text-gray-300">
+                O Bispo Rinaldo Silva tem impactado vidas em mais de 40 países através de seu ministério
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
+                <Image
+                  src="/placeholder.svg?key=kmgxg"
+                  alt="Bispo Rinaldo pregando"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute bottom-4 left-4 right-4 z-20">
+                  <h3 className="text-xl font-bold">Conferência Aviva Nations</h3>
+                  <p className="text-sm text-gray-300">Mais de 5.000 participantes</p>
+                </div>
+              </div>
+              <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
+                <Image
+                  src="/placeholder.svg?key=pldtv"
+                  alt="Bispo Rinaldo ministrando"
+                  fill
+                  className
+                  alt="Bispo Rinaldo ministrando"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute bottom-4 left-4 right-4 z-20">
+                  <h3 className="text-xl font-bold">Ministração de Cura</h3>
+                  <p className="text-sm text-gray-300">Centenas de testemunhos de cura</p>
+                </div>
+              </div>
+              <div className="relative aspect-[9/16] rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
+                <Image
+                  src="/placeholder.svg?key=kjv5j"
+                  alt="Bispo Rinaldo em entrevista"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute bottom-4 left-4 right-4 z-20">
+                  <h3 className="text-xl font-bold">Mídia & Entrevistas</h3>
+                  <p className="text-sm text-gray-300">Presença em canais nacionais</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+              <div className="bg-white/10 rounded-lg p-4 text-center">
+                <div className="text-3xl font-bold text-[#d4fb00]">40+</div>
+                <p className="text-sm">Países visitados</p>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 text-center">
+                <div className="text-3xl font-bold text-[#d4fb00]">500+</div>
+                <p className="text-sm">Conferências realizadas</p>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 text-center">
+                <div className="text-3xl font-bold text-[#d4fb00]">1M+</div>
+                <p className="text-sm">Vidas impactadas</p>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 text-center">
+                <div className="text-3xl font-bold text-[#d4fb00]">20+</div>
+                <p className="text-sm">Anos de ministério</p>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-gray-300 mb-6">Mencionado e reconhecido por:</p>
+              <div className="flex flex-wrap justify-center gap-8">
+                <div className="bg-white/5 px-6 py-3 rounded-lg">Igreja Mundial</div>
+                <div className="bg-white/5 px-6 py-3 rounded-lg">Congresso Avivah</div>
+                <div className="bg-white/5 px-6 py-3 rounded-lg">Rede Gospel</div>
+                <div className="bg-white/5 px-6 py-3 rounded-lg">Conferência Global</div>
+                <div className="bg-white/5 px-6 py-3 rounded-lg">Seminário Teológico</div>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <a href="#matricula">
+                <Button
+                  size="lg"
+                  className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 py-3 text-base font-bold shadow-xl w-full sm:w-auto"
+                >
+                  Quero Aprender com o Bispo Rinaldo
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* About Section */}
         <section id="sobre" className="py-16 md:py-24">
-          <div className="container">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
               <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                 O que é a Escola de Dons?
@@ -222,8 +649,8 @@ export default function EscolaDons() {
                 </p>
                 <div className="pt-4">
                   <a href="#matricula">
-                    <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] text-lg px-8 py-6 shadow-lg">
-                      Quero Fazer Parte Dessa Jornada
+                    <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] text-base px-4 py-2 shadow-lg w-full sm:w-auto">
+                      Quero Fazer Parte
                       <ChevronRight className="ml-2 h-5 w-5" />
                     </Button>
                   </a>
@@ -247,59 +674,27 @@ export default function EscolaDons() {
         </section>
 
         {/* Para quem é este curso Section */}
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="container">
+        <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-gray-100">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
               <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                 Para quem é este curso?
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
-                Este Curso Foi Feito Para Você Que...
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Este Curso Foi Feito Para Você Que...</h2>
               <p className="text-gray-600">
-                Se você se identifica com pelo menos um dos perfis abaixo, a Escola de Dons irá transformar sua vida ministerial
+                Se você se identifica com pelo menos um dos perfis abaixo, a Escola de Dons irá transformar sua vida
+                ministerial
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: Users,
-                  title: "Líderes e Pastores",
-                  description: "Deseja capacitar sua equipe e elevar o nível espiritual do seu ministério através da operação dos dons."
-                },
-                {
-                  icon: Heart,
-                  title: "Servos Dedicados",
-                  description: "Serve na igreja mas sente que poderia ter um impacto muito maior através dos dons espirituais."
-                },
-                {
-                  icon: Flame,
-                  title: "Buscadores de Avivamento",
-                  description: "Tem fome por manifestações sobrenaturais e deseja ser usado(a) poderosamente por Deus."
-                },
-                {
-                  icon: BookOpen,
-                  title: "Estudantes da Palavra",
-                  description: "Quer entender profundamente o fundamento bíblico dos dons e como operá-los com sabedoria."
-                },
-                {
-                  icon: Zap,
-                  title: "Ministradores de Cura",
-                  description: "Sente o chamado para o ministério de cura e libertação, mas precisa de direcionamento prático."
-                },
-                {
-                  icon: MessageCircle,
-                  title: "Adoradores e Intercessores",
-                  description: "Busca levar sua adoração e intercessão a um novo nível através do mover do Espírito Santo."
-                },
-              ].map((profile, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-0">
+              {studentProfiles.map((profile, index) => (
                 <Card
                   key={index}
-                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden backdrop-blur-sm bg-white/90"
                 >
                   <div className="h-2 bg-[#d4fb00]"></div>
-                  <CardContent className="p-8 space-y-4">
+                  <CardContent className="p-4 sm:p-6 md:p-8 space-y-4">
                     <div className="w-12 h-12 rounded-full bg-[#d4fb00]/20 flex items-center justify-center">
                       {React.createElement(profile.icon, { className: "h-6 w-6 text-black" })}
                     </div>
@@ -309,22 +704,126 @@ export default function EscolaDons() {
                 </Card>
               ))}
             </div>
-            
+
+            {/* Para quem NÃO é este curso */}
+            <div className="mt-20 max-w-[800px] mx-auto">
+              <div className="text-center mb-12 space-y-4">
+                <Badge className="bg-black hover:bg-black text-white px-4 py-1 text-sm rounded-full">
+                  Este curso NÃO é para você se...
+                </Badge>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tighter">
+                  Seja honesto consigo mesmo antes de investir
+                </h3>
+                <p className="text-gray-600">
+                  Queremos que você tenha a melhor experiência possível, por isso é importante que saiba:
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                {notForYouItems.map((item, index) => (
+                  <div key={index} className="flex gap-4 p-4 rounded-xl bg-gray-200">
+                    <XCircle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-lg">{item.title}</h4>
+                      <p className="text-gray-700">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-12 text-center">
               <a href="#matricula">
-                <Button size="lg" className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold px-8 py-7 text-xl shadow-lg">
-                  QUERO DESENVOLVER MEUS DONS AGORA!
-                  <ChevronRight className="ml-2 h-6 w-6" />
+                <Button
+                  size="lg"
+                  className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold px-4 py-3 text-sm sm:text-base shadow-lg w-full sm:w-auto"
+                >
+                  <span className="hidden sm:inline">QUERO DESENVOLVER MEUS DONS AGORA!</span>
+                  <span className="inline sm:hidden">DESENVOLVER MEUS DONS!</span>
+                  <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
                 </Button>
               </a>
-              <p className="mt-4 text-gray-500 text-sm">Restam apenas <span className="text-red-600 font-bold">12 vagas</span> para esta turma!</p>
+              <p className="mt-4 text-gray-500 text-sm">
+                Restam apenas <span className="text-red-600 font-bold">12 vagas</span> para esta turma!
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bônus Limitado Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-[#d4fb00] to-[#c0e500]">
+          <div className="container px-4 sm:px-6 mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <Badge className="bg-black hover:bg-black text-white px-4 py-1 text-sm rounded-full animate-pulse">
+                  Oferta por Tempo Limitado
+                </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black">
+                  BÔNUS EXCLUSIVO: Grupo VIP com o Bispo Rinaldo
+                </h2>
+                <p className="text-lg text-gray-800">
+                  Inscreva-se <span className="font-bold underline">até sexta-feira</span> e ganhe acesso ao grupo
+                  exclusivo onde o Bispo Rinaldo responde perguntas e compartilha revelações que não são divulgadas em
+                  nenhum outro lugar.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-black mt-0.5 shrink-0" />
+                    <p className="text-gray-800">Acesso direto ao Bispo Rinaldo para tirar dúvidas</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-black mt-0.5 shrink-0" />
+                    <p className="text-gray-800">Conteúdos exclusivos compartilhados apenas no grupo</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-black mt-0.5 shrink-0" />
+                    <p className="text-gray-800">Encontros online mensais para ministração e ensino</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-black mt-0.5 shrink-0" />
+                    <p className="text-gray-800">
+                      Valor deste bônus: <span className="font-bold">R$ 497,00</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-4">
+                  <a href="#matricula">
+                    <Button className="bg-black text-white hover:bg-gray-800 font-bold text-lg px-8 py-6 shadow-lg w-full sm:w-auto">
+                      GARANTIR MINHA VAGA + BÔNUS
+                      <ChevronRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </a>
+                  <p className="mt-4 text-sm text-gray-700">
+                    <Clock className="inline-block mr-1 h-4 w-4" /> Oferta válida por tempo limitado
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?key=wyno2"
+                    alt="Grupo VIP com o Bispo Rinaldo"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <div className="bg-[#d4fb00] text-black font-bold px-4 py-2 rounded-xl inline-block mb-2">
+                      BÔNUS EXCLUSIVO
+                    </div>
+                    <h3 className="text-2xl font-bold">Grupo VIP</h3>
+                    <p>Acesso direto ao Bispo Rinaldo</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Course Content Section */}
         <section id="modulos" className="py-16 md:py-24 bg-gray-50">
-          <div className="container">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
               <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                 O que você vai aprender
@@ -340,73 +839,7 @@ export default function EscolaDons() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div className="space-y-4">
                 <Accordion type="single" collapsible className="w-full">
-                  {[
-                    {
-                      title: "Módulo 1: Introdução",
-                      description: "Fundamentos essenciais para iniciar sua jornada nos dons espirituais.",
-                      lessons: [
-                        "Iniciando nos Dons Espirituais",
-                        "A importância da sabedoria na prática dos Dons",
-                        "A simplicidade dos Dons",
-                        "Desenvolvendo um coração receptivo ao Espírito",
-                        "Como identificar qual dom você possui"
-                      ],
-                      icon: BookOpen,
-                      capabilities: "Após este módulo você será capaz de entender o propósito dos dons espirituais na igreja atual, identificar seus dons primários e secundários, e criar um ambiente propício para o mover do Espírito."
-                    },
-                    {
-                      title: "Módulo 2: Dons de Revelação",
-                      description: "Compreenda como Deus revela conhecimento sobrenatural através destes dons.",
-                      lessons: [
-                        "Palavra de Sabedoria - princípios e aplicações",
-                        "Palavra do Conhecimento - como receber revelações divinas", 
-                        "Discernimento de Espíritos - identificando o espiritual",
-                        "Exercícios práticos de desenvolvimento",
-                        "Testemunhos e estudos de caso reais"
-                      ],
-                      icon: Brain,
-                      capabilities: "Você será capaz de reconhecer e operar nos dons de revelação, receber palavras de conhecimento para situações específicas, e discernir influências espirituais em diferentes contextos."
-                    },
-                    {
-                      title: "Módulo 3: Dons Vocais",
-                      description: "Aprenda como Deus fala através de manifestações vocais sobrenaturais.",
-                      lessons: [
-                        "Dom de Profecia - falando a vontade de Deus",
-                        "Variedade de Línguas - operando no sobrenatural", 
-                        "Interpretação de Línguas - revelando mensagens",
-                        "Como profetizar com precisão e amor",
-                        "Diferença entre profecia do AT e NT"
-                      ],
-                      icon: MessageCircle,
-                      capabilities: "Após este módulo você saberá como entregar profecias de edificação com precisão, desenvolver o dom de línguas para edificação pessoal e comunitária, e interpretar mensagens proféticas com sabedoria."
-                    },
-                    {
-                      title: "Módulo 4: Dons de Poder",
-                      description: "Descubra como manifestar o poder sobrenatural de Deus em situações impossíveis.",
-                      lessons: [
-                        "Dom da Fé - ativando a fé sobrenatural",
-                        "Operação de Milagres - manifestando o impossível", 
-                        "Dons de Cura - restauração física e emocional",
-                        "Como ministrar cura passo a passo",
-                        "Lidando com aparentes fracassos na ministração"
-                      ],
-                      icon: Zap,
-                      capabilities: "Você será capaz de ministrar cura aos enfermos com confiança, operar na fé sobrenatural em circunstâncias desafiadoras, e ver o poder de Deus manifestado em situações impossíveis através do seu ministério."
-                    },
-                    {
-                      title: "Módulo 5: Fundamentos e Prática",
-                      description: "Aplique os princípios aprendidos e desenvolva uma prática consistente dos dons.",
-                      lessons: [
-                        "Fundamentos da Cura Divina - princípios bíblicos",
-                        "Por que devemos buscar os Dons - propósito eterno",
-                        "Aplicação prática no ministério cotidiano",
-                        "Como formar equipes de ministração",
-                        "Avivamento através dos dons - estudos de caso"
-                      ],
-                      icon: Flame,
-                      capabilities: "Ao finalizar este módulo você estará preparado para levantar e treinar equipes de ministração na sua igreja, operar consistentemente nos dons em um contexto ministerial estruturado, e ver transformação espiritual na sua comunidade."
-                    },
-                  ].map((module, index) => (
+                  {courseModules.map((module, index) => (
                     <AccordionItem key={index} value={`module-${index}`} className="border-b border-gray-200">
                       <AccordionTrigger className="py-4 text-left font-bold hover:text-[#d4fb00] hover:no-underline">
                         <div className="flex items-center gap-3">
@@ -445,7 +878,13 @@ export default function EscolaDons() {
                         <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-black border-b-8 border-b-transparent ml-1"></div>
                       </div>
                     </div>
-                    <Image src="/placeholder.svg?key=s2fzv" alt="Apresentação do Curso" fill className="object-cover" />
+                    <Image
+                      src="/placeholder.svg?key=s2fzv"
+                      alt="Apresentação do Curso"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
                   </div>
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold mb-2">Apresentação do Curso</h3>
@@ -497,8 +936,8 @@ export default function EscolaDons() {
                     </div>
                     <div className="pt-4">
                       <a href="#matricula">
-                        <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full">
-                          Quero Acessar Todo o Conteúdo
+                        <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full py-2 text-base">
+                          Quero Acessar o Conteúdo
                         </Button>
                       </a>
                     </div>
@@ -510,8 +949,8 @@ export default function EscolaDons() {
         </section>
 
         {/* Benefits Section */}
-        <section id="beneficios" className="py-16 md:py-24">
-          <div className="container">
+        <section id="beneficios" className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
               <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                 Por que escolher a Escola?
@@ -525,53 +964,10 @@ export default function EscolaDons() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Descubra e opere em seus dons espirituais",
-                  description:
-                    "Você será capaz de identificar seus dons com precisão e operá-los com confiança nas situações cotidianas e ministeriais, impactando vidas ao seu redor.",
-                  icon: GraduationCap,
-                  transformation: "De confuso sobre seu chamado para ministro seguro e eficaz"
-                },
-                {
-                  title: "Transforme sua intimidade com Deus",
-                  description:
-                    "Desenvolva uma sensibilidade única à voz do Espírito Santo, reconhecendo Sua direção instantaneamente e experimentando uma comunhão sobrenatural diária.",
-                  icon: Heart,
-                  transformation: "De uma vida cristã morna para uma experiência poderosa com Deus"
-                },
-                {
-                  title: "Torne-se um agente de transformação",
-                  description:
-                    "Você se tornará um instrumento que Deus usará para curar enfermos, libertar cativos e restaurar vidas quebradas através do poder dos dons espirituais.",
-                  icon: Users,
-                  transformation: "De espectador para protagonista no Reino de Deus"
-                },
-                {
-                  title: "Lidere com autoridade espiritual",
-                  description:
-                    "Conduza seu ministério, família ou empresa com a sabedoria sobrenatural que vem do alto, tomando decisões divinas que produzem frutos extraordinários.",
-                  icon: Brain,
-                  transformation: "De líder natural para líder sobrenatural"
-                },
-                {
-                  title: "Experimente o poder da cura divina",
-                  description:
-                    "Ministre cura aos enfermos com eficácia, vendo enfermidades físicas, emocionais e espirituais serem curadas pelo poder de Deus através de suas mãos.",
-                  icon: Flame,
-                  transformation: "De temeroso para confiante na autoridade espiritual"
-                },
-                {
-                  title: "Desenvolva um legado ministerial",
-                  description:
-                    "Capacite outros crentes a operarem nos dons, multiplicando o impacto do Reino e criando um legado espiritual que ultrapassará gerações.",
-                  icon: Zap,
-                  transformation: "De ministro solitário para multiplicador de discípulos"
-                },
-              ].map((benefit, index) => (
+              {courseBenefits.map((benefit, index) => (
                 <Card
                   key={index}
-                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-white/90"
                 >
                   <CardContent className="p-8 space-y-4">
                     <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center">
@@ -592,29 +988,33 @@ export default function EscolaDons() {
 
             <div className="mt-12 text-center">
               <a href="#matricula">
-                <Button size="lg" className="bg-[#ff6b00] text-white hover:bg-[#e85f00] px-8 h-14 text-lg font-bold shadow-xl animate-pulse">
+                <Button
+                  size="lg"
+                  className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 h-12 text-base font-bold shadow-xl animate-pulse w-full sm:w-auto"
+                >
                   Quero Desenvolver Meus Dons
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </a>
-              <p className="mt-4 text-gray-500 text-sm">Restam apenas <span className="text-red-600 font-bold">12 vagas</span> para esta turma!</p>
+              <p className="mt-4 text-gray-500 text-sm">
+                Restam apenas <span className="text-red-600 font-bold">12 vagas</span> para esta turma!
+              </p>
             </div>
           </div>
         </section>
 
         {/* Video Presentation Section */}
-        <section className="py-16 md:py-24 bg-black text-white">
-          <div className="container">
+        <section className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-900 text-white">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                   Mensagem do Bispo Rinaldo
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
-                  Uma Palavra Direta Para Você
-                </h2>
-                <p className="text-lg text-gray-300">
-                  Ouça o coração do Bispo Rinaldo Silva sobre a visão por trás da Escola de Dons e como ela pode transformar sua vida e ministério.
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Uma Palavra Direta Para Você</h2>
+                <p className="text-lg text-gray-200">
+                  Ouça o coração do Bispo Rinaldo Silva sobre a visão por trás da Escola de Dons e como ela pode
+                  transformar sua vida e ministério.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
@@ -632,8 +1032,11 @@ export default function EscolaDons() {
                 </div>
                 <div className="pt-4">
                   <a href="#matricula">
-                    <Button size="lg" className="bg-[#ff6b00] text-white hover:bg-[#e85f00] font-bold shadow-xl">
-                      QUERO ME INSCREVER AGORA
+                    <Button
+                      size="lg"
+                      className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold shadow-xl px-4 py-2 text-base w-full sm:w-auto"
+                    >
+                      QUERO ME INSCREVER
                       <ChevronRight className="ml-2 h-5 w-5" />
                     </Button>
                   </a>
@@ -645,11 +1048,12 @@ export default function EscolaDons() {
                     <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-black border-b-[15px] border-b-transparent ml-2"></div>
                   </div>
                 </div>
-                <Image 
-                  src="/placeholder.svg?key=bishop-video" 
-                  alt="Mensagem do Bispo Rinaldo Silva" 
-                  fill 
+                <Image
+                  src="/placeholder.svg?key=bishop-video"
+                  alt="Mensagem do Bispo Rinaldo Silva"
+                  fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
@@ -658,7 +1062,7 @@ export default function EscolaDons() {
 
         {/* Testimonials Section */}
         <section id="depoimentos" className="py-16 md:py-24 bg-gray-50">
-          <div className="container">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
               <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                 Depoimentos
@@ -670,41 +1074,10 @@ export default function EscolaDons() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Carlos Oliveira",
-                  role: "Pastor Auxiliar",
-                  location: "São Paulo, SP",
-                  testimony:
-                    "A Escola de Dons mudou completamente minha visão ministerial. Descobri dons que nem sabia que tinha e hoje lidero um ministério de intercessão na minha igreja com mais de 50 pessoas.",
-                  result: "Crescimento de 200% no ministério de intercessão em 3 meses",
-                  isVideo: false,
-                },
-                {
-                  name: "Mariana Santos",
-                  role: "Líder de Jovens",
-                  location: "Rio de Janeiro, RJ",
-                  testimony:
-                    "Sempre soube que tinha um chamado para trabalhar com jovens, mas não sabia como desenvolver isso. A Escola de Dons me deu as ferramentas práticas para identificar e aperfeiçoar meus dons de ensino e pastoreio.",
-                  result: "50 jovens batizados após aplicar os princípios do curso",
-                  isVideo: true,
-                  videoThumbnail: "/placeholder.svg?key=video-mariana&height=200&width=350",
-                },
-                {
-                  name: "Roberto Almeida",
-                  role: "Empresário e Líder",
-                  location: "Belo Horizonte, MG",
-                  testimony:
-                    "Como empresário, não imaginava como poderia usar meus dons na igreja. Através da Escola de Dons, descobri que meu dom de administração poderia impactar significativamente o Reino de Deus.",
-                  result: "Reestruturou toda administração da igreja local com excelência",
-                  isVideo: false,
-                  isWhatsApp: true,
-                  whatsappImage: "/placeholder.svg?key=whatsapp-roberto&height=400&width=250",
-                },
-              ].map((testimonial, index) => (
+              {testimonials.map((testimonial, index) => (
                 <Card
                   key={index}
-                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
+                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-white/90"
                 >
                   <CardContent className="p-8 space-y-4">
                     {testimonial.isVideo ? (
@@ -714,11 +1087,12 @@ export default function EscolaDons() {
                             <div className="w-0 h-0 border-t-6 border-t-transparent border-l-10 border-l-black border-b-6 border-b-transparent ml-1"></div>
                           </div>
                         </div>
-                        <Image 
+                        <Image
                           src={testimonial.videoThumbnail || `/placeholder.svg?key=zrvid${index}`}
                           alt={`Depoimento em vídeo de ${testimonial.name}`}
                           fill
                           className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
                         />
                       </div>
                     ) : testimonial.isWhatsApp ? (
@@ -737,16 +1111,10 @@ export default function EscolaDons() {
                         </div>
                       </div>
                     ) : null}
-                    
+
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-full overflow-hidden">
-                        <Image
-                          src={`/placeholder.svg?key=zrj26&height=100&width=100&query=pessoa ${index + 1} cristã retrato`}
-                          alt={testimonial.name}
-                          width={64}
-                          height={64}
-                          className="object-cover"
-                        />
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                        <span className="text-2xl font-bold text-gray-500">{testimonial.name.charAt(0)}</span>
                       </div>
                       <div>
                         <h4 className="font-bold">{testimonial.name}</h4>
@@ -777,7 +1145,7 @@ export default function EscolaDons() {
 
         {/* Instructor Section */}
         <section className="py-16 md:py-24">
-          <div className="container">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="relative">
                 <div className="absolute inset-0 bg-[#d4fb00]/20 rounded-2xl rotate-3"></div>
@@ -831,15 +1199,17 @@ export default function EscolaDons() {
         </section>
 
         {/* Guarantee Section */}
-        <section className="py-16 md:py-24 bg-[#d4fb00]">
-          <div className="container">
+        <section className="py-16 md:py-24 bg-gradient-to-b from-[#d4fb00] to-[#c0e500]">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 order-2 md:order-1">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black">
                   7 DIAS DE GARANTIA INCONDICIONAL
                 </h2>
                 <p className="text-lg text-gray-800">
-                  <span className="bg-black text-white px-3 py-1 font-bold">SEU RISCO É ZERO!</span> Tenha acesso a todo o conteúdo da Escola de Dons e, se por qualquer motivo não ficar satisfeito, basta solicitar o reembolso em até 7 dias e devolveremos 100% do seu investimento.
+                  <span className="bg-black text-white px-3 py-1 font-bold">SEU RISCO É ZERO!</span> Tenha acesso a todo
+                  o conteúdo da Escola de Dons e, se por qualquer motivo não ficar satisfeito, basta solicitar o
+                  reembolso em até 7 dias e devolveremos 100% do seu investimento.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
@@ -861,8 +1231,9 @@ export default function EscolaDons() {
                 </div>
                 <div className="pt-4">
                   <a href="#matricula">
-                    <Button className="bg-black text-white hover:bg-gray-800 font-bold text-lg px-8 py-6 shadow-lg">
-                      Quero Garantir Minha Vaga Com Risco Zero
+                    <Button className="bg-black text-white hover:bg-gray-800 font-bold text-sm sm:text-base px-4 py-3 shadow-lg w-full sm:w-auto">
+                      <span className="hidden sm:inline">Quero Garantir Minha Vaga Com Risco Zero</span>
+                      <span className="inline sm:hidden">Garantir Minha Vaga</span>
                     </Button>
                   </a>
                 </div>
@@ -883,7 +1254,7 @@ export default function EscolaDons() {
 
         {/* FAQ Section */}
         <section id="faq" className="py-16 md:py-24">
-          <div className="container">
+          <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
               <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
                 Perguntas Frequentes
@@ -896,45 +1267,9 @@ export default function EscolaDons() {
               </p>
             </div>
 
-            <div className="max-w-[800px] mx-auto">
+            <div className="max-w-[800px] mx-auto p-8 rounded-2xl backdrop-blur-md bg-white/80 shadow-lg">
               <Accordion type="single" collapsible className="w-full">
-                {[
-                  {
-                    question: "Quanto tempo terei acesso ao curso?",
-                    answer:
-                      "Você terá acesso vitalício a todo o conteúdo da Escola de Dons, incluindo atualizações futuras.",
-                  },
-                  {
-                    question: "Preciso ter conhecimento prévio sobre dons espirituais?",
-                    answer:
-                      "Não, o curso foi desenvolvido para atender desde iniciantes até pessoas com conhecimento avançado sobre o tema.",
-                  },
-                  {
-                    question: "Como funciona o acesso ao conteúdo?",
-                    answer:
-                      "Após a confirmação do pagamento, você receberá um e-mail com as instruções de acesso à plataforma onde todo o conteúdo estará disponível.",
-                  },
-                  {
-                    question: "Posso assistir as aulas pelo celular?",
-                    answer:
-                      "Sim, nossa plataforma é responsiva e você pode acessar todo o conteúdo pelo computador, tablet ou smartphone.",
-                  },
-                  {
-                    question: "O certificado é reconhecido?",
-                    answer:
-                      "Sim, você receberá um certificado de conclusão emitido pelo Ministério do Bispo Rinaldo Silva, reconhecido por diversas denominações.",
-                  },
-                  {
-                    question: "Como funciona a garantia de 7 dias?",
-                    answer:
-                      "Se você não ficar satisfeito com o curso por qualquer motivo, basta enviar um e-mail para suporte@escoladedons.com.br em até 7 dias após a compra e faremos o reembolso integral.",
-                  },
-                  {
-                    question: "Existe algum suporte durante o curso?",
-                    answer:
-                      "Sim, você terá acesso a um grupo exclusivo onde poderá tirar dúvidas diretamente com a equipe do Bispo Rinaldo Silva.",
-                  },
-                ].map((faq, index) => (
+                {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`faq-${index}`} className="border-b border-gray-200">
                     <AccordionTrigger className="py-4 text-left font-bold hover:text-[#d4fb00] hover:no-underline">
                       {faq.question}
@@ -948,66 +1283,144 @@ export default function EscolaDons() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-16 md:py-24 bg-black text-white">
-          <div className="container">
-            <div className="max-w-[800px] mx-auto text-center space-y-8">
-              <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
-                Última Chance
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">
-                Está na Hora de Descobrir e Desenvolver Seus Dons
-              </h2>
-              <p className="text-xl text-gray-300">Não deixe para depois o que pode transformar seu ministério hoje.</p>
+        <section className="py-20 md:py-28 bg-gradient-to-b from-black via-black to-gray-900 text-white relative overflow-hidden">
+          {/* Elementos decorativos de fundo */}
+          <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
+            <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#d4fb00]/20 blur-3xl"></div>
+            <div className="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#d4fb00]/20 blur-3xl"></div>
+            <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
+          </div>
 
-              <Card className="border-none rounded-2xl overflow-hidden shadow-xl bg-white text-black mx-auto max-w-md">
-                <CardContent className="p-6 space-y-6">
-                  <div className="bg-black text-white p-4 -mx-6 -mt-6 mb-6 text-center">
-                    <h3 className="font-bold text-xl">Oferta Especial - Encerra em:</h3>
-                    <CountdownTimer />
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
+            <div className="max-w-[900px] mx-auto text-center space-y-8">
+              <div className="inline-block animate-pulse">
+                <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-6 py-2 text-base rounded-full font-bold">
+                  Última Oportunidade
+                </Badge>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
+                Transforme Sua Vida Ministerial <span className="text-[#d4fb00]">Hoje Mesmo</span>
+              </h2>
+
+              <p className="text-xl md:text-2xl text-gray-300 max-w-[700px] mx-auto">
+                Mais de <span className="font-bold text-white">1.500 líderes</span> já descobriram seus dons e estão
+                impactando suas igrejas. Chegou a sua vez!
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-12">
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-left space-y-4 border border-white/10 shadow-xl">
+                  <div className="flex items-center gap-3 text-[#d4fb00] font-bold text-lg">
+                    <Clock className="h-6 w-6" />
+                    <span>Oferta por tempo limitado</span>
                   </div>
-                  <div className="space-y-4">
+
+                  <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                      <p>Curso completo com 5 módulos</p>
+                      <p className="text-gray-200">Acesso vitalício a todo o conteúdo</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                      <p>Material de apoio exclusivo</p>
+                      <p className="text-gray-200">Certificado de conclusão reconhecido</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                      <p>Garantia incondicional de 7 dias</p>
+                      <p className="text-gray-200">Suporte direto com a equipe do Bispo</p>
                     </div>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                      <p>Acesso vitalício ao conteúdo</p>
+                      <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0 animate-pulse" />
+                      <div>
+                        <p className="text-white font-bold">BÔNUS EXCLUSIVO: Grupo VIP com o Bispo Rinaldo</p>
+                        <p className="text-red-400 text-sm">Apenas para as próximas 48h - Valor: R$ 497,00</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="pt-4 space-y-3">
-                    <div className="text-center">
-                      <span className="text-gray-500 line-through text-lg">De R$ 197,00</span>
-                      <div className="text-3xl font-bold">Por apenas R$ 97,00</div>
-                      <div className="text-sm text-gray-500">ou 3x de R$ 34,29</div>
+
+                  <div className="pt-2">
+                    <div className="p-3 bg-white/10 rounded-lg">
+                      <p className="text-sm text-gray-300">Restam apenas:</p>
+                      <div className="flex justify-center gap-3 mt-1">
+                        <div className="bg-black/60 text-white text-xl font-bold w-12 h-12 rounded-lg flex items-center justify-center">
+                          12
+                        </div>
+                        <div className="bg-black/60 text-white text-xl font-bold w-12 h-12 rounded-lg flex items-center justify-center">
+                          :
+                        </div>
+                        <div className="bg-black/60 text-white text-xl font-bold w-12 h-12 rounded-lg flex items-center justify-center">
+                          08
+                        </div>
+                        <div className="bg-black/60 text-white text-xl font-bold w-12 h-12 rounded-lg flex items-center justify-center">
+                          :
+                        </div>
+                        <div className="bg-black/60 text-white text-xl font-bold w-12 h-12 rounded-lg flex items-center justify-center">
+                          45
+                        </div>
+                      </div>
                     </div>
-                    <Button className="bg-[#ff6b00] text-white hover:bg-[#e85f00] w-full h-14 text-lg font-bold shadow-xl animate-pulse">
-                      QUERO ME INSCREVER AGORA
+                  </div>
+                </div>
+
+                <Card className="border-none rounded-2xl overflow-hidden shadow-2xl backdrop-blur-md bg-white/90 text-black">
+                  <CardContent className="p-6 space-y-6">
+                    <div className="bg-black text-white p-4 -mx-6 -mt-6 mb-6 text-center">
+                      <h3 className="font-bold text-xl">Oferta Especial - Encerra em:</h3>
+                      <CountdownTimer />
+                    </div>
+
+                    <div className="text-center space-y-2">
+                      <p className="text-gray-500 line-through text-lg">De R$ 197,00</p>
+                      <div className="text-4xl font-bold">Por apenas R$ 97,00</div>
+                      <div className="text-sm text-gray-500">ou 3x de R$ 34,29 sem juros</div>
+                    </div>
+
+                    <div className="bg-[#d4fb00]/20 p-4 rounded-lg text-center">
+                      <p className="font-bold">Economize R$ 100,00 (50% OFF)</p>
+                      <p className="text-sm text-gray-700">+ Bônus exclusivo no valor de R$ 497,00</p>
+                    </div>
+
+                    <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full h-14 text-lg font-bold shadow-xl animate-pulse">
+                      QUERO GARANTIR MINHA VAGA AGORA
                       <ChevronRight className="ml-2 h-5 w-5" />
                     </Button>
+
                     <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
                       <ShieldCheck className="h-4 w-4" />
                       <span>Pagamento 100% seguro</span>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <div className="w-10 h-6 bg-gray-200 rounded flex items-center justify-center">
+                        <span className="text-xs">Visa</span>
+                      </div>
+                      <div className="w-10 h-6 bg-gray-200 rounded flex items-center justify-center">
+                        <span className="text-xs">MC</span>
+                      </div>
+                      <div className="w-10 h-6 bg-gray-200 rounded flex items-center justify-center">
+                        <span className="text-xs">Pix</span>
+                      </div>
+                      <div className="w-10 h-6 bg-gray-200 rounded flex items-center justify-center">
+                        <span className="text-xs">Boleto</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="mt-10 text-gray-400 text-sm max-w-[600px] mx-auto">
+                <p>
+                  Ao se inscrever, você concorda com nossos termos de uso e política de privacidade. Lembre-se que você
+                  tem 7 dias de garantia incondicional para solicitar reembolso caso não esteja satisfeito.
+                </p>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-12 bg-gray-900 text-white">
-        <div className="container">
+      <footer className="w-full py-12 bg-gradient-to-b from-gray-900 to-black text-white">
+        <div className="container px-4 sm:px-6 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 font-bold text-xl">
@@ -1081,43 +1494,6 @@ export default function EscolaDons() {
           </div>
         </div>
       </footer>
-
-      {/* Botão fixo após rolagem */}
-      <div className="fixed bottom-0 left-0 w-full bg-black p-4 shadow-lg z-40 animate-slide-up">
-        <div className="container flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:block">
-              <CountdownTimer />
-            </div>
-            <div className="text-white">
-              <p className="text-sm sm:text-base font-bold">Últimas vagas disponíveis!</p>
-              <p className="text-xs sm:text-sm text-gray-300">Restam apenas 12 vagas para esta turma</p>
-            </div>
-          </div>
-          <a href="#matricula">
-            <Button className="bg-[#ff6b00] text-white hover:bg-[#e85f00] w-full sm:w-auto px-6 h-12 font-bold whitespace-nowrap shadow-xl">
-              QUERO ME INSCREVER AGORA
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
-          </a>
-        </div>
-      </div>
     </div>
-  )
-}
-
-function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
-  return (
-    <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
-      <CardContent className="p-6 flex items-start gap-4">
-        <div className="w-12 h-12 rounded-full bg-[#d4fb00]/20 flex items-center justify-center shrink-0">
-          {React.createElement(icon, { className: "h-6 w-6 text-black" })}
-        </div>
-        <div>
-          <h3 className="text-lg font-bold mb-1">{title}</h3>
-          <p className="text-gray-600">{description}</p>
-        </div>
-      </CardContent>
-    </Card>
   )
 }

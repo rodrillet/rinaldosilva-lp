@@ -17,6 +17,7 @@ import {
   Mail,
   Phone,
   Globe,
+  PlayIcon,
 } from "lucide-react"
 
 export default function Home() {
@@ -323,11 +324,11 @@ export default function Home() {
                   <div className="relative aspect-video overflow-hidden">
                     <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors flex items-center justify-center z-10">
                       <div className="w-16 h-16 rounded-full bg-[#d4fb00] flex items-center justify-center">
-                        <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-black border-b-8 border-b-transparent ml-1"></div>
+                        <PlayIcon className="h-8 w-8 text-black ml-1" />
                       </div>
                     </div>
                     <Image
-                      src={`/placeholder.svg?key=tftqb&key=m1a1q&height=720&width=1280&query=pastor pregando em igreja ${index + 1}`}
+                      src={`/placeholder.svg?key=33kyo&key=tftqb&key=m1a1q&height=720&width=1280&query=pastor pregando em igreja ${index + 1}`}
                       alt={item.title}
                       fill
                       className="object-cover"
@@ -396,7 +397,7 @@ export default function Home() {
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full overflow-hidden">
                         <Image
-                          src={`/placeholder.svg?key=elcjy&key=y7usg&height=100&width=100&query=pessoa ${index + 1} retrato`}
+                          src={`/placeholder.svg?key=k54qw&key=elcjy&key=y7usg&height=100&width=100&query=pessoa ${index + 1} retrato`}
                           alt={item.name}
                           width={48}
                           height={48}
