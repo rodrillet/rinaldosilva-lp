@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     url: "https://rinaldosilva.com/escola-dons",
     images: [
       {
-        url: "/placeholder.svg?key=escola-dons-og",
+        url: "/images/rinaldo-silva-1.jpeg",
         width: 1200,
         height: 630,
         alt: "Escola de Dons - Bispo Rinaldo Silva",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Escola de Dons | Bispo Rinaldo Silva",
     description: "Aprenda a operar nos dons espirituais com o Bispo Rinaldo Silva.",
-    images: ["/placeholder.svg?key=escola-dons-twitter"],
+    images: ["/images/rinaldo-silva-1.jpeg"],
   },
   alternates: {
     canonical: "https://rinaldosilva.com/escola-dons",

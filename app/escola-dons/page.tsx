@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -251,7 +253,7 @@ export default function EscolaDons() {
         "Sempre soube que tinha um chamado para trabalhar com jovens, mas não sabia como desenvolver isso. A Escola de Dons me deu as ferramentas práticas para identificar e aperfeiçoar meus dons de ensino e pastoreio.",
       result: "50 jovens batizados após aplicar os princípios do curso",
       isVideo: true,
-      videoThumbnail: "/placeholder.svg?key=video-mariana&height=200&width=350",
+      videoThumbnail: "/images/rinaldo-silva-3.jpeg",
     },
     {
       name: "Roberto Almeida",
@@ -262,7 +264,7 @@ export default function EscolaDons() {
       result: "Reestruturou toda administração da igreja local com excelência",
       isVideo: false,
       isWhatsApp: true,
-      whatsappImage: "/placeholder.svg?key=whatsapp-roberto&height=400&width=250",
+      whatsappImage: "/images/rinaldo-silva-2.jpeg",
     },
   ]
 
@@ -310,7 +312,7 @@ export default function EscolaDons() {
     description:
       "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. A Escola de Dons é um curso completo com 5 módulos para transformar sua vida ministerial através do poder do Espírito Santo.",
     url: "https://rinaldosilva.com/escola-dons",
-    image: "https://rinaldosilva.com/placeholder.svg?key=escola-dons-og",
+    image: "https://rinaldosilva.com/images/rinaldo-silva-1.jpeg",
     price: "97.00",
     priceCurrency: "BRL",
     sku: "ESCDON-001",
@@ -466,7 +468,7 @@ export default function EscolaDons() {
                     {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
                         <Image
-                          src={`/placeholder.svg?key=aweyk&key=5amfh&key=xeano&key=rxpuz&key=zaluq&key=up4em&key=lpmdr&key=4ikth&key=gzgga&key=pzfv8&key=qr1en&key=kr1bf&key=alnm0&key=o2wkx&key=q7pvk&key=msw84&key=0nh49&key=t0jbm&key=0sn00&key=sgdw4&height=100&width=100&query=pessoa ${i} cristã perfil`}
+                          src="/images/rinaldo-silva-1.jpeg"
                           alt={`Aluno ${i}`}
                           width={32}
                           height={32}

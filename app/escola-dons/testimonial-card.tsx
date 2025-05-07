@@ -61,7 +61,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialProps) {
           <div className="w-14 h-14 rounded-full overflow-hidden shadow-sm border border-neutral-200 bg-white p-[2px]">
             <div className="w-full h-full rounded-full overflow-hidden relative">
               <Image
-                src={`/placeholder.svg?key=sfold&key=3lmle&key=zrj26&height=100&width=100&query=pessoa ${index + 1} cristã retrato`}
+                src="/images/rinaldo-silva-1.jpeg"
                 alt={testimonial.name}
                 fill
                 className="object-cover"
