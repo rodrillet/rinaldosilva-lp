@@ -29,14 +29,89 @@ import CountdownTimer from "./countdown-timer"
 // Componente para o card de problema
 function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
   return (
-    <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
+    <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover-scale">
       <CardContent className="p-6 flex items-start gap-4">
-        <div className="w-12 h-12 rounded-full bg-[#d4fb00]/20 flex items-center justify-center shrink-0">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#c0e500] flex items-center justify-center shrink-0 shadow-md animate-glow">
           {React.createElement(icon, { className: "h-6 w-6 text-black" })}
         </div>
         <div>
           <h3 className="text-lg font-bold mb-1">{title}</h3>
           <p className="text-gray-600">{description}</p>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+// Componente para o card de depoimento
+function TestimonialCard({ testimonial, index }: { testimonial: any; index: number }) {
+  return (
+    <Card className="border-none rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover-scale overflow-hidden">
+      <div className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] h-2"></div>
+      <CardContent className="p-8 space-y-4">
+        {testimonial.isVideo ? (
+          <div className="relative aspect-video mb-4 rounded-lg overflow-hidden group">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10 group-hover:bg-black/40 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] flex items-center justify-center cursor-pointer shadow-lg transform transition-transform group-hover:scale-110">
+                <div className="w-0 h-0 border-t-6 border-t-transparent border-l-10 border-l-black border-b-6 border-b-transparent ml-1"></div>
+              </div>
+            </div>
+            <Image
+              src={testimonial.videoThumbnail || `/placeholder.svg?key=zrvid${index}`}
+              alt={`Depoimento em vídeo de ${testimonial.name}`}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </div>
+        ) : testimonial.isWhatsApp ? (
+          <div className="flex justify-center mb-4">
+            <div className="relative rounded-xl overflow-hidden border-2 border-green-500 shadow-lg group hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
+              <Image
+                src={testimonial.whatsappImage || `/placeholder.svg?key=zrwpp${index}`}
+                alt={`Print de WhatsApp de ${testimonial.name}`}
+                width={250}
+                height={400}
+                className="object-contain"
+              />
+              <div className="absolute top-0 left-0 bg-green-500 text-white text-xs px-2 py-1 rounded-br-md font-medium">
+                WhatsApp
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 rounded-full overflow-hidden shadow-md bg-gradient-to-br from-gray-100 to-white p-[2px]">
+            <div className="w-full h-full rounded-full overflow-hidden relative">
+              <Image
+                src={`/placeholder.svg?key=zrj26&height=100&width=100&query=pessoa ${index + 1} cristã retrato`}
+                alt={testimonial.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+          <div>
+            <h4 className="font-bold text-gradient-primary">{testimonial.name}</h4>
+            <p className="text-sm text-gray-600">{testimonial.role}</p>
+            <p className="text-xs text-gray-500">{testimonial.location}</p>
+          </div>
+        </div>
+        <div className="relative">
+          <div className="absolute -top-2 -left-2 text-4xl text-gradient-primary opacity-30">"</div>
+          <p className="text-gray-700 italic relative z-10 pl-4 leading-relaxed">{testimonial.testimony}</p>
+          <div className="absolute -bottom-4 -right-2 text-4xl text-gradient-primary opacity-30">"</div>
+        </div>
+        <div className="mt-4 bg-gradient-to-r from-[#d4fb00]/10 to-[#c0e500]/10 p-4 rounded-lg shadow-inner">
+          <p className="font-semibold text-sm mb-1">Resultado alcançado:</p>
+          <p className="text-gray-700 font-medium">{testimonial.result}</p>
+        </div>
+        <div className="flex text-[#ff9d00]">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Star key={i} className="h-4 w-4 fill-current animate-soft-pulse" style={{ animationDelay: `${i * 0.1}s` }} />
+          ))}
         </div>
       </CardContent>
     </Card>
@@ -299,13 +374,13 @@ export default function EscolaDons() {
   return (
     <div className="flex flex-col min-h-screen bg-white overflow-x-hidden max-w-[100vw] relative">
       {/* CTA Flutuante */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/90 backdrop-blur-md py-3 border-t border-white/10 transform transition-transform duration-300">
+      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md py-3 border-t border-white/10 transform transition-transform duration-300 bg-gradient-to-r from-black/90 via-black/95 to-black/90">
         <div className="container px-4 sm:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-white text-sm sm:text-base">
-            <span className="text-[#d4fb00] font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
+            <span className="text-gradient-primary font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
           </div>
           <a href="#matricula">
-            <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-sm px-4 py-2 w-full sm:w-auto whitespace-nowrap">
+            <Button className="bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white font-bold text-sm px-4 py-2 w-full sm:w-auto whitespace-nowrap shadow-lg border-none">
               GARANTIR MINHA VAGA
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
@@ -352,7 +427,7 @@ export default function EscolaDons() {
           </div>
 
           <a href="#matricula" className="hidden md:block">
-            <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-lg text-sm px-4 py-2">
+            <Button className="bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] text-white hover:from-[#ff9d00] hover:to-[#ff6b00] font-medium shadow-lg text-sm px-4 py-2 border-none">
               Inscrever-se
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
@@ -377,7 +452,7 @@ export default function EscolaDons() {
           <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] hover:from-[#c0e500] hover:to-[#d4fb00] text-black px-4 py-1 text-sm rounded-full shadow-sm">
                   Matrículas Abertas
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
@@ -390,16 +465,21 @@ export default function EscolaDons() {
                   <a href="#matricula">
                     <Button
                       size="lg"
-                      className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 py-3 text-base sm:text-lg font-bold shadow-xl animate-pulse w-full sm:w-auto max-w-full truncate"
+                      className="bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white px-4 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full truncate border-none"
                     >
                       <span className="hidden sm:inline">Quero Desenvolver Meus Dons</span>
                       <span className="inline sm:hidden">Desenvolver Meus Dons</span>
                       <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
                     </Button>
                   </a>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 h-14">
-                    <PlayCircle className="mr-2 h-5 w-5" />
-                    Ver Apresentação
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white/20 hover:text-[#d4fb00] transition-colors h-14 w-full sm:w-auto"
+                  >
+                    <PlayCircle className="mr-2 h-5 w-5 flex-shrink-0" />
+                    <span className="hidden sm:inline">Ver Apresentação</span>
+                    <span className="inline sm:hidden">Ver Vídeo</span>
                   </Button>
                 </div>
                 <div className="flex items-center justify-center lg:justify-start gap-4 pt-4">
@@ -1061,10 +1141,10 @@ export default function EscolaDons() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="depoimentos" className="py-16 md:py-24 bg-gray-50">
+        <section id="depoimentos" className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
           <div className="container px-4 sm:px-6 mx-auto">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#d4fb00] hover:bg-[#d4fb00] text-black px-4 py-1 text-sm rounded-full">
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#c0e500] hover:from-[#c0e500] hover:to-[#d4fb00] text-black px-4 py-1 text-sm rounded-full shadow-sm">
                 Depoimentos
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">O Que Nossos Alunos Estão Dizendo</h2>
@@ -1075,69 +1155,7 @@ export default function EscolaDons() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
-                <Card
-                  key={index}
-                  className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-white/90"
-                >
-                  <CardContent className="p-8 space-y-4">
-                    {testimonial.isVideo ? (
-                      <div className="relative aspect-video mb-4 rounded-lg overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
-                          <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center cursor-pointer">
-                            <div className="w-0 h-0 border-t-6 border-t-transparent border-l-10 border-l-black border-b-6 border-b-transparent ml-1"></div>
-                          </div>
-                        </div>
-                        <Image
-                          src={testimonial.videoThumbnail || `/placeholder.svg?key=zrvid${index}`}
-                          alt={`Depoimento em vídeo de ${testimonial.name}`}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                      </div>
-                    ) : testimonial.isWhatsApp ? (
-                      <div className="flex justify-center mb-4">
-                        <div className="relative rounded-xl overflow-hidden border-2 border-green-500 max-w-[250px]">
-                          <Image
-                            src={testimonial.whatsappImage || `/placeholder.svg?key=zrwpp${index}`}
-                            alt={`Print de WhatsApp de ${testimonial.name}`}
-                            width={250}
-                            height={400}
-                            className="object-contain"
-                          />
-                          <div className="absolute top-0 left-0 bg-green-500 text-white text-xs px-2 py-1 rounded-br-md">
-                            WhatsApp
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
-
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                        <span className="text-2xl font-bold text-gray-500">{testimonial.name.charAt(0)}</span>
-                      </div>
-                      <div>
-                        <h4 className="font-bold">{testimonial.name}</h4>
-                        <p className="text-sm text-gray-600">{testimonial.role}</p>
-                        <p className="text-xs text-gray-500">{testimonial.location}</p>
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <div className="absolute -top-2 -left-2 text-4xl text-[#d4fb00] opacity-30">"</div>
-                      <p className="text-gray-700 italic relative z-10 pl-4">{testimonial.testimony}</p>
-                      <div className="absolute -bottom-4 -right-2 text-4xl text-[#d4fb00] opacity-30">"</div>
-                    </div>
-                    <div className="mt-4 bg-[#d4fb00]/10 p-3 rounded-lg">
-                      <p className="font-semibold text-sm">Resultado alcançado:</p>
-                      <p className="text-gray-700">{testimonial.result}</p>
-                    </div>
-                    <div className="flex text-[#d4fb00]">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="h-4 w-4 fill-current" />
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                <TestimonialCard key={index} testimonial={testimonial} index={index} />
               ))}
             </div>
           </div>
