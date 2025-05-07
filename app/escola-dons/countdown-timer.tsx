@@ -45,7 +45,7 @@ export default function CountdownTimer() {
   const TimerDigit = ({ value, label }: { value: number; label: string }) => (
     <div className="text-center">
       <div className="relative">
-        <div className="bg-black/80 text-white text-xl font-medium w-14 h-14 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-md overflow-hidden border border-[#d4fb00]/30">
+        <div className="bg-black/80 text-white text-xl font-medium w-14 h-14 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-md overflow-hidden border border-[#a8ff00]/30">
           {String(value).padStart(2, "0")}
         </div>
       </div>

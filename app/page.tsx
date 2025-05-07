@@ -93,27 +93,27 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black">RS</div>
+            <div className="w-8 h-8 rounded-full bg-[#a8ff00] flex items-center justify-center text-black">RS</div>
             <span>Bispo Rinaldo Silva</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="#sobre" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <Link href="#sobre" className="text-sm font-medium hover:text-[#a8ff00] transition-colors">
               Sobre
             </Link>
-            <Link href="#ministerio" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <Link href="#ministerio" className="text-sm font-medium hover:text-[#a8ff00] transition-colors">
               Ministério
             </Link>
-            <Link href="#eventos" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <Link href="#eventos" className="text-sm font-medium hover:text-[#a8ff00] transition-colors">
               Eventos
             </Link>
-            <Link href="#mensagens" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <Link href="#mensagens" className="text-sm font-medium hover:text-[#a8ff00] transition-colors">
               Mensagens
             </Link>
-            <Link href="#contato" className="text-sm font-medium hover:text-[#d4fb00] transition-colors">
+            <Link href="#contato" className="text-sm font-medium hover:text-[#a8ff00] transition-colors">
               Contato
             </Link>
           </nav>
-          <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500]">Agendar Visita</Button>
+          <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500]">Agendar Visita</Button>
         </div>
       </header>
 
@@ -126,7 +126,7 @@ export default function Home() {
           </div>
           <div className="container relative z-20">
             <div className="max-w-[650px] space-y-6 text-white">
-              <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                 Bispo Sênior • Igreja Impactados
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
@@ -136,7 +136,7 @@ export default function Home() {
                 Há mais de 20 anos levando a mensagem de fé, esperança e transformação para milhares de pessoas.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8">
+                <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] px-8">
                   Conhecer Ministério
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -153,13 +153,13 @@ export default function Home() {
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="relative aspect-square">
-                <div className="absolute inset-0 bg-[#d4fb00]/20 rounded-2xl -rotate-3"></div>
+                <div className="absolute inset-0 bg-[#a8ff00]/20 rounded-2xl -rotate-3"></div>
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <Image src="/placeholder.svg?key=evzmi" alt="Bispo Rinaldo Silva" fill className="object-cover" />
                 </div>
               </div>
               <div className="space-y-6">
-                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                   Sobre o Bispo
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Conheça Rinaldo Silva</h2>
@@ -192,7 +192,7 @@ export default function Home() {
         <section id="ministerio" className="w-full py-16 md:py-24 bg-gray-50">
           <div className="container">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                 Ministério
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
@@ -206,7 +206,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#a8ff00] flex items-center justify-center">
                     <BookOpen className="h-6 w-6 text-black" />
                   </div>
                   <h3 className="text-xl font-bold">Ensino Bíblico</h3>
@@ -215,7 +215,7 @@ export default function Home() {
                   </p>
                   <Link
                     href="#"
-                    className="inline-flex items-center text-sm font-medium text-black hover:text-[#d4fb00]"
+                    className="inline-flex items-center text-sm font-medium text-black hover:text-[#a8ff00]"
                   >
                     Acessar Estudos
                     <ChevronRight className="ml-1 h-4 w-4" />
@@ -225,7 +225,7 @@ export default function Home() {
 
               <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#a8ff00] flex items-center justify-center">
                     <Mic className="h-6 w-6 text-black" />
                   </div>
                   <h3 className="text-xl font-bold">Conferências</h3>
@@ -234,7 +234,7 @@ export default function Home() {
                   </p>
                   <Link
                     href="#"
-                    className="inline-flex items-center text-sm font-medium text-black hover:text-[#d4fb00]"
+                    className="inline-flex items-center text-sm font-medium text-black hover:text-[#a8ff00]"
                   >
                     Ver Agenda
                     <ChevronRight className="ml-1 h-4 w-4" />
@@ -244,7 +244,7 @@ export default function Home() {
 
               <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#a8ff00] flex items-center justify-center">
                     <GraduationCap className="h-6 w-6 text-black" />
                   </div>
                   <h3 className="text-xl font-bold">Mentoria</h3>
@@ -253,7 +253,7 @@ export default function Home() {
                   </p>
                   <Link
                     href="#"
-                    className="inline-flex items-center text-sm font-medium text-black hover:text-[#d4fb00]"
+                    className="inline-flex items-center text-sm font-medium text-black hover:text-[#a8ff00]"
                   >
                     Participar
                     <ChevronRight className="ml-1 h-4 w-4" />
@@ -268,7 +268,7 @@ export default function Home() {
         <section id="eventos" className="w-full py-16 md:py-24 bg-black text-white">
           <div className="container">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                 Agenda
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Próximos Eventos</h2>
@@ -286,10 +286,10 @@ export default function Home() {
                         São Paulo, SP
                       </p>
                     </div>
-                    <div className="bg-[#d4fb00] text-black font-bold px-4 py-2 rounded-xl">15-17 JUN</div>
+                    <div className="bg-[#a8ff00] text-black font-bold px-4 py-2 rounded-xl">15-17 JUN</div>
                   </div>
                   <p>Três dias de imersão espiritual com pregações, workshops e momentos de adoração.</p>
-                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full">Inscrever-se</Button>
+                  <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] w-full">Inscrever-se</Button>
                 </CardContent>
               </Card>
 
@@ -303,10 +303,10 @@ export default function Home() {
                         Rio de Janeiro, RJ
                       </p>
                     </div>
-                    <div className="bg-[#d4fb00] text-black font-bold px-4 py-2 rounded-xl">22 JUL</div>
+                    <div className="bg-[#a8ff00] text-black font-bold px-4 py-2 rounded-xl">22 JUL</div>
                   </div>
                   <p>Capacitação intensiva para líderes e pastores com foco em gestão ministerial.</p>
-                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full">Inscrever-se</Button>
+                  <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] w-full">Inscrever-se</Button>
                 </CardContent>
               </Card>
 
@@ -320,10 +320,10 @@ export default function Home() {
                         Belo Horizonte, MG
                       </p>
                     </div>
-                    <div className="bg-[#d4fb00] text-black font-bold px-4 py-2 rounded-xl">05 AGO</div>
+                    <div className="bg-[#a8ff00] text-black font-bold px-4 py-2 rounded-xl">05 AGO</div>
                   </div>
                   <p>Noite de ministração com foco em cura física, emocional e espiritual.</p>
-                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full">Participar</Button>
+                  <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] w-full">Participar</Button>
                 </CardContent>
               </Card>
 
@@ -337,10 +337,10 @@ export default function Home() {
                         Campinas, SP
                       </p>
                     </div>
-                    <div className="bg-[#d4fb00] text-black font-bold px-4 py-2 rounded-xl">18-20 AGO</div>
+                    <div className="bg-[#a8ff00] text-black font-bold px-4 py-2 rounded-xl">18-20 AGO</div>
                   </div>
                   <p>Fim de semana dedicado ao fortalecimento de famílias com palestras e atividades.</p>
-                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full">Inscrever-se</Button>
+                  <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] w-full">Inscrever-se</Button>
                 </CardContent>
               </Card>
             </div>
@@ -358,7 +358,7 @@ export default function Home() {
         <section id="mensagens" className="w-full py-16 md:py-24 bg-white">
           <div className="container">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                 Mensagens
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Palavras que Transformam</h2>
@@ -389,7 +389,7 @@ export default function Home() {
                 >
                   <div className="relative aspect-video overflow-hidden">
                     <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors flex items-center justify-center z-10">
-                      <div className="w-16 h-16 rounded-full bg-[#d4fb00] flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-[#a8ff00] flex items-center justify-center">
                         <PlayIcon className="h-8 w-8 text-black ml-1" />
                       </div>
                     </div>
@@ -401,7 +401,7 @@ export default function Home() {
                     />
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-bold group-hover:text-[#d4fb00] transition-colors">{item.title}</h3>
+                    <h3 className="text-lg font-bold group-hover:text-[#a8ff00] transition-colors">{item.title}</h3>
                     <p className="text-gray-600 text-sm flex items-center justify-between mt-2">
                       <span>Série: {item.series}</span>
                       <span className="flex items-center gap-1">
@@ -427,7 +427,7 @@ export default function Home() {
         <section className="w-full py-16 md:py-24 bg-gray-50">
           <div className="container">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                 Testemunhos
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Vidas Transformadas</h2>
@@ -479,9 +479,9 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="relative">
-                      <div className="absolute -top-2 -left-2 text-4xl text-[#d4fb00] opacity-30">"</div>
+                      <div className="absolute -top-2 -left-2 text-4xl text-[#a8ff00] opacity-30">"</div>
                       <p className="text-gray-700 italic relative z-10 pl-4">{item.testimony}</p>
-                      <div className="absolute -bottom-4 -right-2 text-4xl text-[#d4fb00] opacity-30">"</div>
+                      <div className="absolute -bottom-4 -right-2 text-4xl text-[#a8ff00] opacity-30">"</div>
                     </div>
                   </CardContent>
                 </Card>
@@ -491,7 +491,7 @@ export default function Home() {
         </section>
 
         {/* Newsletter Section */}
-        <section className="w-full py-16 md:py-24 bg-[#d4fb00]">
+        <section className="w-full py-16 md:py-24 bg-[#a8ff00]">
           <div className="container">
             <div className="max-w-[800px] mx-auto text-center space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-black">
@@ -527,7 +527,7 @@ export default function Home() {
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
               <div className="space-y-6">
-                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#a8ff00] text-black font-medium text-sm">
                   Contato
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Entre em Contato</h2>
@@ -593,7 +593,7 @@ export default function Home() {
                           placeholder="Sua mensagem detalhada"
                         ></textarea>
                       </div>
-                      <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full">Enviar Mensagem</Button>
+                      <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] w-full">Enviar Mensagem</Button>
                     </form>
                   </CardContent>
                 </Card>
@@ -607,11 +607,11 @@ export default function Home() {
                       <h3 className="text-2xl font-bold text-white mb-4">Igreja Impactados</h3>
                       <div className="space-y-3 text-white">
                         <p className="flex items-center gap-2">
-                          <MapPin className="h-5 w-5 text-[#d4fb00]" />
+                          <MapPin className="h-5 w-5 text-[#a8ff00]" />
                           Av. Paulista, 1000 - São Paulo, SP
                         </p>
                         <p className="flex items-center gap-2">
-                          <Calendar className="h-5 w-5 text-[#d4fb00]" />
+                          <Calendar className="h-5 w-5 text-[#a8ff00]" />
                           Cultos: Domingos às 10h e 18h
                         </p>
                       </div>
@@ -624,7 +624,7 @@ export default function Home() {
                     <h3 className="text-xl font-bold">Informações de Contato</h3>
                     <div className="space-y-4">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full bg-[#d4fb00]/20 flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
                           <Mail className="h-5 w-5 text-black" />
                         </div>
                         <div>
@@ -634,7 +634,7 @@ export default function Home() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full bg-[#d4fb00]/20 flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
                           <Phone className="h-5 w-5 text-black" />
                         </div>
                         <div>
@@ -644,7 +644,7 @@ export default function Home() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full bg-[#d4fb00]/20 flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
                           <Globe className="h-5 w-5 text-black" />
                         </div>
                         <div>
@@ -652,19 +652,19 @@ export default function Home() {
                           <div className="flex gap-4 mt-2">
                             <Link
                               href="#"
-                              className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-[#d4fb00] hover:text-black transition-colors"
+                              className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-[#a8ff00] hover:text-black transition-colors"
                             >
                               <Instagram className="h-4 w-4" />
                             </Link>
                             <Link
                               href="#"
-                              className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-[#d4fb00] hover:text-black transition-colors"
+                              className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-[#a8ff00] hover:text-black transition-colors"
                             >
                               <Youtube className="h-4 w-4" />
                             </Link>
                             <Link
                               href="#"
-                              className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-[#d4fb00] hover:text-black transition-colors"
+                              className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:bg-[#a8ff00] hover:text-black transition-colors"
                             >
                               <Facebook className="h-4 w-4" />
                             </Link>
@@ -686,7 +686,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 font-bold text-xl">
-                <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black">RS</div>
+                <div className="w-8 h-8 rounded-full bg-[#a8ff00] flex items-center justify-center text-black">RS</div>
                 <span>Bispo Rinaldo Silva</span>
               </div>
               <p className="text-gray-400">Transformando vidas através da palavra de Deus.</p>
@@ -698,7 +698,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#sobre"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-2"
+                    className="text-gray-400 hover:text-[#a8ff00] transition-colors flex items-center gap-2"
                   >
                     <ChevronRight className="h-4 w-4" />
                     Sobre
@@ -707,7 +707,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#ministerio"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-2"
+                    className="text-gray-400 hover:text-[#a8ff00] transition-colors flex items-center gap-2"
                   >
                     <ChevronRight className="h-4 w-4" />
                     Ministério
@@ -716,7 +716,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#eventos"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-2"
+                    className="text-gray-400 hover:text-[#a8ff00] transition-colors flex items-center gap-2"
                   >
                     <ChevronRight className="h-4 w-4" />
                     Eventos
@@ -725,7 +725,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#mensagens"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-2"
+                    className="text-gray-400 hover:text-[#a8ff00] transition-colors flex items-center gap-2"
                   >
                     <ChevronRight className="h-4 w-4" />
                     Mensagens
@@ -734,7 +734,7 @@ export default function Home() {
                 <li>
                   <Link
                     href="#contato"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-2"
+                    className="text-gray-400 hover:text-[#a8ff00] transition-colors flex items-center gap-2"
                   >
                     <ChevronRight className="h-4 w-4" />
                     Contato
@@ -747,15 +747,15 @@ export default function Home() {
               <h3 className="font-bold mb-4">Contato</h3>
               <ul className="space-y-2 text-gray-400">
                 <li className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-[#d4fb00]" />
+                  <Mail className="h-4 w-4 text-[#a8ff00]" />
                   contato@rinaldosilva.com
                 </li>
                 <li className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-[#d4fb00]" />
+                  <Phone className="h-4 w-4 text-[#a8ff00]" />
                   +55 (11) 99999-9999
                 </li>
                 <li className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[#d4fb00]" />
+                  <MapPin className="h-4 w-4 text-[#a8ff00]" />
                   São Paulo, SP - Brasil
                 </li>
               </ul>
@@ -766,19 +766,19 @@ export default function Home() {
               <div className="flex gap-4">
                 <Link
                   href="#"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#d4fb00] hover:text-black transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#a8ff00] hover:text-black transition-colors"
                 >
                   <Instagram className="h-5 w-5" />
                 </Link>
                 <Link
                   href="#"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#d4fb00] hover:text-black transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#a8ff00] hover:text-black transition-colors"
                 >
                   <Youtube className="h-5 w-5" />
                 </Link>
                 <Link
                   href="#"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#d4fb00] hover:text-black transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#a8ff00] hover:text-black transition-colors"
                 >
                   <Facebook className="h-5 w-5" />
                 </Link>

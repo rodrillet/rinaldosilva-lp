@@ -71,7 +71,7 @@ const config = {
           ring: "hsl(var(--sidebar-ring))",
         },
         lime: {
-          DEFAULT: "#d4fb00",
+          DEFAULT: "#a8ff00",
           hover: "#c0e500",
         },
       },
