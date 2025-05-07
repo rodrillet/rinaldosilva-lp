@@ -1,0 +1,53 @@
+{
+  "name": "Bispo Rinaldo Silva | Ministério Oficial",
+  "short_name": "Rinaldo Silva",
+  "description": "Site oficial do Bispo Rinaldo Silva, Bispo Sênior da Igreja Impactados",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d4fb00",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/icon-maskable-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Escola de Dons",
+      "short_name": "Escola de Dons",
+      "description": "Conheça a Escola de Dons do Bispo Rinaldo Silva",
+      "url": "/escola-dons",
+      "icons": [{ "src": "/icon-escola-dons.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Eventos",
+      "short_name": "Eventos",
+      "description": "Confira os próximos eventos do Bispo Rinaldo Silva",
+      "url": "/#eventos",
+      "icons": [{ "src": "/icon-eventos.png", "sizes": "192x192" }]
+    }
+  ],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "prefer_related_applications": false
+} 

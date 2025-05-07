@@ -47,7 +47,15 @@ export const getBispoStructuredData = () => {
         "name": "Escola de Dons",
         "url": "https://rinaldosilva.com/escola-dons"
       }
-    ]
+    ],
+    "award": [
+      "Reconhecimento por Excelência Ministerial 2020",
+      "Premio Impacto Social 2021"
+    ],
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://rinaldosilva.com/"
+    }
   }
 }
 
@@ -129,7 +137,14 @@ export const getEscolaDonsStructuredData = () => {
         "datePublished": "2023-09-22",
         "reviewBody": "Sempre soube que tinha um chamado para trabalhar com jovens, mas não sabia como desenvolver isso. A Escola de Dons me deu as ferramentas práticas para identificar e aperfeiçoar meus dons de ensino e pastoreio."
       }
-    ]
+    ],
+    "coursePrerequisites": "Nenhum pré-requisito necessário",
+    "educationalCredentialAwarded": "Certificado de Conclusão",
+    "timeRequired": "P40H", // Duração ISO 8601
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://rinaldosilva.com/escola-dons"
+    }
   }
 }
 
@@ -208,6 +223,165 @@ export const getEventStructuredData = (event: {
       "@type": "Organization",
       "name": "Ministério Bispo Rinaldo Silva",
       "url": "https://rinaldosilva.com"
+    },
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "offers": {
+      "@type": "Offer",
+      "url": event.url,
+      "price": "0",
+      "priceCurrency": "BRL",
+      "availability": "https://schema.org/InStock",
+      "validFrom": event.startDate
+    }
+  }
+}
+
+export const getFAQStructuredData = (faqs: { question: string; answer: string }[]) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  }
+}
+
+export const getOrganizationStructuredData = () => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ministério Bispo Rinaldo Silva",
+    "alternateName": "Igreja Impactados",
+    "url": "https://rinaldosilva.com",
+    "logo": "https://rinaldosilva.com/placeholder.svg?key=logo",
+    "sameAs": [
+      "https://www.facebook.com/bisporinaldosilva",
+      "https://www.instagram.com/bisporinaldosilva",
+      "https://www.youtube.com/bisporinaldosilva",
+      "https://twitter.com/bisporinaldosilva"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+55-11-99999-9999",
+        "contactType": "customer service",
+        "areaServed": "BR",
+        "availableLanguage": ["Portuguese"]
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Paulista, 1000",
+      "addressLocality": "São Paulo",
+      "addressRegion": "SP",
+      "postalCode": "01310-100",
+      "addressCountry": "BR"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Bispo Rinaldo Silva"
+    },
+    "description": "Ministério dedicado à transformação de vidas através da palavra de Deus e do poder do Espírito Santo."
+  }
+}
+
+export const getProductStructuredData = (product: {
+  name: string;
+  description: string;
+  url: string;
+  image: string;
+  price: string;
+  priceCurrency?: string;
+  availability?: string;
+  sku?: string;
+}) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.name,
+    "description": product.description,
+    "image": product.image,
+    "url": product.url,
+    "sku": product.sku || "SKU001",
+    "brand": {
+      "@type": "Brand",
+      "name": "Ministério Bispo Rinaldo Silva"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": product.url,
+      "price": product.price,
+      "priceCurrency": product.priceCurrency || "BRL",
+      "availability": product.availability || "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Ministério Bispo Rinaldo Silva"
+      }
+    }
+  }
+}
+
+export const getLocalBusinessStructuredData = () => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": "Igreja Impactados",
+    "image": "https://rinaldosilva.com/placeholder.svg?key=igreja",
+    "url": "https://impactados.com.br",
+    "telephone": "+55-11-99999-9999",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Paulista, 1000",
+      "addressLocality": "São Paulo",
+      "addressRegion": "SP",
+      "postalCode": "01310-100",
+      "addressCountry": "BR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -23.5505,
+      "longitude": -46.6333
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "10:00",
+        "closes": "12:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "18:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Wednesday"],
+        "opens": "19:30",
+        "closes": "21:30"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/igrejampactados",
+      "https://www.instagram.com/igrejampactados"
+    ],
+    "priceRange": "Gratuito",
+    "servesCuisine": "Spiritual",
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": -23.5505,
+        "longitude": -46.6333
+      },
+      "geoRadius": 50000
     }
   }
 } 

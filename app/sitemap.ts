@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString();
 
   const routes = [
+    // Páginas principais
     {
       url: `${baseUrl}/`,
       lastModified: currentDate,
@@ -23,6 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+
+    // Páginas de eventos específicos
     {
       url: `${baseUrl}/eventos/conferencia-impacto`,
       lastModified: currentDate,
@@ -35,6 +38,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/eventos/culto-especial-cura`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/eventos/retiro-familiar`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+
+    // Páginas informativas
     {
       url: `${baseUrl}/sobre`,
       lastModified: currentDate,
@@ -52,6 +69,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+
+    // Páginas específicas para SEO de palavras-chave "Rinaldo Silva"
+    {
+      url: `${baseUrl}/bispo-rinaldo-silva`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ministerio-rinaldo-silva`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/pregacoes-rinaldo-silva`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+
+    // Páginas legais e utilitárias
+    {
+      url: `${baseUrl}/termos-de-uso`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/politica-de-privacidade`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
 

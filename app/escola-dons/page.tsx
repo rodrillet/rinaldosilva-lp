@@ -27,13 +27,19 @@ import { Separator } from "@/components/ui/separator"
 import CountdownTimer from "./countdown-timer"
 import { TestimonialCard } from "./testimonial-card"
 import JsonLd from "@/app/components/json-ld"
-import { getEscolaDonsStructuredData, getBreadcrumbStructuredData, getWebsiteStructuredData } from "@/app/components/structured-data"
+import { 
+  getEscolaDonsStructuredData, 
+  getBreadcrumbStructuredData, 
+  getWebsiteStructuredData, 
+  getFAQStructuredData, 
+  getProductStructuredData 
+} from "@/app/components/structured-data"
 
 // Definindo os metadados para a página
 export const metadata = {
   title: "Escola de Dons | Bispo Rinaldo Silva | Desenvolva Seus Dons Espirituais",
   description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. A Escola de Dons é um curso completo com 5 módulos para transformar sua vida ministerial através do poder do Espírito Santo.",
-  keywords: "Escola de Dons, Bispo Rinaldo Silva, dons espirituais, ministério, cura, profecia, discernimento, línguas, fé sobrenatural, milagres",
+  keywords: "Escola de Dons, Bispo Rinaldo Silva, Rinaldo Silva, dons espirituais, ministério, cura, profecia, discernimento, línguas, fé sobrenatural, milagres, curso dons espirituais, desenvolvimento espiritual, Escola de Dons online, Rinaldo Silva cursos",
   openGraph: {
     title: "Escola de Dons | Bispo Rinaldo Silva",
     description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. Transforme sua vida ministerial com a Escola de Dons.",
@@ -49,7 +55,19 @@ export const metadata = {
         alt: "Escola de Dons | Bispo Rinaldo Silva"
       }
     ]
-  }
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Escola de Dons | Bispo Rinaldo Silva",
+    description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva",
+    images: ["/placeholder.svg?key=escola-dons-twitter"]
+  },
+  alternates: {
+    canonical: "https://rinaldosilva.com/escola-dons",
+  },
+  category: "Cursos, Educação Religiosa",
+  creator: "Bispo Rinaldo Silva",
+  publisher: "Ministério Bispo Rinaldo Silva",
 };
 
 // Componente para o card de problema
@@ -298,6 +316,17 @@ export default function EscolaDons() {
     },
   ]
 
+  // Dados para produto estruturado
+  const courseProductData = {
+    name: "Escola de Dons - Curso Completo",
+    description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. A Escola de Dons é um curso completo com 5 módulos para transformar sua vida ministerial através do poder do Espírito Santo.",
+    url: "https://rinaldosilva.com/escola-dons",
+    image: "https://rinaldosilva.com/placeholder.svg?key=escola-dons-og",
+    price: "97.00",
+    priceCurrency: "BRL",
+    sku: "ESCDON-001"
+  }
+
   // Dados para os itens não adequados
   const notForYouItems = [
     {
@@ -332,16 +361,18 @@ export default function EscolaDons() {
         ])}
       />
       <JsonLd data={getWebsiteStructuredData()} />
+      <JsonLd data={getFAQStructuredData(faqs)} />
+      <JsonLd data={getProductStructuredData(courseProductData)} />
       
-      {/* CTA Flutuante */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md py-3 border-t border-white/10 transform transition-transform duration-300 bg-gradient-to-r from-black/90 via-black/95 to-black/90">
+      {/* CTA Flutuante - com animação de pulso mais visível */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md py-4 border-t border-white/10 transform transition-transform duration-300 bg-gradient-to-r from-black via-black to-black shadow-lg">
         <div className="container px-4 sm:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-white text-sm sm:text-base">
-            <span className="text-gradient-primary font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
+            <span className="text-[#ff6b00] font-bold animate-pulse">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
           </div>
           <a href="#matricula">
-            <Button className="btn-shimmer bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white font-bold text-sm px-4 py-2 w-full sm:w-auto whitespace-nowrap shadow-lg border-none">
-              GARANTIR MINHA VAGA
+            <Button className="btn-shimmer bg-gradient-to-r from-[#ff6b00] to-[#ff9d00] hover:from-[#ff9d00] hover:to-[#ff6b00] text-white font-bold text-sm px-6 py-3 w-full sm:w-auto whitespace-nowrap shadow-xl border-none animate-pulse">
+              GARANTIR MINHA VAGA AGORA
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           </a>

@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata = {
   title: "Bispo Rinaldo Silva | Igreja Impactados | Ministério Oficial",
   description: "Site oficial do Bispo Rinaldo Silva, Bispo Sênior da Igreja Impactados. Conheça seu ministério, mensagens, eventos, conferências, e a renomada Escola de Dons. Transformando vidas há mais de 20 anos através da Palavra de Deus e do poder do Espírito Santo.",
-  keywords: "Rinaldo Silva, Bispo Rinaldo Silva, Igreja Impactados, Escola de Dons, ministério, pregações, conferências, eventos, dons espirituais, palavra de fé, cura, libertação, avivamento, Espírito Santo, milagres, transformação espiritual, São Paulo, Brasil",
+  keywords: "Rinaldo Silva, Bispo Rinaldo Silva, Pastor Rinaldo, Ministério Rinaldo Silva, Igreja Impactados, Escola de Dons, ministério, pregações, conferências, eventos, dons espirituais, palavra de fé, cura, libertação, avivamento, Espírito Santo, milagres, transformação espiritual, São Paulo, Brasil, Rinaldo Silva oficial, Bispo Rinaldo oficial, pregações Rinaldo Silva, eventos Rinaldo Silva, Escola de Dons Rinaldo Silva",
   author: "Bispo Rinaldo Silva",
   category: "Religião, Cristianismo, Ministério",
   creator: "Ministério Bispo Rinaldo Silva",
@@ -62,7 +62,19 @@ export const metadata = {
   },
   verification: {
     google: 'google-site-verification=suaverificacao', // Substituir pelo código real de verificação
+    yandex: 'yandex-verification',
+    bing: 'msvalidate.01',
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon-precomposed.png',
+    },
+  },
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({
@@ -73,8 +85,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.variable} font-sans`}>
         <ThemeProvider
