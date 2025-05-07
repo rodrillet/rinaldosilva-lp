@@ -39,44 +39,6 @@ import {
   getProductStructuredData,
 } from "@/app/components/structured-data"
 
-// Definindo os metadados para a página
-export const metadata = {
-  title: "Escola de Dons | Bispo Rinaldo Silva | Desenvolva Seus Dons Espirituais",
-  description:
-    "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. A Escola de Dons é um curso completo com 5 módulos para transformar sua vida ministerial através do poder do Espírito Santo.",
-  keywords:
-    "Escola de Dons, Bispo Rinaldo Silva, Rinaldo Silva, dons espirituais, ministério, cura, profecia, discernimento, línguas, fé sobrenatural, milagres, curso dons espirituais, desenvolvimento espiritual, Escola de Dons online, Rinaldo Silva cursos",
-  openGraph: {
-    title: "Escola de Dons | Bispo Rinaldo Silva",
-    description:
-      "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva. Transforme sua vida ministerial com a Escola de Dons.",
-    type: "website",
-    url: "https://rinaldosilva.com/escola-dons",
-    locale: "pt_BR",
-    siteName: "Ministério Bispo Rinaldo Silva",
-    images: [
-      {
-        url: "/placeholder.svg?key=escola-dons-og",
-        width: 1200,
-        height: 630,
-        alt: "Escola de Dons | Bispo Rinaldo Silva",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Escola de Dons | Bispo Rinaldo Silva",
-    description: "Descubra e desenvolva seus dons espirituais com o Bispo Rinaldo Silva",
-    images: ["/placeholder.svg?key=escola-dons-twitter"],
-  },
-  alternates: {
-    canonical: "https://rinaldosilva.com/escola-dons",
-  },
-  category: "Cursos, Educação Religiosa",
-  creator: "Bispo Rinaldo Silva",
-  publisher: "Ministério Bispo Rinaldo Silva",
-}
-
 // Componente principal
 export default function EscolaDons() {
   // Dados para os módulos do curso
