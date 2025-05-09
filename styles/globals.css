@@ -92,3 +92,132 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Otimização de recursos */
+.resources-loaded img {
+  will-change: transform, opacity;
+}
+
+/* Animações suaves com baixa carga de CPU */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 2s linear infinite;
+}
+
+/* Melhorias de responsividade */
+@media (max-width: 640px) {
+  :root {
+    --spacing-base: 1rem;
+  }
+  
+  .container {
+    padding-left: var(--spacing-base);
+    padding-right: var(--spacing-base);
+  }
+  
+  h1, h2, h3 {
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Prefira transformações GPU-aceleradas para animações */
+.transition-transform,
+.transition-all,
+.hover\:scale-105,
+.group-hover\:scale-110 {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Suaviza carregamento inicial da página */
+.page-transition-enter {
+  opacity: 0;
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.page-transition-exit {
+  opacity: 1;
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+/* Adicione estas regras para melhorar a acessibilidade */
+
+/* Melhorias de contraste para textos */
+.text-gray-300 {
+  color: #c7c7c7; /* Aumentando um pouco o contraste */
+}
+
+.text-gray-400 {
+  color: #b0b0b0; /* Aumentando um pouco o contraste */
+}
+
+/* Melhorias de foco para acessibilidade por teclado */
+[data-a11y-enhanced-focus]:focus {
+  outline: 2px solid #d4fb00 !important;
+  outline-offset: 2px !important;
+}
+
+/* Para usuários que preferem reduzir movimento */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-shine, 
+  .animate-pulse,
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+.js-enabled .reduce-motion *,
+.js-enabled .reduce-motion *::before, 
+.js-enabled .reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Melhorias para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

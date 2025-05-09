@@ -468,9 +468,9 @@ export default function Home() {
                 >
                   <CardContent className="p-8 space-y-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full overflow-hidden">
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
                         <Image
-                          src={`/pessoa.png?key=k54qw&key=elcjy&key=y7usg&key=height=100&width=100&query=pessoa ${index + 1} retrato`}
+                          src="/placeholder.svg"
                           alt={item.name}
                           width={48}
                           height={48}
