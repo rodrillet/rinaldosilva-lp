@@ -1,13 +1,32 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { ChevronRight, Award, Users, Heart, BookOpen, Zap, MessageCircle, ShieldCheck, GraduationCap, CheckCircle2, Menu, Gift } from "lucide-react"
+import { 
+  ChevronRight, 
+  Award, 
+  Users, 
+  Heart, 
+  BookOpen, 
+  Zap, 
+  MessageCircle, 
+  ShieldCheck, 
+  GraduationCap, 
+  CheckCircle2, 
+  Menu, 
+  Gift,
+  Play,
+  ArrowRight,
+  Clock,
+  X,
+  Calendar
+} from "lucide-react"
 
 // Efeito de brilho para elementos de destaque
 function ShineEffect({ className = "" }: { className?: string }) {
@@ -19,6 +38,13 @@ function ShineEffect({ className = "" }: { className?: string }) {
 }
 
 export default function EscolaMinisterialPage() {
+  const [videoModalOpen, setVideoModalOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const openVideoModal = () => setVideoModalOpen(true)
+  const closeVideoModal = () => setVideoModalOpen(false)
+  const toggleMenu = () => setMenuOpen(!menuOpen)
+
   const beneficios = [
     {
       icon: GraduationCap,
@@ -89,319 +115,514 @@ export default function EscolaMinisterialPage() {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 overflow-x-hidden max-w-[100vw] relative text-white">
-      {/* Banner de urgência */}
-      <div className="bg-gradient-to-r from-[#efc100] to-[#d4a500] text-black py-1.5 text-center relative overflow-hidden">
-        <div className="container mx-auto px-4">
-          <p className="text-xs sm:text-sm font-bold">
-            ⏰ Últimas vagas disponíveis! Oferta especial por tempo limitado
-            <a href="#inscricao" className="underline font-bold ml-1 sm:ml-2 hover:text-white transition-colors">
-              Garantir minha vaga
-            </a>
-          </p>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 animate-shine"></div>
-      </div>
-      
-      {/* CTA Flutuante */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-r from-black/90 to-black/95 backdrop-blur-md py-2 sm:py-3 border-t border-gray-800 transform transition-transform duration-300 shadow-lg shadow-black/30">
-        <div className="container px-2 sm:px-6 mx-auto flex flex-row items-center justify-between gap-2 sm:gap-3">
-          <div className="flex flex-col">
-            <div className="text-white text-[10px] sm:text-xs md:text-sm font-medium">
-              <span className="text-[#efc100] font-bold">Oferta exclusiva:</span>
+    <div className="min-h-screen bg-white">
+      {/* Header Navigation */}
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+        <div className="container mx-auto px-4 flex justify-between items-center h-16">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 bg-blue-700 rounded-lg flex items-center justify-center">
+              <span className="text-white font-semibold text-lg">RS</span>
             </div>
-            <div className="text-white text-xs sm:text-sm font-bold">
-              R$ <span className="text-[#efc100]">247,00</span> <span className="text-gray-400 line-through text-[10px]">R$ 397,00</span>
-            </div>
-          </div>
-          <a href="#inscricao">
-            <Button className="relative overflow-hidden bg-[#efc100] text-black hover:bg-[#d4a500] font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap shadow-md shadow-black/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/30 hover:scale-105">
-              GARANTIR VAGA AGORA
-              <ChevronRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
-              <ShineEffect />
-            </Button>
-          </a>
-        </div>
-      </div>
-
-      {/* Header/Navigation */}
-      <header
-        id="top"
-        className="sticky top-0 z-50 w-full backdrop-blur-md bg-gradient-to-r from-black/80 to-black/70 border-b border-gray-800 supports-[backdrop-filter]:bg-black/40 shadow-md shadow-black/10"
-      >
-        <div className="container px-4 sm:px-6 mx-auto flex h-14 sm:h-16 items-center justify-between">
-          <div className="flex items-center gap-1.5 sm:gap-2 font-bold text-base sm:text-xl">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#efc100] to-[#d4a500] flex items-center justify-center text-black shadow-md shadow-[#efc100]/20 text-xs sm:text-base">
-              RS
-            </div>
-            <span className="text-white">Escola Ministerial</span>
-          </div>
-
-          {/* Menu para desktop */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-            <a
-              href="#sobre"
-              className="text-sm font-medium text-white hover:text-[#efc100] transition-colors hover:scale-105 transform duration-200"
-            >
+            <span className="font-semibold text-gray-800 text-lg">Escola Ministerial</span>
+          </Link>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            <Link href="#sobre" className="text-gray-600 hover:text-blue-700 transition-colors">
               Sobre
-            </a>
-            <a
-              href="#beneficios"
-              className="text-sm font-medium text-white hover:text-[#efc100] transition-colors hover:scale-105 transform duration-200"
-            >
-              Benefícios
-            </a>
-            <a
-              href="#transformacoes"
-              className="text-sm font-medium text-white hover:text-[#efc100] transition-colors hover:scale-105 transform duration-200"
-            >
-              Transformações
-            </a>
-            <a
-              href="#mentor"
-              className="text-sm font-medium text-white hover:text-[#efc100] transition-colors hover:scale-105 transform duration-200"
-            >
+            </Link>
+            <Link href="#programa" className="text-gray-600 hover:text-blue-700 transition-colors">
+              Programa
+            </Link>
+            <Link href="#mentor" className="text-gray-600 hover:text-blue-700 transition-colors">
               Mentor
-            </a>
-            <a
-              href="#faq"
-              className="text-sm font-medium text-white hover:text-[#efc100] transition-colors hover:scale-105 transform duration-200"
-            >
+            </Link>
+            <Link href="#faq" className="text-gray-600 hover:text-blue-700 transition-colors">
               FAQ
-            </a>
-          </nav>
-
-          {/* Botão de menu para mobile e botão de CTA */}
-          <div className="flex items-center gap-2">
-            <a href="#inscricao" className="md:hidden">
-              <Button className="relative overflow-hidden bg-[#efc100] text-black hover:bg-[#d4a500] font-medium shadow-md text-xs px-2.5 py-1 transition-all duration-300 hover:shadow-lg hover:scale-105">
-                Inscrever
-                <ChevronRight className="ml-1 h-3.5 w-3.5" />
-              </Button>
-            </a>
-            
-            <div className="md:hidden">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white/10 hover:text-[#efc100] transition-all duration-200 h-8 w-8"
-              >
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Abrir menu</span>
-              </Button>
-            </div>
-
-            <a href="#inscricao" className="hidden md:block">
-              <Button className="relative overflow-hidden bg-[#efc100] text-black hover:bg-[#d4a500] font-medium shadow-md text-sm px-4 py-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
+            </Link>
+            <Link href="#inscricao">
+              <Button className="bg-blue-700 hover:bg-blue-800 text-white font-medium">
                 Inscrever-se
-                <ChevronRight className="ml-1 h-4 w-4" />
-                <ShineEffect />
               </Button>
-            </a>
+            </Link>
+          </nav>
+          
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              className="text-gray-600 p-2 focus:outline-none"
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
+        
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden absolute w-full bg-white border-b border-gray-100 shadow-md z-50">
+            <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
+              <Link 
+                href="#sobre" 
+                className="text-gray-600 hover:text-blue-700 py-2 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Sobre
+              </Link>
+              <Link 
+                href="#programa" 
+                className="text-gray-600 hover:text-blue-700 py-2 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Programa
+              </Link>
+              <Link 
+                href="#mentor" 
+                className="text-gray-600 hover:text-blue-700 py-2 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Mentor
+              </Link>
+              <Link 
+                href="#faq" 
+                className="text-gray-600 hover:text-blue-700 py-2 transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                FAQ
+              </Link>
+              <Link 
+                href="#inscricao" 
+                className="bg-blue-700 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded text-center"
+                onClick={() => setMenuOpen(false)}
+              >
+                Inscrever-se
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
-      <section id="sobre" className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-black text-white">
-        <div className="absolute inset-0 opacity-70">
-          <Image
-            src="/rinaldo-silva-profile.jpeg"
-            alt="Ministério Rinaldo Silva"
-            fill
-            className="object-cover"
-            priority={true}
-            sizes="100vw"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>
-
-        {/* Elemento decorativo de iluminação */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#efc100]/20 rounded-full blur-[100px] opacity-40"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#efc100]/20 rounded-full blur-[100px] opacity-30"></div>
-
-        <div className="container px-4 sm:px-6 mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 text-center lg:text-left">
-              <Badge className="bg-gradient-to-r from-[#efc100] to-[#d4a500] hover:from-[#efc100] hover:to-[#e5b800] text-black px-4 py-1 text-sm rounded-full shadow-lg shadow-[#efc100]/20">
-                Matrículas Abertas
-              </Badge>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-tight">
-                Cresça em sua caminhada rumo ao chamado de todo cristão: <span className="text-[#efc100]">Ser igual a Jesus</span>
+      <section className="relative py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            {/* Left content */}
+            <div className="lg:w-1/2 max-w-xl">
+              <div className="mb-6">
+                <Badge className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                  Matrículas Abertas
+                </Badge>
+              </div>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 mb-6">
+                Cresça em sua caminhada rumo ao chamado de todo cristão
               </h1>
-              <p className="text-base md:text-lg text-gray-300 max-w-[600px] mx-auto lg:mx-0">
-                Encontre o seu propósito ministerial com aulas 100% online e ao vivo, conduzidas por um líder experiente e ungido.
+              <p className="text-xl text-gray-600 mb-8">
+                Encontre o seu propósito ministerial com aulas 100% online e ao vivo, 
+                conduzidas por um líder experiente e ungido.
               </p>
-              <div className="flex justify-center lg:justify-start">
+              
+              {/* CTA buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <a href="#inscricao" className="w-full sm:w-auto">
-                  <Button
-                    size="lg"
-                    className="relative overflow-hidden bg-gradient-to-r from-[#efc100] to-[#d4a500] hover:from-[#e5b800] hover:to-[#c99900] text-black px-6 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full transition-all duration-300 hover:shadow-lg hover:shadow-[#efc100]/30 hover:scale-105 scale-100"
-                  >
-                    <span className="hidden sm:inline">Quero Desenvolver Meu Ministério</span>
-                    <span className="inline sm:hidden">Desenvolver Meu Ministério</span>
-                    <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
-                    <ShineEffect />
+                  <Button className="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg px-6 py-3 rounded-lg transition-all">
+                    Fazer Inscrição
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </a>
+                <button 
+                  onClick={openVideoModal}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 text-blue-700 hover:text-blue-800 font-medium text-lg px-6 py-3 rounded-lg border border-blue-200 hover:border-blue-300 bg-blue-50 hover:bg-blue-100 transition-all"
+                >
+                  <Play className="h-5 w-5" />
+                  Ver Apresentação
+                </button>
               </div>
-              <div className="flex items-center justify-center lg:justify-start pt-4">
-                <div className="text-sm">
-                  <span className="text-[#efc100] font-bold">+1.000 alunos</span> já transformaram seus ministérios
+              
+              {/* Credibility indicators */}
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-blue-700" />
+                  <span className="text-gray-600">
+                    <strong className="text-blue-700">+1.000</strong> alunos formados
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-blue-700" />
+                  <span className="text-gray-600">
+                    <strong className="text-blue-700">50+</strong> aulas em 1 ano
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Award className="h-5 w-5 text-blue-700" />
+                  <span className="text-gray-600">
+                    <strong className="text-blue-700">Certificado</strong> incluso
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5 text-blue-700" />
+                  <span className="text-gray-600">
+                    <strong className="text-blue-700">Suporte</strong> via grupo
+                  </span>
                 </div>
               </div>
             </div>
-            <div className="relative mx-auto lg:mx-0 max-w-md w-full" id="inscricao">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#efc100]/40 to-[#d4a500]/20 rounded-2xl -rotate-3 shadow-xl shadow-black/30"></div>
-              <Card className="relative border-none rounded-2xl overflow-hidden shadow-2xl bg-gray-800/95 backdrop-blur-md text-white border border-gray-700">
-                <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-                  <div className="bg-gradient-to-r from-black to-gray-800 text-white p-3 sm:p-4 -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 mb-4 sm:mb-6 text-center shadow-md border-b border-gray-700">
-                    <h3 className="font-bold text-base sm:text-xl">Matrícula - Vagas Limitadas</h3>
+            
+            {/* Right content - Hero image */}
+            <div className="lg:w-1/2 relative">
+              <div className="absolute -top-5 -left-5 w-20 h-20 bg-yellow-300 rounded-full opacity-20"></div>
+              <div className="absolute -bottom-5 -right-5 w-32 h-32 bg-blue-300 rounded-full opacity-20"></div>
+              <div className="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-2 md:p-4 shadow-lg">
+                <div className="relative aspect-video overflow-hidden rounded-xl">
+                  <Image 
+                    src="/rinaldo-silva-profile.jpeg" 
+                    alt="Escola Ministerial" 
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+                    <h3 className="text-white text-xl font-bold">Seja igual a Jesus e faça os milagres que Ele fez!</h3>
+                    <p className="text-gray-200 mt-2">Bispo Rinaldo Silva</p>
                   </div>
-                  <div className="space-y-3 sm:space-y-4">
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#efc100] mt-0.5 shrink-0" />
-                      <p className="text-sm sm:text-base">Aulas 100% online — assista quando e onde quiser</p>
-                    </div>
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#efc100] mt-0.5 shrink-0" />
-                      <p className="text-sm sm:text-base">Encontros semanais ao vivo com o Bispo Rinaldo Silva</p>
-                    </div>
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#efc100] mt-0.5 shrink-0" />
-                      <p className="text-sm sm:text-base">Mais de 50 aulas durante 1 ano</p>
-                    </div>
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#efc100] mt-0.5 shrink-0" />
-                      <p className="text-sm sm:text-base">Suporte gratuito + material de estudo</p>
-                    </div>
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#efc100] mt-0.5 shrink-0" />
-                      <p className="text-sm sm:text-base">Certificado de conclusão</p>
-                    </div>
-                    <div className="flex items-start gap-2 sm:gap-3">
-                      <Gift className="h-4 w-4 sm:h-5 sm:w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
-                      <div>
-                        <p className="font-bold text-sm sm:text-base">BÔNUS: Grupo exclusivo com o Bispo Rinaldo</p>
-                        <span className="text-red-400 text-xs sm:text-sm block">Apenas para as próximas 48h</span>
-                      </div>
-                    </div>
+                </div>
+                
+                {/* Featured info */}
+                <div className="flex items-center gap-2 mt-4 bg-white p-3 rounded-lg shadow">
+                  <div className="bg-blue-700 p-2 rounded-md text-white">
+                    <Clock className="h-5 w-5" />
                   </div>
-                  <div className="pt-2 sm:pt-4 space-y-2 sm:space-y-3">
-                    <div className="text-center">
-                      <span className="text-gray-400 line-through text-base sm:text-lg">De R$ 397,00</span>
-                      <div className="text-2xl sm:text-3xl font-bold text-white">Por apenas R$ 247,00</div>
-                      <div className="text-xs sm:text-sm text-gray-400">ou 12x de R$ 24,80</div>
+                  <div>
+                    <p className="text-sm text-gray-600">Promoção por tempo limitado</p>
+                    <p className="font-bold text-gray-900">
+                      <span className="line-through text-gray-400 mr-2">R$ 397,00</span>
+                      R$ 247,00
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Video Modal */}
+      {videoModalOpen && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="relative bg-white rounded-xl w-full max-w-3xl">
+            <button 
+              onClick={closeVideoModal}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+            >
+              <X size={24} />
+              <span className="sr-only">Fechar</span>
+            </button>
+            <div className="aspect-video w-full bg-gray-100 rounded-t-xl overflow-hidden">
+              {/* Aqui viria uma tag de iframe de vídeo real */}
+              <div className="flex items-center justify-center h-full text-gray-500">
+                Vídeo de apresentação da Escola Ministerial
+              </div>
+            </div>
+            <div className="p-4">
+              <h3 className="font-bold text-lg text-gray-900">Conheça a Escola Ministerial</h3>
+              <p className="text-gray-600">Com o Bispo Rinaldo Silva</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Programa Section */}
+      <section id="programa" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Programa da Escola Ministerial
+            </h2>
+            <p className="text-lg text-gray-600">
+              Um treinamento completo que vai transformar sua vida ministerial e te preparar 
+              para impactar vidas através do poder do Espírito Santo.
+            </p>
+          </div>
+          
+          <div className="grid gap-6 max-w-4xl mx-auto">
+            {beneficios.map((beneficio, index) => (
+              <Card key={index} className="overflow-hidden border-0 shadow-md hover:shadow-lg transition-all">
+                <CardContent className="p-0">
+                  <div className="flex flex-col md:flex-row">
+                    <div className="md:w-1/4 bg-blue-700 p-6 flex justify-center items-center">
+                      {React.createElement(beneficio.icon, { className: "h-12 w-12 text-white" })}
                     </div>
-                    <Button className="relative overflow-hidden bg-gradient-to-r from-[#efc100] to-[#d4a500] hover:from-[#e5b800] hover:to-[#c99900] text-black w-full h-10 sm:h-12 text-sm font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
-                      <span className="hidden sm:inline">FAÇA SUA INSCRIÇÃO AGORA</span>
-                      <span className="inline sm:hidden">INSCREVER AGORA</span>
-                      <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                      <ShineEffect />
-                    </Button>
-                    <div className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
-                      <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4a500]" />
-                      <span>Pagamento 100% seguro</span>
+                    <div className="md:w-3/4 p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">{beneficio.title}</h3>
+                      <p className="text-gray-600">{beneficio.description}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+          
+          <div className="mt-12 text-center">
+            <a href="#inscricao">
+              <Button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold text-lg px-8 py-3 rounded-lg transition-all">
+                Quero Participar
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+      
+      {/* Transformações Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="lg:w-1/2">
+              <Image 
+                src="/rinaldo-silva-profile.jpeg"
+                alt="Transformações Ministeriais"
+                width={540}
+                height={400}
+                className="rounded-xl shadow-lg object-cover"
+              />
+            </div>
+            <div className="lg:w-1/2">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Ao final da Escola Ministerial, você será capaz de:
+              </h2>
+              <div className="space-y-4">
+                {transformacoes.map((transformacao, index) => (
+                  <div key={index} className="flex gap-3 items-start">
+                    <div className="bg-blue-100 text-blue-700 p-1 rounded-full mt-0.5">
+                      <CheckCircle2 className="h-5 w-5" />
+                    </div>
+                    <p className="text-lg text-gray-700">{transformacao}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <a href="#inscricao">
+                  <Button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded-lg transition-all">
+                    Quero Me Transformar
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Benefícios */}
-      <section id="beneficios" className="container mx-auto py-12 px-4 max-w-4xl">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-[#efc100]">O que você recebe ao se inscrever:</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-          {beneficios.map((b, i) => (
-            <Card key={i} className="bg-gray-800 border-none shadow-md hover:shadow-xl transition-all duration-300 border border-gray-700">
-              <CardContent className="p-6 flex flex-col items-center text-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#efc100] to-[#d4a500] flex items-center justify-center mb-2">
-                  {React.createElement(b.icon, { className: "h-6 w-6 text-black" })}
+      {/* Mentor Section */}
+      <section id="mentor" className="py-16 bg-blue-50 relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+              <div className="flex flex-col md:flex-row">
+                {/* Mentor Image */}
+                <div className="md:w-2/5 relative">
+                  <div className="h-full">
+                    <Image 
+                      src="/rinaldo-silva-profile.jpeg"
+                      alt="Bispo Rinaldo Silva"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent flex flex-col justify-end p-6 md:hidden">
+                    <h2 className="text-2xl font-bold text-white">Bispo Rinaldo Silva</h2>
+                    <p className="text-blue-100">Seu Mentor</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-[#efc100]">{b.title}</h3>
-                <p className="text-gray-200 text-sm">{b.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Transformações Prometidas */}
-      <section id="transformacoes" className="bg-gray-950 py-12 px-4">
-        <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-[#efc100]">Ao final da Escola Ministerial, você será capaz de:</h2>
-          <ul className="grid gap-4 text-lg text-gray-100 mb-8">
-            {transformacoes.map((t, i) => (
-              <li key={i} className="flex items-center gap-3 justify-center">
-                <CheckCircle2 className="text-[#efc100] w-6 h-6 shrink-0" />
-                {t}
-              </li>
-            ))}
-          </ul>
-          <a href="#inscricao">
-            <Button className="relative overflow-hidden bg-gradient-to-r from-[#efc100] to-[#d4a500] hover:from-[#e5b800] hover:to-[#c99900] text-black font-bold text-lg px-8 py-4 shadow-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#efc100]/30 hover:scale-105">
-              QUERO VIVER ESSA TRANSFORMAÇÃO
-              <ChevronRight className="ml-2 h-5 w-5" />
-              <ShineEffect />
-            </Button>
-          </a>
-        </div>
-      </section>
-
-      {/* Sobre o Mentor */}
-      <section id="mentor" className="container mx-auto py-12 px-4 max-w-4xl flex flex-col md:flex-row items-center gap-8">
-        <div className="flex-1 flex justify-center">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#efc100]/40 to-[#d4a500]/20 rounded-full -rotate-3 shadow-xl shadow-black/30"></div>
-            <Image src="/rinaldo-silva-profile.jpeg" alt="Bispo Rinaldo Silva" width={220} height={220} className="relative rounded-full border-4 border-[#efc100] shadow-lg object-cover" />
+                
+                {/* Mentor Info */}
+                <div className="md:w-3/5 p-6 md:p-8">
+                  <div className="hidden md:block mb-4">
+                    <h2 className="text-3xl font-bold text-gray-900">Bispo Rinaldo Silva</h2>
+                    <p className="text-blue-700 font-medium">Seu Mentor</p>
+                  </div>
+                  
+                  <div className="prose prose-blue">
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Nascido em:</strong> 05/02/1994</li>
+                      <li><strong>Família:</strong> Casado com Cecília Silva, pai da Manuela e do Enrico</li>
+                      <li><strong>Bispo Sênior:</strong> Igreja Impactados</li>
+                      <li><strong>Empreendedor:</strong> Graduado em Teologia e Filosofia</li>
+                      <li><strong>Conferencista internacional:</strong> Mais de 40 países</li>
+                      <li><strong>Ministro da palavra:</strong> Desde os 7 anos</li>
+                      <li><strong>Sinais, milagres e salvação:</strong> Testemunhados ao longo de seu ministério</li>
+                    </ul>
+                    
+                    <p className="mt-4 text-gray-700">
+                      O Bispo Rinaldo Silva é reconhecido por sua paixão em formar líderes e equipar cristãos 
+                      para viverem o sobrenatural de Deus de forma prática e transformadora.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex-1">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-[#efc100]">Seu Mentor: Bispo Rinaldo Silva</h2>
-          <ul className="text-gray-100 text-lg mb-4 space-y-1">
-            <li><b>Nascido em:</b> 05/02/1994</li>
-            <li><b>Família:</b> Casado com Cecília Silva, pai da Manuela e do Enrico</li>
-            <li><b>Bispo Sênior:</b> Igreja Impactados</li>
-            <li><b>Empreendedor:</b> Graduado em Teologia e Filosofia</li>
-            <li><b>Conferencista internacional:</b> Mais de 40 países</li>
-            <li><b>Ministro da palavra:</b> Desde os 7 anos</li>
-            <li><b>Sinais, milagres e salvação:</b> Testemunhados ao longo de seu ministério</li>
-          </ul>
-          <p className="text-gray-300 text-base">O Bispo Rinaldo Silva é reconhecido por sua paixão em formar líderes e equipar cristãos para viverem o sobrenatural de Deus de forma prática e transformadora.</p>
-        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute top-1/4 -left-32 w-64 h-64 bg-blue-200 rounded-full opacity-50"></div>
+        <div className="absolute bottom-1/4 -right-32 w-64 h-64 bg-blue-200 rounded-full opacity-50"></div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="bg-gray-950 py-12 px-4">
-        <div className="container mx-auto max-w-3xl">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-[#efc100] text-center">Dúvidas Frequentes</h2>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem value={faq.question} key={i} className="border-b border-gray-800">
-                <AccordionTrigger className="text-lg text-[#efc100]">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-gray-200 text-base">{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+      {/* FAQ Section */}
+      <section id="faq" className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Dúvidas Frequentes</h2>
+              <p className="text-lg text-gray-600">
+                Tudo o que você precisa saber sobre a Escola Ministerial
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-sm divide-y divide-gray-200">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem value={faq.question} key={index} className="border-b-0">
+                    <AccordionTrigger className="py-4 px-6 text-left text-lg text-gray-900 hover:text-blue-700 font-medium">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 pb-4 text-gray-600">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+            
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 mb-4">
+                Ainda tem dúvidas? Entre em contato conosco
+              </p>
+              <a href="#inscricao">
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded-lg transition-all">
+                  Quero Garantir Minha Vaga
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* CTA Final */}
-      <section className="w-full py-16 px-4 bg-gradient-to-br from-[#efc100] via-[#e5b800] to-[#d4a500] text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 animate-shine"></div>
-        <div className="container mx-auto max-w-2xl flex flex-col items-center justify-center relative">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-900">Garanta sua vaga em um ambiente seguro e espiritual</h2>
-          <p className="text-lg text-gray-800 mb-8 font-medium">Clique no botão abaixo e faça sua inscrição agora mesmo para transformar sua vida ministerial!</p>
-          <Button className="relative overflow-hidden bg-gray-900 hover:bg-gray-800 text-[#efc100] font-bold text-lg px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:shadow-lg hover:scale-105">
-            FAÇA SUA INSCRIÇÃO AGORA
-            <ChevronRight className="ml-2 h-5 w-5" />
-            <ShineEffect />
-          </Button>
+      
+      {/* Inscrição Section */}
+      <section id="inscricao" className="py-16 bg-blue-700 text-white relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <Badge className="bg-blue-800 text-blue-100 px-3 py-1 rounded-full">
+                Matrículas Abertas
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">
+                Garanta sua vaga em um ambiente seguro e espiritual
+              </h2>
+              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                Faça sua inscrição agora e comece sua jornada rumo a um ministério transformador!
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              {/* Benefits Recap */}
+              <div>
+                <div className="bg-blue-800/50 rounded-xl p-6">
+                  <h3 className="text-xl font-bold mb-4">O que você vai receber:</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-blue-100 shrink-0 mt-0.5" />
+                      <span>Aulas 100% online — assista quando e onde quiser</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-blue-100 shrink-0 mt-0.5" />
+                      <span>Encontros semanais ao vivo com o Bispo Rinaldo Silva</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-blue-100 shrink-0 mt-0.5" />
+                      <span>Mais de 50 aulas durante 1 ano</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-blue-100 shrink-0 mt-0.5" />
+                      <span>Suporte gratuito + material de estudo</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-blue-100 shrink-0 mt-0.5" />
+                      <span>Certificado de conclusão</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Gift className="h-5 w-5 text-yellow-300 shrink-0 mt-0.5 animate-pulse" />
+                      <div>
+                        <p className="font-bold">BÔNUS: Grupo exclusivo com o Bispo Rinaldo</p>
+                        <span className="text-blue-200 text-sm">Apenas para as próximas 48h</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              {/* Signup Card */}
+              <div>
+                <Card className="overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="p-6 bg-blue-800 text-center">
+                      <h3 className="text-xl font-bold text-white">Inscrição - Escola Ministerial</h3>
+                    </div>
+                    <div className="p-6 bg-white text-gray-800">
+                      <div className="mb-6 text-center">
+                        <p className="text-gray-500 text-sm uppercase font-semibold">Investimento único</p>
+                        <div className="flex justify-center items-center mt-2">
+                          <span className="text-gray-400 line-through mr-2">R$ 397,00</span>
+                          <span className="text-3xl font-bold text-gray-900">R$ 247,00</span>
+                        </div>
+                        <p className="text-gray-500 text-sm mt-1">ou 12x de R$ 24,80</p>
+                      </div>
+                      
+                      <Button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold text-lg py-3 rounded-lg transition-all">
+                        FAZER MINHA INSCRIÇÃO
+                      </Button>
+                      
+                      <div className="mt-4 flex justify-center items-center gap-2 text-sm text-gray-500">
+                        <ShieldCheck className="h-4 w-4 text-blue-700" />
+                        <span>Pagamento 100% seguro</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full bg-blue-600 opacity-30 [mask-image:radial-gradient(350px_circle_at_top_right,transparent_20%,#fff)]"></div>
+        <div className="absolute bottom-0 right-0 w-full h-full bg-blue-600 opacity-30 [mask-image:radial-gradient(350px_circle_at_bottom_left,transparent_20%,#fff)]"></div>
       </section>
+      
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 bg-blue-700 rounded-lg flex items-center justify-center">
+                <span className="text-white font-semibold text-lg">RS</span>
+              </div>
+              <div>
+                <p className="font-semibold">Escola Ministerial</p>
+                <p className="text-sm text-gray-400">Bispo Rinaldo Silva</p>
+              </div>
+            </div>
+            
+            <div className="text-center md:text-right">
+              <p className="text-sm text-gray-400">
+                &copy; {new Date().getFullYear()} Rinaldo Silva. Todos os direitos reservados.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 } 
