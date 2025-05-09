@@ -8,12 +8,11 @@ import {
   BookOpen,
   Brain,
   CheckCircle2,
-  ChevronRight,
   Flame,
   GraduationCap,
   Heart,
+  type LucideIcon,
   MessageCircle,
-  PlayCircle,
   ShieldCheck,
   Star,
   Users,
@@ -22,25 +21,49 @@ import {
   Clock,
   Menu,
   ArrowRight,
+  Award,
   Gift,
-  Lock,
+  Mail,
+  Phone,
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
+  PlayCircle,
 } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import CountdownTimer from "./countdown-timer"
-import { TestimonialCard } from "./testimonial-card"
-import JsonLd from "@/app/components/json-ld"
-import {
-  getEscolaDonsStructuredData,
-  getBreadcrumbStructuredData,
-  getWebsiteStructuredData,
-  getFAQStructuredData,
-  getProductStructuredData,
-} from "@/app/components/structured-data"
+import { useEffect, useState } from "react"
+
+// Componente para o card de problema
+function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
+  return (
+    <Card className="border-none rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 bg-gray-800 border border-gray-700">
+      <CardContent className="p-6 flex items-start gap-4">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center shrink-0">
+          {React.createElement(icon, { className: "h-6 w-6 text-black" })}
+        </div>
+        <div>
+          <h3 className="text-lg font-bold mb-1 text-white">{title}</h3>
+          <p className="text-gray-300">{description}</p>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+// Efeito de brilho para elementos de destaque
+function ShineEffect({ className = "" }: { className?: string }) {
+  return (
+    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+      <div className="absolute -inset-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50 animate-shine"></div>
+    </div>
+  )
+}
 
 // Componente principal
-export default function EscolaDons() {
+export default function EscolaDonsDark() {
   // Dados para os módulos do curso
   const courseModules = [
     {
@@ -200,13 +223,24 @@ export default function EscolaDons() {
   const testimonials = [
     {
       name: "Carlos Oliveira",
-      role: "Pastor e Líder de Jovens",
+      role: "Pastor Auxiliar",
       location: "São Paulo, SP",
       testimony:
-        "A Escola de Dons transformou completamente meu ministério. Antes eu tinha medo de orar pelos enfermos, hoje vejo milagres acontecendo toda semana na minha congregação.",
-      result: "Implementou um ministério de cura que já atendeu mais de 500 pessoas",
+        "A Escola de Dons mudou completamente minha visão ministerial. Descobri dons que nem sabia que tinha e hoje lidero um ministério de intercessão na minha igreja com mais de 50 pessoas.",
+      result: "Crescimento de 200% no ministério de intercessão em 3 meses",
       isVideo: false,
-      videoThumbnail: "/images/rinaldo-silva-3.jpeg",
+      imageQuery: "pastor brasileiro homem 40 anos",
+    },
+    {
+      name: "Mariana Santos",
+      role: "Líder de Jovens",
+      location: "Rio de Janeiro, RJ",
+      testimony:
+        "Sempre soube que tinha um chamado para trabalhar com jovens, mas não sabia como desenvolver isso. A Escola de Dons me deu as ferramentas práticas para identificar e aperfeiçoar meus dons de ensino e pastoreio.",
+      result: "50 jovens batizados após aplicar os princípios do curso",
+      isVideo: true,
+      videoThumbnail: "/placeholder.svg?key=z6663",
+      imageQuery: "jovem lider igreja brasileira mulher 30 anos",
     },
     {
       name: "Roberto Almeida",
@@ -216,73 +250,49 @@ export default function EscolaDons() {
         "Como empresário, não imaginava como poderia usar meus dons na igreja. Através da Escola de Dons, descobri que meu dom de administração poderia impactar significativamente o Reino de Deus.",
       result: "Reestruturou toda administração da igreja local com excelência",
       isVideo: false,
-      isWhatsApp: false,
-      whatsappImage: "/images/rinaldo-silva-2.jpeg",
-    },
-    {
-      name: "Márcia Santana",
-      role: "Professora e Líder de Célula",
-      location: "Rio de Janeiro, RJ",
-      testimony:
-        "Sempre tive um chamado para interceder, mas não sabia como desenvolver isso de forma eficaz. O curso me deu ferramentas práticas que transformaram minha vida de oração.",
-      result: "Formou uma equipe de intercessão com mais de 40 pessoas",
-      isVideo: false,
-      isWhatsApp: false,
-      whatsappImage: "/images/rinaldo-silva-1.jpeg",
+      isWhatsApp: true,
+      whatsappImage: "/placeholder.svg?key=lvq8i",
+      imageQuery: "empresário brasileiro cristão 45 anos",
     },
   ]
 
   // Dados para as perguntas frequentes
   const faqs = [
     {
-      question: "Como funciona o acesso ao curso?",
-      answer:
-        "O acesso é 100% online através de uma plataforma exclusiva. Após a confirmação do pagamento, você receberá um e-mail com suas credenciais de acesso. O conteúdo fica disponível por 1 ano.",
+      question: "Quanto tempo terei acesso ao curso?",
+      answer: "Você terá acesso vitalício a todo o conteúdo da Escola de Dons, incluindo atualizações futuras.",
     },
     {
-      question: "Preciso ter experiência prévia com os dons espirituais?",
+      question: "Preciso ter conhecimento prévio sobre dons espirituais?",
       answer:
-        "Não, o curso é desenhado tanto para iniciantes quanto para líderes experientes. Você aprenderá desde os fundamentos básicos até técnicas avançadas de ministração.",
+        "Não, o curso foi desenvolvido para atender desde iniciantes até pessoas com conhecimento avançado sobre o tema.",
     },
     {
-      question: "O curso possui certificado?",
+      question: "Como funciona o acesso ao conteúdo?",
       answer:
-        "Sim, após a conclusão de todos os módulos, você receberá um certificado digital que poderá ser usado para comprovar sua formação ministerial.",
+        "Após a confirmação do pagamento, você receberá um e-mail com as instruções de acesso à plataforma onde todo o conteúdo estará disponível.",
     },
     {
-      question: "Terei acesso ao Bispo Rinaldo Silva durante o curso?",
+      question: "Posso assistir as aulas pelo celular?",
       answer:
-        "Sim, além das aulas gravadas, realizamos encontros ao vivo mensais onde o Bispo responde perguntas e ministra diretamente aos alunos.",
+        "Sim, nossa plataforma é responsiva e você pode acessar todo o conteúdo pelo computador, tablet ou smartphone.",
     },
     {
-      question: "Posso assistir as aulas do meu celular?",
+      question: "O certificado é reconhecido?",
       answer:
-        "Sim, a plataforma é 100% responsiva e funciona em qualquer dispositivo - computador, tablet ou smartphone.",
+        "Sim, você receberá um certificado de conclusão emitido pelo Ministério do Bispo Rinaldo Silva, reconhecido por diversas denominações.",
     },
     {
-      question: "Quanto tempo tenho para assistir ao curso?",
+      question: "Como funciona a garantia de 7 dias?",
       answer:
-        "Você terá acesso ao conteúdo por 12 meses, podendo assistir no seu próprio ritmo e revisar as aulas quantas vezes quiser dentro deste período.",
+        "Se você não ficar satisfeito com o curso por qualquer motivo, basta enviar um e-mail para suporte@escoladedons.com.br em até 7 dias após a compra e faremos o reembolso integral.",
     },
     {
-      question: "Existe política de reembolso?",
+      question: "Existe algum suporte durante o curso?",
       answer:
-        "Sim, oferecemos garantia de 7 dias. Se você não ficar satisfeito com o conteúdo, pode solicitar reembolso integral, sem questionamentos.",
+        "Sim, você terá acesso a um grupo exclusivo onde poderá tirar dúvidas diretamente com a equipe do Bispo Rinaldo Silva.",
     },
   ]
-
-  // Dados para produto estruturado
-  const courseProductData = {
-    name: "Escola de Dons - Curso Completo",
-    description:
-      "Curso online completo com 5 módulos e mais de 30 aulas para você descobrir e desenvolver seus dons espirituais com o Bispo Rinaldo Silva.",
-    url: "https://rinaldosilva.com/escola-dons",
-    image: "/images/rinaldo-silva-2.jpeg",
-    price: "97.00",
-    priceCurrency: "BRL",
-    availability: "https://schema.org/InStock",
-    sku: "ESCDONS-001",
-  }
 
   // Dados para os itens não adequados
   const notForYouItems = [
@@ -308,29 +318,37 @@ export default function EscolaDons() {
     },
   ]
 
-  return (
-    <div className="flex flex-col min-h-screen bg-white overflow-x-hidden max-w-[100vw] relative">
-      <JsonLd data={getEscolaDonsStructuredData()} />
-      <JsonLd
-        data={getBreadcrumbStructuredData([
-          { name: "Home", item: "https://rinaldosilva.com/" },
-          { name: "Escola de Dons", item: "https://rinaldosilva.com/escola-dons" },
-        ])}
-      />
-      <JsonLd data={getWebsiteStructuredData()} />
-      {faqs && <JsonLd data={getFAQStructuredData(faqs)} />}
-      {courseProductData && <JsonLd data={getProductStructuredData(courseProductData)} />}
+  // Função para controle do carrossel com autoplay
+  const [currentSlide, setCurrentSlide] = useState(0)
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const container = document.getElementById("carousel-container")
+      if (container) {
+        setCurrentSlide((prev) => {
+          const next = (prev + 1) % 3
+          container.style.transform = `translateX(${-next * 100}%)`
+          return next
+        })
+      }
+    }, 5000) // Muda a cada 5 segundos
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-900 overflow-x-hidden max-w-[100vw] relative text-white">
       {/* CTA Flutuante */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-xl py-4 border-t border-neutral-200 transform transition-transform duration-300 bg-white/90 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-r from-black/90 to-black/95 backdrop-blur-md py-3 border-t border-gray-800 transform transition-transform duration-300 shadow-lg shadow-black/30">
         <div className="container px-4 sm:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-neutral-800 text-sm sm:text-base">
-            <span className="text-[#000000] font-medium">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
+          <div className="text-white text-sm sm:text-base">
+            <span className="text-[#d4fb00] font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
           </div>
           <a href="#matricula">
-            <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black font-medium text-sm px-6 py-3 w-full sm:w-auto whitespace-nowrap shadow-sm rounded-full transition-all duration-300 ease-in-out">
+            <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-sm sm:text-base px-4 py-2 w-full sm:w-auto whitespace-nowrap shadow-md shadow-black/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/30 hover:scale-105">
               GARANTIR MINHA VAGA
               <ChevronRight className="ml-1 h-4 w-4" />
+              <ShineEffect />
             </Button>
           </a>
         </div>
@@ -339,51 +357,67 @@ export default function EscolaDons() {
       {/* Header/Navigation */}
       <header
         id="top"
-        className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/90 border-b border-neutral-200 supports-[backdrop-filter]:bg-white/80"
+        className="sticky top-0 z-50 w-full backdrop-blur-md bg-gradient-to-r from-black/80 to-black/70 border-b border-gray-800 supports-[backdrop-filter]:bg-black/40 shadow-md shadow-black/10"
       >
         <div className="container px-4 sm:px-6 mx-auto flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2 font-medium text-xl">
-            <div className="w-8 h-8 rounded-full bg-[#a8ff00] flex items-center justify-center text-black">RS</div>
-            <span className="text-neutral-900">Escola de Dons</span>
+          <div className="flex items-center gap-2 font-bold text-xl">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center text-black shadow-md shadow-[#d4fb00]/20">
+              RS
+            </div>
+            <span className="text-white">Escola de Dons</span>
           </div>
 
           {/* Menu para desktop */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#sobre" className="text-sm font-medium text-neutral-700 hover:text-[#a8ff00] transition-colors">
+            <a
+              href="#sobre"
+              className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors hover:scale-105 transform duration-200"
+            >
               Sobre
             </a>
-            <a href="#modulos" className="text-sm font-medium text-neutral-700 hover:text-[#a8ff00] transition-colors">
+            <a
+              href="#modulos"
+              className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors hover:scale-105 transform duration-200"
+            >
               Módulos
             </a>
             <a
               href="#beneficios"
-              className="text-sm font-medium text-neutral-700 hover:text-[#a8ff00] transition-colors"
+              className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors hover:scale-105 transform duration-200"
             >
               Benefícios
             </a>
             <a
               href="#depoimentos"
-              className="text-sm font-medium text-neutral-700 hover:text-[#a8ff00] transition-colors"
+              className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors hover:scale-105 transform duration-200"
             >
               Depoimentos
             </a>
-            <a href="#faq" className="text-sm font-medium text-neutral-700 hover:text-[#a8ff00] transition-colors">
+            <a
+              href="#faq"
+              className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors hover:scale-105 transform duration-200"
+            >
               FAQ
             </a>
           </nav>
 
           {/* Botão de menu para mobile */}
           <div className="md:hidden">
-            <Button variant="ghost" size="icon" className="text-neutral-700 hover:bg-neutral-100">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/10 hover:text-[#d4fb00] transition-all duration-200"
+            >
               <Menu className="h-6 w-6" />
               <span className="sr-only">Abrir menu</span>
             </Button>
           </div>
 
           <a href="#matricula" className="hidden md:block">
-            <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black font-medium shadow-sm text-sm px-4 py-2 rounded-full transition-all duration-300 ease-in-out">
+            <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-sm px-4 py-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
               Inscrever-se
               <ChevronRight className="ml-1 h-4 w-4" />
+              <ShineEffect />
             </Button>
           </a>
         </div>
@@ -391,109 +425,101 @@ export default function EscolaDons() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-[#a8ff00]/10 via-white to-white">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-[#a8ff00]/10 blur-3xl"></div>
-            <div className="absolute top-[60%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[#a8ff00]/10 blur-3xl"></div>
+        <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-black text-white">
+          <div className="absolute inset-0 opacity-70">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1368.JPG-QIgAJrLgnH6dH16YMLIHJ78cb5E0Zb.jpeg"
+              alt="Culto Igreja Impactados"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
           </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>
+
+          {/* Elemento decorativo de iluminação */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#d4fb00]/20 rounded-full blur-[100px] opacity-40"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#d4fb00]/20 rounded-full blur-[100px] opacity-30"></div>
+
           <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6 text-center lg:text-left">
-                <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full shadow-sm">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-lg shadow-[#d4fb00]/20">
                   Matrículas Abertas
                 </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-neutral-900">
-                  Descubra e Desenvolva Seus <span className="text-[#a8ff00]">Dons Espirituais</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight text-shadow-lg">
+                  Descubra e Desenvolva Seus <span className="text-[#d4fb00]">Dons Espirituais</span>
                 </h1>
-                <p className="text-lg md:text-xl text-neutral-600 max-w-[600px] mx-auto lg:mx-0">
+                <p className="text-lg md:text-xl text-gray-300 max-w-[600px] mx-auto lg:mx-0">
                   Seja uma ferramenta de transformação através do propósito dos Dons Espirituais.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <div className="flex justify-center w-full">
                   <a href="#matricula">
                     <Button
                       size="lg"
-                      className="bg-[#a8ff00] hover:bg-[#c0e500] text-black px-6 py-3 text-base sm:text-lg font-medium shadow-sm w-full sm:w-auto max-w-full truncate rounded-full transition-all duration-300 ease-in-out"
+                      className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-6 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full transition-all duration-300 hover:shadow-lg hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100"
                     >
                       <span className="hidden sm:inline">Quero Desenvolver Meus Dons</span>
                       <span className="inline sm:hidden">Desenvolver Meus Dons</span>
-                      <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                      <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                      <ShineEffect />
                     </Button>
                   </a>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-[#a8ff00] text-black hover:bg-[#a8ff00]/10 hover:border-[#a8ff00] transition-colors h-14 w-full sm:w-auto rounded-full"
-                  >
-                    <PlayCircle className="mr-2 h-5 w-5 flex-shrink-0" />
-                    <span className="hidden sm:inline">Ver Apresentação</span>
-                    <span className="inline sm:hidden">Ver Vídeo</span>
-                  </Button>
                 </div>
-                <div className="flex items-center justify-center lg:justify-start gap-4 pt-4">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
-                        <Image
-                          src="/images/rinaldo-silva-1.jpeg"
-                          alt={`Aluno ${i}`}
-                          width={32}
-                          height={32}
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                <div className="flex items-center justify-center lg:justify-start pt-4">
                   <div className="text-sm">
-                    <span className="text-[#a8ff00] font-medium">+1.500 alunos</span> já transformaram suas vidas
+                    <span className="text-[#d4fb00] font-bold">+1.500 alunos</span> já transformaram suas vidas
                   </div>
                 </div>
               </div>
               <div className="relative mx-auto lg:mx-0 max-w-md w-full" id="matricula">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#a8ff00]/20 to-[#a8ff00]/10 rounded-3xl -rotate-1 blur-sm"></div>
-                <Card className="relative border border-neutral-200 rounded-3xl overflow-hidden shadow-lg bg-white backdrop-blur-md text-neutral-900">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#d4fb00]/40 to-[#a5c600]/20 rounded-2xl -rotate-3 shadow-xl shadow-black/30"></div>
+                <Card className="relative border-none rounded-2xl overflow-hidden shadow-2xl bg-gray-800/95 backdrop-blur-md text-white border border-gray-700">
                   <CardContent className="p-6 space-y-6">
-                    <div className="bg-gradient-to-r from-black to-neutral-800 text-white p-4 -mx-6 -mt-6 mb-6 text-center">
-                      <h3 className="font-medium text-xl">Oferta Especial - Encerra em:</h3>
+                    <div className="bg-gradient-to-r from-black to-gray-800 text-white p-4 -mx-6 -mt-6 mb-6 text-center shadow-md border-b border-gray-700">
+                      <h3 className="font-bold text-xl">Oferta Especial - Encerra em:</h3>
                       <CountdownTimer />
                     </div>
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                        <p className="text-neutral-700">Acesso imediato a todo conteúdo</p>
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p>Acesso imediato a todo conteúdo</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                        <p className="text-neutral-700">Certificado de conclusão</p>
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p>Certificado de conclusão</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                        <p className="text-neutral-700">Suporte direto com a equipe</p>
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p>Suporte direto com a equipe</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                        <p className="text-neutral-700">Acesso vitalício</p>
+                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p>Acesso vitalício</p>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-rose-500 mt-0.5 shrink-0" />
-                        <p className="font-medium text-neutral-800">
+                        <Gift className="h-5 w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
+                        <p className="font-bold">
                           BÔNUS: Grupo exclusivo com o Bispo Rinaldo
-                          <span className="text-rose-500 text-sm block">Apenas para as próximas 48h</span>
+                          <span className="text-red-400 text-sm block">Apenas para as próximas 48h</span>
                         </p>
                       </div>
                     </div>
                     <div className="pt-4 space-y-3">
                       <div className="text-center">
-                        <span className="text-neutral-500 line-through text-lg">De R$ 197,00</span>
-                        <div className="text-3xl font-bold text-[#a8ff00]">Por apenas R$ 97,00</div>
-                        <div className="text-sm text-neutral-500">ou 3x de R$ 34,29</div>
+                        <span className="text-gray-400 line-through text-lg">De R$ 197,00</span>
+                        <div className="text-3xl font-bold text-white">Por apenas R$ 97,00</div>
+                        <div className="text-sm text-gray-400">ou 3x de R$ 34,29</div>
                       </div>
-                      <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black w-full h-12 text-sm sm:text-base font-medium shadow-sm rounded-full transition-all duration-300 ease-in-out">
+                      <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full h-12 text-sm sm:text-base font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
                         <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
                         <span className="inline sm:hidden">INSCREVER AGORA</span>
-                        <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                        <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                        <ShineEffect />
                       </Button>
-                      <div className="flex items-center justify-center gap-2 text-sm text-neutral-500">
-                        <ShieldCheck className="h-4 w-4" />
+                      <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
+                        <ShieldCheck className="h-4 w-4 text-[#a5c600]" />
                         <span>Pagamento 100% seguro</span>
                       </div>
                     </div>
@@ -505,27 +531,35 @@ export default function EscolaDons() {
         </section>
 
         {/* Social Proof Section */}
-        <section className="py-8 bg-white">
+        <section className="py-8 bg-gradient-to-b from-gray-900 to-gray-800">
           <div className="container px-4 sm:px-6 mx-auto">
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#a8ff00]">1500+</div>
-                <p className="text-neutral-600">Alunos</p>
+                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                  1500+
+                </div>
+                <p className="text-gray-400">Alunos</p>
               </div>
-              <Separator orientation="vertical" className="h-12 hidden md:block" />
+              <Separator orientation="vertical" className="h-12 hidden md:block bg-[#d4fb00]/40" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#a8ff00]">5</div>
-                <p className="text-neutral-600">Módulos</p>
+                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                  5
+                </div>
+                <p className="text-gray-400">Módulos</p>
               </div>
-              <Separator orientation="vertical" className="h-12 hidden md:block" />
+              <Separator orientation="vertical" className="h-12 hidden md:block bg-[#d4fb00]/40" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#a8ff00]">40+</div>
-                <p className="text-neutral-600">Horas de Conteúdo</p>
+                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                  40+
+                </div>
+                <p className="text-gray-400">Horas de Conteúdo</p>
               </div>
-              <Separator orientation="vertical" className="h-12 hidden md:block" />
+              <Separator orientation="vertical" className="h-12 hidden md:block bg-[#d4fb00]/40" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#a8ff00]">4.9/5</div>
-                <div className="flex text-amber-400">
+                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                  4.9/5
+                </div>
+                <div className="flex text-[#d4fb00]">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
@@ -535,35 +569,223 @@ export default function EscolaDons() {
           </div>
         </section>
 
-        {/* About Section */}
-        <section id="sobre" className="py-16 md:py-24 bg-white">
-          <div className="container px-4 sm:px-6 mx-auto">
+        {/* Prova de Autoridade */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-black via-gray-900 to-black text-white relative overflow-hidden">
+          {/* Elementos decorativos */}
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px]"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px]"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-lg">
+                Reconhecimento
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                Ministério Reconhecido <span className="text-[#d4fb00]">Internacionalmente</span>
+              </h2>
+              <p className="text-gray-300">
+                O Bispo Rinaldo Silva tem impactado vidas em mais de 40 países através de seu ministério
+              </p>
+            </div>
+
+            {/* Carrossel de Reconhecimento */}
+            <div className="relative mb-12 max-w-[900px] mx-auto">
+              <div className="overflow-hidden rounded-xl">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  id="carousel-container"
+                  style={{ transform: "translateX(0%)" }}
+                >
+                  <div className="min-w-full px-2">
+                    <div className="relative aspect-[9/16] md:aspect-[16/9] rounded-xl overflow-hidden group shadow-xl shadow-black/40 transition-transform duration-300 hover:scale-105 transform">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                      <div className="absolute inset-0 flex items-center justify-center z-20">
+                        <div className="w-16 h-16 bg-[#d4fb00]/80 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
+                          <PlayCircle className="h-10 w-10 text-black" />
+                        </div>
+                      </div>
+                      <Image
+                        src="/placeholder.svg?key=kmgxg"
+                        alt="Bispo Rinaldo pregando"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                      />
+                      <div className="absolute bottom-4 left-4 right-4 z-20">
+                        <span className="bg-[#d4fb00] text-black text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">
+                          VÍDEO
+                        </span>
+                        <h3 className="text-xl font-bold">Conferência Aviva Nations</h3>
+                        <p className="text-sm text-gray-300">Mais de 5.000 participantes</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="min-w-full px-2">
+                    <div className="relative aspect-[9/16] md:aspect-[16/9] rounded-xl overflow-hidden group shadow-xl shadow-black/40 transition-transform duration-300 hover:scale-105 transform">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                      <div className="absolute inset-0 flex items-center justify-center z-20">
+                        <div className="w-16 h-16 bg-[#d4fb00]/80 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
+                          <PlayCircle className="h-10 w-10 text-black" />
+                        </div>
+                      </div>
+                      <Image
+                        src="/healing-ministration-video-still.png"
+                        alt="Vídeos de curas realizadas"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                      />
+                      <div className="absolute bottom-4 left-4 right-4 z-20">
+                        <span className="bg-[#d4fb00] text-black text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">
+                          VÍDEO
+                        </span>
+                        <h3 className="text-xl font-bold">Vídeos de Curas</h3>
+                        <p className="text-sm text-gray-300">Testemunhos reais de milagres e curas</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="min-w-full px-2">
+                    <div className="relative aspect-[9/16] md:aspect-[16/9] rounded-xl overflow-hidden group shadow-xl shadow-black/40 transition-transform duration-300 hover:scale-105 transform">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                      <div className="absolute inset-0 flex items-center justify-center z-20">
+                        <div className="w-16 h-16 bg-[#d4fb00]/80 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
+                          <PlayCircle className="h-10 w-10 text-black" />
+                        </div>
+                      </div>
+                      <Image
+                        src="/placeholder.svg?key=kjv5j"
+                        alt="Bispo Rinaldo em entrevista"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                      />
+                      <div className="absolute bottom-4 left-4 right-4 z-20">
+                        <span className="bg-[#d4fb00] text-black text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">
+                          VÍDEO
+                        </span>
+                        <h3 className="text-xl font-bold">Mídia & Entrevistas</h3>
+                        <p className="text-sm text-gray-300">Presença em canais nacionais</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Controles do carrossel */}
+              <button
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 z-20"
+                onClick={() => {
+                  const container = document.getElementById("carousel-container")
+                  const currentTransform = container.style.transform
+                  const currentPosition =
+                    Number.parseInt(currentTransform.replace("translateX(", "").replace("%)", "")) || 0
+                  const newPosition = Math.min(currentPosition + 100, 0)
+                  container.style.transform = `translateX(${newPosition}%)`
+                }}
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 z-20"
+                onClick={() => {
+                  const container = document.getElementById("carousel-container")
+                  const currentTransform = container.style.transform
+                  const currentPosition =
+                    Number.parseInt(currentTransform.replace("translateX(", "").replace("%)", "")) || 0
+                  const newPosition = Math.max(currentPosition - 100, -200)
+                  container.style.transform = `translateX(${newPosition}%)`
+                }}
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+
+              {/* Indicadores do carrossel */}
+              <div className="flex justify-center mt-4 gap-2">
+                {[0, 1, 2].map((index) => (
+                  <button
+                    key={index}
+                    className="w-3 h-3 rounded-full bg-gray-600 hover:bg-[#d4fb00] focus:bg-[#d4fb00]"
+                    onClick={() => {
+                      const container = document.getElementById("carousel-container")
+                      container.style.transform = `translateX(${-index * 100}%)`
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="text-3xl font-bold text-[#d4fb00]">40+</div>
+                  <p className="text-gray-300">Países</p>
+                </div>
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="text-3xl font-bold text-[#d4fb00]">27</div>
+                  <p className="text-gray-300">Estados</p>
+                </div>
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="text-3xl font-bold text-[#d4fb00]">1000+</div>
+                  <p className="text-gray-300">Conferências</p>
+                </div>
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="text-3xl font-bold text-[#d4fb00]">20+</div>
+                  <p className="text-gray-300">Anos</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <a href="#matricula">
+                <Button
+                  size="lg"
+                  className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 py-3 text-base font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
+                >
+                  Quero Aprender com o Bispo Rinaldo
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                  <ShineEffect />
+                </Button>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section
+          id="sobre"
+          className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden"
+        >
+          {/* Decoração de fundo */}
+          <div className="absolute -right-32 top-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+          <div className="absolute -left-32 bottom-1/4 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
+            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
                 O que é a Escola de Dons?
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                Uma Jornada Espiritual Transformadora
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                Uma <span className="text-[#a5c600]">Jornada Espiritual</span> Transformadora
               </h2>
-              <p className="text-neutral-600">
+              <p className="text-gray-300">
                 Descubra como manifestar a graça de Deus através de uma fé inabalável e obediência
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <p className="text-lg text-neutral-700">
+                <p className="text-lg text-gray-300">
                   A Escola de Dons é uma jornada espiritual para vivenciar as mesmas experiências que Jesus,
                   manifestando a graça de Deus através de uma fé inabalável e obediência.
                 </p>
-                <p className="text-lg text-neutral-700">
-                  Com <span className="font-medium">ênfase em um ministério prático</span>, ensinamos que a mesma
-                  autoridade que houve no ministério de Jesus nos é concedida por meio do Espírito Santo para edificação
-                  do corpo de Cristo.
+                <p className="text-lg text-gray-300">
+                  Com <span className="font-semibold text-white">ênfase em um ministério prático</span>, ensinamos que a
+                  mesma autoridade que houve no ministério de Jesus nos é concedida por meio do Espírito Santo para
+                  edificação do corpo de Cristo.
                 </p>
-                <p className="text-lg text-neutral-700">
+                <p className="text-lg text-gray-300">
                   Nosso objetivo é{" "}
-                  <span className="font-medium">
+                  <span className="font-semibold text-white">
                     equipar você com ferramentas práticas para realizar a obra de Deus
                   </span>
                   . Cremos que este é o tempo de um grande exército se levantar em um movimento sobrenatural do
@@ -571,22 +793,23 @@ export default function EscolaDons() {
                 </p>
                 <div className="pt-4">
                   <a href="#matricula">
-                    <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black text-base px-6 py-3 shadow-sm rounded-full transition-all duration-300 ease-in-out">
+                    <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black text-base px-4 py-2 shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100">
                       Quero Fazer Parte
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ChevronRight className="ml-2 h-5 w-5" />
+                      <ShineEffect />
                     </Button>
                   </a>
                 </div>
               </div>
-              <div className="relative rounded-3xl overflow-hidden shadow-lg">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
                 <Image
-                  src="/images/rinaldo-silva-2.jpeg"
-                  alt="Bispo Rinaldo Silva pregando"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_9900.JPG-smCkQZtviuLHPYYgLQRRL1xexqnBgr.jpeg"
+                  alt="Bispo Rinaldo Silva ministrando"
                   width={600}
                   height={800}
-                  className="object-cover rounded-3xl"
+                  className="object-cover rounded-2xl group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
                   <h3 className="text-2xl font-bold text-white mb-2">100% Online</h3>
                   <p className="text-white">Assista quando e quantas vezes quiser, no seu próprio ritmo.</p>
                 </div>
@@ -596,16 +819,20 @@ export default function EscolaDons() {
         </section>
 
         {/* Para quem é este curso Section */}
-        <section className="py-16 md:py-24 bg-[#a8ff00]/10">
-          <div className="container px-4 sm:px-6 mx-auto">
+        <section className="py-16 md:py-24 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden">
+          {/* Decoração de fundo */}
+          <div className="absolute -left-32 top-1/3 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+          <div className="absolute -right-32 bottom-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
                 Para quem é este curso?
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                Este Curso Foi Feito Para Você Que...
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                Este Curso Foi Feito Para <span className="text-[#a5c600]">Você Que...</span>
               </h2>
-              <p className="text-neutral-600">
+              <p className="text-gray-300">
                 Se você se identifica com pelo menos um dos perfis abaixo, a Escola de Dons irá transformar sua vida
                 ministerial
               </p>
@@ -615,14 +842,16 @@ export default function EscolaDons() {
               {studentProfiles.map((profile, index) => (
                 <Card
                   key={index}
-                  className="border border-neutral-200 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden backdrop-blur-sm bg-white"
+                  className="relative border-none rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden backdrop-blur-sm bg-gray-800/95 border border-gray-700 transform hover:scale-105 scale-100"
                 >
-                  <CardContent className="p-6 sm:p-8 space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-[#a8ff00]/20 flex items-center justify-center">
-                      {React.createElement(profile.icon, { className: "h-6 w-6 text-black" })}
+                  <div className="h-2 bg-gradient-to-r from-[#d4fb00] to-[#a5c600]"></div>
+                  <ShineEffect className="group-hover:opacity-100 opacity-0" />
+                  <CardContent className="p-4 sm:p-6 md:p-8 space-y-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shadow-md">
+                      {React.createElement(profile.icon, { className: "h-6 w-6 text-[#a5c600]" })}
                     </div>
-                    <h3 className="text-xl font-medium text-neutral-900">{profile.title}</h3>
-                    <p className="text-neutral-600">{profile.description}</p>
+                    <h3 className="text-xl font-bold text-white">{profile.title}</h3>
+                    <p className="text-gray-300">{profile.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -631,24 +860,27 @@ export default function EscolaDons() {
             {/* Para quem NÃO é este curso */}
             <div className="mt-20 max-w-[800px] mx-auto">
               <div className="text-center mb-12 space-y-4">
-                <Badge className="bg-neutral-900 text-white px-4 py-1 text-sm rounded-full">
+                <Badge className="bg-gradient-to-r from-gray-300 to-gray-100 hover:from-gray-100 hover:to-gray-300 text-black px-4 py-1 text-sm rounded-full shadow-md">
                   Este curso NÃO é para você se...
                 </Badge>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-neutral-900">
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tighter">
                   Seja honesto consigo mesmo antes de investir
                 </h3>
-                <p className="text-neutral-600">
+                <p className="text-gray-300">
                   Queremos que você tenha a melhor experiência possível, por isso é importante que saiba:
                 </p>
               </div>
 
               <div className="space-y-4">
                 {notForYouItems.map((item, index) => (
-                  <div key={index} className="flex gap-4 p-4 rounded-2xl bg-neutral-100">
-                    <XCircle className="h-6 w-6 text-rose-500 shrink-0 mt-0.5" />
+                  <div
+                    key={index}
+                    className="flex gap-4 p-4 rounded-xl bg-gradient-to-r from-gray-800 to-gray-700 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-102 scale-100 border border-gray-700"
+                  >
+                    <XCircle className="h-6 w-6 text-red-500 shrink-0 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-lg text-neutral-900">{item.title}</h4>
-                      <p className="text-neutral-700">{item.description}</p>
+                      <h4 className="font-bold text-lg text-white">{item.title}</h4>
+                      <p className="text-gray-300">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -659,81 +891,88 @@ export default function EscolaDons() {
               <a href="#matricula">
                 <Button
                   size="lg"
-                  className="bg-[#a8ff00] hover:bg-[#c0e500] text-black font-medium px-6 py-3 text-sm sm:text-base shadow-sm w-full sm:w-auto rounded-full transition-all duration-300 ease-in-out"
+                  className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black font-bold px-4 py-3 text-sm sm:text-base shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
                 >
                   <span className="hidden sm:inline">QUERO DESENVOLVER MEUS DONS AGORA!</span>
                   <span className="inline sm:hidden">DESENVOLVER MEUS DONS!</span>
-                  <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                  <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                  <ShineEffect />
                 </Button>
               </a>
-              <p className="mt-4 text-neutral-500 text-sm">
-                Restam apenas <span className="text-rose-500 font-medium">12 vagas</span> para esta turma!
+              <p className="mt-4 text-gray-400 text-sm">
+                Restam apenas <span className="text-red-400 font-bold animate-pulse">12 vagas</span> para esta turma!
               </p>
             </div>
           </div>
         </section>
 
         {/* Bônus Limitado Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-black to-neutral-900 text-white">
-          <div className="container px-4 sm:px-6 mx-auto">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden border-t border-b border-gray-800">
+          {/* Efeito de luz */}
+          <div className="absolute inset-0 bg-[url('/abstract-light-pattern.png')] opacity-5 bg-cover bg-center mix-blend-overlay"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#d4fb00]/10 rounded-full blur-[120px] opacity-30"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[100px] opacity-20"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <Badge className="bg-[#a8ff00] text-black px-4 py-1 text-sm rounded-full">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full animate-pulse shadow-lg">
                   Oferta por Tempo Limitado
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  BÔNUS EXCLUSIVO: Grupo VIP com o Bispo Rinaldo
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-white drop-shadow-sm">
+                  BÔNUS EXCLUSIVO: <span className="underline decoration-2 decoration-[#d4fb00]/70">Grupo VIP</span> com
+                  o Bispo Rinaldo
                 </h2>
-                <p className="text-lg text-neutral-300">
-                  Inscreva-se <span className="font-medium underline">até sexta-feira</span> e ganhe acesso ao grupo
-                  exclusivo onde o Bispo Rinaldo responde perguntas e compartilha revelações que não são divulgadas em
-                  nenhum outro lugar.
+                <p className="text-lg text-gray-300">
+                  Inscreva-se <span className="font-bold underline decoration-2 text-white">até sexta-feira</span> e
+                  ganhe acesso ao grupo exclusivo onde o Bispo Rinaldo responde perguntas e compartilha revelações que
+                  não são divulgadas em nenhum outro lugar.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">Acesso direto ao Bispo Rinaldo para tirar dúvidas</p>
+                    <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                    <p className="text-gray-300">Acesso direto ao Bispo Rinaldo para tirar dúvidas</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">Conteúdos exclusivos compartilhados apenas no grupo</p>
+                    <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                    <p className="text-gray-300">Conteúdos exclusivos compartilhados apenas no grupo</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">Encontros online mensais para ministração e ensino</p>
+                    <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                    <p className="text-gray-300">Encontros online mensais para ministração e ensino</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">
-                      Valor deste bônus: <span className="font-medium">R$ 497,00</span>
+                    <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                    <p className="text-gray-300">
+                      Valor deste bônus: <span className="font-bold text-white">R$ 497,00</span>
                     </p>
                   </div>
                 </div>
                 <div className="pt-4">
                   <a href="#matricula">
-                    <Button className="bg-[#a8ff00] text-black hover:bg-[#c0e500] font-medium text-lg px-8 py-6 shadow-md w-full sm:w-auto rounded-full transition-all duration-300 ease-in-out">
+                    <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black font-bold text-lg px-8 py-6 shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100">
                       GARANTIR MINHA VAGA + BÔNUS
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ChevronRight className="ml-2 h-5 w-5" />
+                      <ShineEffect />
                     </Button>
                   </a>
-                  <p className="mt-4 text-sm text-neutral-300">
+                  <p className="mt-4 text-sm text-gray-400">
                     <Clock className="inline-block mr-1 h-4 w-4" /> Oferta válida por tempo limitado
                   </p>
                 </div>
               </div>
               <div className="flex justify-center">
-                <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden shadow-lg">
+                <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-black/20 transform hover:scale-102 scale-100 transition-all duration-300">
                   <Image
-                    src="/images/rinaldo-silva-1.jpeg"
-                    alt="Bispo Rinaldo Silva"
+                    src="/placeholder.svg?key=wyno2"
+                    alt="Grupo VIP com o Bispo Rinaldo"
                     fill
-                    className="object-cover"
-                    style={{ objectPosition: 'center 2%' }}
+                    className="object-cover hover:scale-110 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <div className="bg-[#a8ff00] text-black font-medium px-4 py-2 rounded-full inline-block mb-2">
+                    <div className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] text-black font-bold px-4 py-2 rounded-xl inline-block mb-2 shadow-lg">
                       BÔNUS EXCLUSIVO
                     </div>
                     <h3 className="text-2xl font-bold">Grupo VIP</h3>
@@ -746,16 +985,23 @@ export default function EscolaDons() {
         </section>
 
         {/* Course Content Section */}
-        <section id="modulos" className="py-16 md:py-24 bg-white">
-          <div className="container px-4 sm:px-6 mx-auto">
+        <section
+          id="modulos"
+          className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden"
+        >
+          {/* Decoração de fundo */}
+          <div className="absolute -left-32 top-1/3 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+          <div className="absolute -right-32 bottom-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
                 O que você vai aprender
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                Um Programa Completo Para Desenvolver Seus Dons
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                Um Programa Completo Para <span className="text-[#a5c600]">Desenvolver Seus Dons</span>
               </h2>
-              <p className="text-neutral-600">
+              <p className="text-gray-300">
                 5 módulos estrategicamente desenvolvidos para te levar do conhecimento básico à aplicação avançada
               </p>
             </div>
@@ -764,29 +1010,33 @@ export default function EscolaDons() {
               <div className="space-y-4">
                 <Accordion type="single" collapsible className="w-full">
                   {courseModules.map((module, index) => (
-                    <AccordionItem key={index} value={`module-${index}`} className="border-b border-neutral-200 mb-2">
-                      <AccordionTrigger className="py-4 text-left font-medium hover:text-[#a8ff00] hover:no-underline">
+                    <AccordionItem
+                      key={index}
+                      value={`module-${index}`}
+                      className="border-b border-gray-700 hover:border-[#d4fb00]/50 transition-colors duration-300"
+                    >
+                      <AccordionTrigger className="py-4 text-left font-bold hover:text-[#a5c600] hover:no-underline text-white">
                         <div className="flex items-center gap-3">
-                          {React.createElement(module.icon, { className: "h-5 w-5 text-[#a8ff00]" })}
+                          {React.createElement(module.icon, { className: "h-5 w-5 text-[#d4fb00]" })}
                           <span>{module.title}</span>
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="pb-4 pt-2 space-y-4">
-                        <p className="text-neutral-600">{module.description}</p>
+                      <AccordionContent className="pb-4 pt-2 space-y-4 text-gray-300">
+                        <p>{module.description}</p>
                         <div className="space-y-2">
-                          <p className="font-medium text-neutral-800">Conteúdo do módulo:</p>
+                          <p className="font-semibold text-white">Conteúdo do módulo:</p>
                           <ul className="space-y-2">
                             {module.lessons.map((lesson, i) => (
                               <li key={i} className="flex items-start gap-2">
-                                <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                                <span className="text-neutral-700">{lesson}</span>
+                                <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                                <span>{lesson}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <div className="mt-4 bg-[#a8ff00]/10 p-4 rounded-2xl">
-                          <p className="font-medium text-neutral-800">O que você será capaz de fazer:</p>
-                          <p className="text-neutral-700">{module.capabilities}</p>
+                        <div className="mt-4 bg-gradient-to-r from-[#d4fb00]/10 to-[#a5c600]/10 p-4 rounded-lg shadow-inner border border-gray-700">
+                          <p className="font-semibold text-white">O que você será capaz de fazer:</p>
+                          <p className="text-gray-300">{module.capabilities}</p>
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -795,74 +1045,87 @@ export default function EscolaDons() {
               </div>
 
               <div className="space-y-8">
-                <Card className="border border-neutral-200 rounded-3xl shadow-md overflow-hidden">
-                  <div className="relative aspect-video">
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10">
-                      <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-lg">
-                        <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-[#a8ff00] border-b-8 border-b-transparent ml-1"></div>
+                <Card className="border-none rounded-2xl shadow-xl overflow-hidden transform hover:scale-102 scale-100 transition-all duration-300 bg-gray-800 border border-gray-700">
+                  <div className="relative aspect-video group">
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-10 group-hover:bg-black/40 transition-colors duration-300">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-[#d4fb00] to-[#a5c600] flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300 cursor-pointer">
+                        <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-black border-b-8 border-b-transparent ml-1"></div>
                       </div>
                     </div>
                     <Image
-                      src="/images/rinaldo-silva-3.jpeg"
-                      alt="Bispo Rinaldo Silva"
+                      src="/placeholder.svg?key=dsfaj"
+                      alt="Apresentação do Curso"
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-medium text-neutral-900 mb-2">Apresentação do Curso</h3>
-                    <p className="text-neutral-600">
+                  <CardContent className="p-6 bg-gradient-to-r from-gray-800 to-gray-900">
+                    <h3 className="text-xl font-bold mb-2 text-white">Apresentação do Curso</h3>
+                    <p className="text-gray-300">
                       Assista a este vídeo para conhecer mais sobre a metodologia e o conteúdo da Escola de Dons.
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card className="border border-neutral-200 rounded-3xl shadow-md">
+                <Card className="border-none rounded-2xl shadow-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700">
                   <CardContent className="p-8 space-y-6">
-                    <h3 className="text-xl font-medium text-neutral-900">O Que Está Incluído:</h3>
+                    <h3 className="text-xl font-bold flex items-center gap-2 text-white">
+                      <Award className="h-5 w-5 text-[#d4fb00]" />O Que Está Incluído:
+                    </h3>
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shrink-0 shadow-md">
+                          <CheckCircle2 className="h-5 w-5 text-[#a5c600]" />
+                        </div>
                         <div>
-                          <p className="font-medium text-neutral-800">5 Módulos Completos</p>
-                          <p className="text-sm text-neutral-600">Mais de 40 horas de conteúdo em vídeo</p>
+                          <p className="font-medium text-white">5 Módulos Completos</p>
+                          <p className="text-sm text-gray-400">Mais de 40 horas de conteúdo em vídeo</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shrink-0 shadow-md">
+                          <CheckCircle2 className="h-5 w-5 text-[#a5c600]" />
+                        </div>
                         <div>
-                          <p className="font-medium text-neutral-800">Material de Apoio</p>
-                          <p className="text-sm text-neutral-600">Apostilas, e-books e recursos para download</p>
+                          <p className="font-medium text-white">Material de Apoio</p>
+                          <p className="text-sm text-gray-400">Apostilas, e-books e recursos para download</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shrink-0 shadow-md">
+                          <CheckCircle2 className="h-5 w-5 text-[#a5c600]" />
+                        </div>
                         <div>
-                          <p className="font-medium text-neutral-800">Testes Práticos</p>
-                          <p className="text-sm text-neutral-600">Avaliações para identificar seus dons</p>
+                          <p className="font-medium text-white">Testes Práticos</p>
+                          <p className="text-sm text-gray-400">Avaliações para identificar seus dons</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shrink-0 shadow-md">
+                          <CheckCircle2 className="h-5 w-5 text-[#a5c600]" />
+                        </div>
                         <div>
-                          <p className="font-medium text-neutral-800">Comunidade Exclusiva</p>
-                          <p className="text-sm text-neutral-600">Grupo de alunos para troca de experiências</p>
+                          <p className="font-medium text-white">Comunidade Exclusiva</p>
+                          <p className="text-sm text-gray-400">Grupo de alunos para troca de experiências</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shrink-0 shadow-md">
+                          <CheckCircle2 className="h-5 w-5 text-[#a5c600]" />
+                        </div>
                         <div>
-                          <p className="font-medium text-neutral-800">Certificado de Conclusão</p>
-                          <p className="text-sm text-neutral-600">Documento oficial ao finalizar o curso</p>
+                          <p className="font-medium text-white">Certificado de Conclusão</p>
+                          <p className="text-sm text-gray-400">Documento oficial ao finalizar o curso</p>
                         </div>
                       </div>
                     </div>
                     <div className="pt-4">
                       <a href="#matricula">
-                        <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black w-full py-3 text-base rounded-full transition-all duration-300 ease-in-out">
+                        <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full py-2 text-base shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100">
                           Quero Acessar o Conteúdo
                           <ArrowRight className="ml-2 h-5 w-5" />
+                          <ShineEffect />
                         </Button>
                       </a>
                     </div>
@@ -874,16 +1137,23 @@ export default function EscolaDons() {
         </section>
 
         {/* Benefits Section */}
-        <section id="beneficios" className="py-16 md:py-24 bg-[#a8ff00]/10">
-          <div className="container px-4 sm:px-6 mx-auto">
+        <section
+          id="beneficios"
+          className="py-16 md:py-24 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden"
+        >
+          {/* Decoração de fundo */}
+          <div className="absolute -right-32 top-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+          <div className="absolute -left-32 bottom-1/4 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
                 Por que escolher a Escola?
               </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                O Que Você Vai Conquistar Com a Escola de Dons
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                O Que Você Vai <span className="text-[#a5c600]">Conquistar</span> Com a Escola de Dons
               </h2>
-              <p className="text-neutral-600">
+              <p className="text-gray-300">
                 Transforme sua vida ministerial e descubra como impactar o Reino de Deus através dos seus dons
               </p>
             </div>
@@ -892,18 +1162,18 @@ export default function EscolaDons() {
               {courseBenefits.map((benefit, index) => (
                 <Card
                   key={index}
-                  className="border border-neutral-200 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 backdrop-blur-sm bg-white"
+                  className="border-none rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 transform hover:scale-105 scale-100"
                 >
                   <CardContent className="p-8 space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-[#a8ff00]/20 flex items-center justify-center">
-                      {React.createElement(benefit.icon, { className: "h-6 w-6 text-black" })}
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shadow-lg">
+                      {React.createElement(benefit.icon, { className: "h-6 w-6 text-[#a5c600]" })}
                     </div>
-                    <h3 className="text-xl font-medium text-neutral-900">{benefit.title}</h3>
-                    <p className="text-neutral-600">{benefit.description}</p>
+                    <h3 className="text-xl font-bold text-white">{benefit.title}</h3>
+                    <p className="text-gray-300">{benefit.description}</p>
                     <div className="pt-4 mt-2">
-                      <div className="bg-[#a8ff00]/20 p-3 rounded-2xl">
-                        <p className="font-medium text-sm text-neutral-700">Transformação:</p>
-                        <p className="text-neutral-800 font-medium">{benefit.transformation}</p>
+                      <div className="bg-gradient-to-r from-[#d4fb00]/20 to-[#a5c600]/10 p-3 rounded-lg shadow-inner border border-gray-700">
+                        <p className="font-medium text-sm text-white">Transformação:</p>
+                        <p className="text-gray-200 font-semibold">{benefit.transformation}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -915,288 +1185,51 @@ export default function EscolaDons() {
               <a href="#matricula">
                 <Button
                   size="lg"
-                  className="bg-[#a8ff00] hover:bg-[#c0e500] text-black px-6 py-3 text-base font-medium shadow-sm w-full sm:w-auto rounded-full transition-all duration-300 ease-in-out"
+                  className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 h-12 text-base font-bold shadow-xl w-full sm:w-auto transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
                 >
                   Quero Desenvolver Meus Dons
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                  <ShineEffect />
                 </Button>
               </a>
-              <p className="mt-4 text-neutral-500 text-sm">
-                Restam apenas <span className="text-rose-500 font-medium">12 vagas</span> para esta turma!
+              <p className="mt-4 text-gray-400 text-sm">
+                Restam apenas <span className="text-red-400 font-bold animate-pulse">12 vagas</span> para esta turma!
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Video Presentation Section */}
-        <section className="py-16 md:py-24 bg-neutral-900 text-white">
-          <div className="container px-4 sm:px-6 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <Badge className="bg-[#a8ff00] text-black px-4 py-1 text-sm rounded-full">
-                  Mensagem do Bispo Rinaldo
-                </Badge>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Uma Palavra Direta Para Você</h2>
-                <p className="text-lg text-neutral-300">
-                  Ouça o coração do Bispo Rinaldo Silva sobre a visão por trás da Escola de Dons e como ela pode
-                  transformar sua vida e ministério.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">Descubra a importância de operar nos dons para este tempo</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">Entenda como a Escola de Dons pode te capacitar de forma prática</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-300">Conheça os princípios que transformaram milhares de vidas</p>
-                  </div>
-                </div>
-                <div className="pt-4">
-                  <a href="#matricula">
-                    <Button
-                      size="lg"
-                      className="bg-[#a8ff00] hover:bg-[#c0e500] text-black font-medium shadow-md px-6 py-3 text-base w-full sm:w-auto rounded-full transition-all duration-300 ease-in-out"
-                    >
-                      QUERO ME INSCREVER
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </a>
-                </div>
-              </div>
-              <div className="relative aspect-video rounded-3xl overflow-hidden shadow-lg">
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10 cursor-pointer">
-                  <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg">
-                    <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-[#a8ff00] border-b-[12px] border-b-transparent ml-1"></div>
-                  </div>
-                </div>
-                <Image
-                  src="/images/rinaldo-silva-3.jpeg"
-                  alt="Mensagem do Bispo Rinaldo Silva"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section id="depoimentos" className="py-16 md:py-24 bg-white">
-          <div className="container px-4 sm:px-6 mx-auto">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">Depoimentos</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                O Que Nossos Alunos Estão Dizendo
-              </h2>
-              <p className="text-neutral-600">
-                Histórias reais de pessoas que transformaram seus ministérios através da Escola de Dons
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <TestimonialCard key={index} testimonial={testimonial} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Instructor Section */}
-        <section className="py-16 md:py-24 bg-[#a8ff00]/10">
-          <div className="container px-4 sm:px-6 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="relative">
-                <div className="absolute inset-0 bg-[#a8ff00]/20 rounded-3xl rotate-2"></div>
-                <div className="relative rounded-3xl overflow-hidden shadow-md">
-                  <Image
-                    src="/images/rinaldo-silva-1.jpeg"
-                    alt="Bispo Rinaldo Silva"
-                    width={600}
-                    height={800}
-                    className="object-cover shadow-lg rounded-3xl"
-                  />
-                </div>
-              </div>
-              <div className="space-y-6">
-                <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">Seu Mentor</Badge>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">Bispo Rinaldo Silva</h2>
-                <p className="text-neutral-700">
-                  Nascido em 05 de fevereiro de 1994, Rinaldo Silva é casado com Cecília Silva e pai de Manuela e
-                  Enrico. É Bispo Sênior da Igreja Impactados.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-700">Graduado em Teologia e Filosofia</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-700">
-                      Conferencista com atuação em todos os estados do Brasil e mais de 40 países
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-700">Iniciou seu ministério aos 7 anos de idade</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-700">Bispo Sênior da Igreja Impactados</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#a8ff00] mt-0.5 shrink-0" />
-                    <p className="text-neutral-700">
-                      Milhares de vidas transformadas através de sinais e maravilhas que continuam até hoje
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-4">
-                  <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black rounded-full transition-all duration-300 ease-in-out">
-                    Conheça Mais Sobre o Bispo Rinaldo
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Guarantee Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-white to-[#a8ff00]/5 relative overflow-hidden">
-          {/* Elementos decorativos de fundo */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 right-0 w-64 h-64 rounded-full bg-[#a8ff00]/10 blur-3xl"></div>
-            <div className="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-[#a8ff00]/10 blur-3xl"></div>
-          </div>
-
-          <div className="container px-4 sm:px-6 mx-auto relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6 order-2 md:order-1">
-                <div className="inline-block bg-[#a8ff00] text-black px-4 py-1 rounded-full text-sm font-medium shadow-md">
-                  Sem riscos para você
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                  7 DIAS DE <span className="text-[#a8ff00]">GARANTIA INCONDICIONAL</span>
-                </h2>
-                <p className="text-lg text-neutral-700">
-                  Tenha acesso a todo o conteúdo da Escola de Dons e experimente o curso completo. Se por qualquer
-                  motivo você não ficar satisfeito, basta solicitar o reembolso em até 7 dias e devolveremos 100% do seu
-                  investimento.
-                </p>
-                <div className="space-y-4 bg-white p-6 rounded-2xl shadow-sm border border-neutral-200">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-neutral-800">Sem perguntas ou questionamentos</p>
-                      <p className="text-sm text-neutral-600">Não pedimos justificativas para o reembolso</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-neutral-800">Processo simples e rápido</p>
-                      <p className="text-sm text-neutral-600">Sem burocracia ou formulários complicados</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-neutral-800">Devolução integral do valor</p>
-                      <p className="text-sm text-neutral-600">Reembolso de 100% do valor investido</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-neutral-800">Processamento em até 48 horas</p>
-                      <p className="text-sm text-neutral-600">Seu dinheiro de volta rapidamente</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-4">
-                  <a href="#matricula">
-                    <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black font-medium text-sm sm:text-base px-6 py-3 shadow-md w-full sm:w-auto rounded-full transition-all duration-300 ease-in-out">
-                      <span className="hidden sm:inline">Quero Garantir Minha Vaga Com Risco Zero</span>
-                      <span className="inline sm:hidden">Garantir Minha Vaga</span>
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </a>
-                </div>
-              </div>
-              <div className="flex justify-center order-1 md:order-2">
-                <div className="relative">
-                  {/* Camada externa - pulso */}
-                  <div className="absolute inset-0 rounded-full bg-[#a8ff00]/30 animate-pulse"></div>
-
-                  {/* Camada de brilho rotativa */}
-                  <div className="absolute inset-[-10px] rounded-full border-2 border-dashed border-[#a8ff00]/40 animate-spin-slow"></div>
-
-                  {/* Camada de estrelas */}
-                  <div className="absolute inset-[-5px] rounded-full overflow-hidden">
-                    <div className="absolute inset-0 bg-[#a8ff00]/10 flex items-center justify-center">
-                      <div className="absolute top-0 left-1/4 w-2 h-2 bg-white rounded-full animate-ping"></div>
-                      <div
-                        className="absolute top-1/4 right-1/4 w-2 h-2 bg-white rounded-full animate-ping"
-                        style={{ animationDelay: "0.5s" }}
-                      ></div>
-                      <div
-                        className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-white rounded-full animate-ping"
-                        style={{ animationDelay: "1s" }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  {/* Selo principal */}
-                  <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-[#a8ff00] to-[#c0e500] flex items-center justify-center text-black p-8 text-center shadow-lg border-8 border-white transform hover:scale-105 transition-transform duration-300">
-                    <div className="absolute inset-0 rounded-full bg-black/5"></div>
-                    <div className="relative z-10 flex flex-col items-center">
-                      <ShieldCheck className="h-16 w-16 mb-2" />
-                      <div className="text-3xl font-bold">7 DIAS</div>
-                      <div className="text-lg font-medium">GARANTIA</div>
-                      <div className="text-sm mt-1">SATISFAÇÃO OU</div>
-                      <div className="text-lg font-bold">SEU DINHEIRO DE VOLTA</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="py-16 md:py-24 bg-[#a8ff00]/10">
-          <div className="container px-4 sm:px-6 mx-auto">
+        <section id="faq" className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+          {/* Decoração de fundo */}
+          <div className="absolute -left-32 top-1/3 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+          <div className="absolute -right-32 bottom-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+
+          <div className="container px-4 sm:px-6 mx-auto relative z-10">
             <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-[#a8ff00]/20 text-black px-4 py-1 text-sm rounded-full">Perguntas Frequentes</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
-                Tire Suas Dúvidas Sobre a Escola de Dons
+              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
+                Perguntas Frequentes
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                Tire Suas <span className="text-[#a5c600]">Dúvidas</span> Sobre a Escola de Dons
               </h2>
-              <p className="text-neutral-600">
+              <p className="text-gray-300">
                 Respondemos às perguntas mais comuns para que você possa tomar a melhor decisão
               </p>
             </div>
 
-            <div className="max-w-[800px] mx-auto p-8 rounded-3xl backdrop-blur-md bg-white/90 shadow-sm border border-neutral-200">
+            <div className="max-w-[800px] mx-auto p-8 rounded-2xl backdrop-blur-md bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl border border-gray-700">
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`faq-${index}`} className="border-b border-neutral-200">
-                    <AccordionTrigger className="py-4 text-left font-medium hover:text-[#a8ff00] hover:no-underline">
+                  <AccordionItem
+                    key={index}
+                    value={`faq-${index}`}
+                    className="border-b border-gray-700 hover:border-[#d4fb00]/50 transition-colors duration-300"
+                  >
+                    <AccordionTrigger className="py-4 text-left font-bold hover:text-[#a5c600] hover:no-underline text-white">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="pb-4 pt-2 text-neutral-600">{faq.answer}</AccordionContent>
+                    <AccordionContent className="pb-4 pt-2 text-gray-300">{faq.answer}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
@@ -1205,181 +1238,186 @@ export default function EscolaDons() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-20 md:py-28 bg-gradient-to-b from-black to-neutral-900 text-white relative overflow-hidden">
+        <section
+          id="checkout"
+          className="py-20 md:py-28 bg-gradient-to-b from-black via-gray-900 to-black text-white relative overflow-hidden"
+        >
           {/* Elementos decorativos de fundo */}
           <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30">
-            <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#a8ff00]/20 blur-3xl"></div>
-            <div className="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#a8ff00]/20 blur-3xl"></div>
-            <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-[#a8ff00]/30 blur-3xl"></div>
-            <div className="absolute top-1/3 left-1/2 w-64 h-64 rounded-full bg-[#a8ff00]/25 blur-3xl"></div>
+            <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
+            <div className="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
+            <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-[#d4fb00]/40 blur-3xl"></div>
           </div>
 
           <div className="container px-4 sm:px-6 mx-auto relative z-10">
-            {/* Cabeçalho separado para hierarquia clara */}
-            <div className="max-w-[900px] mx-auto text-center space-y-8 mb-12">
-              <div className="inline-block transform hover:scale-105 transition-transform duration-300">
-                <Badge className="bg-[#a8ff00] text-black px-6 py-2 text-base rounded-full font-medium shadow-md">
+            <div className="max-w-[900px] mx-auto text-center space-y-8">
+              <div className="inline-block animate-pulse">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-6 py-2 text-base rounded-full font-bold shadow-lg shadow-[#d4fb00]/30">
                   Última Oportunidade
                 </Badge>
               </div>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-                Transforme Sua Vida Ministerial <span className="text-[#a8ff00] animate-pulse">Hoje Mesmo</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight text-shadow">
+                Transforme Sua Vida Ministerial <span className="text-[#d4fb00] drop-shadow-lg">Hoje Mesmo</span>
               </h2>
 
-              <p className="text-xl md:text-2xl text-white max-w-[700px] mx-auto">
-                Mais de <span className="font-medium text-[#a8ff00]">1.500 líderes</span> já descobriram seus dons e
-                estão impactando suas igrejas. Chegou a sua vez!
+              <p className="text-xl md:text-2xl text-gray-300 max-w-[700px] mx-auto">
+                Mais de <span className="font-bold text-white">1.500 líderes</span> já descobriram seus dons e estão
+                impactando suas igrejas. Chegou a sua vez!
               </p>
-            </div>
 
-            {/* Layout em grid com proporção 5:7 para melhor equilíbrio visual */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center mt-12">
-              {/* Coluna 5/12 */}
-              <div className="md:col-span-5 bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 text-left space-y-5 border border-white/20 shadow-lg transform hover:translate-y-[-5px] transition-all duration-300">
-                <div className="flex items-center gap-3 text-[#a8ff00] font-medium text-lg">
-                  <Clock className="h-6 w-6 animate-pulse" />
-                  <span>Oferta por tempo limitado</span>
+              {/* Benefícios principais */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="h-6 w-6 text-[#a5c600]" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">Acesso Vitalício</h3>
+                  <p className="text-gray-300">
+                    Estude no seu ritmo com acesso ilimitado a todo o conteúdo para sempre
+                  </p>
                 </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <p className="text-white">Acesso vitalício a todo o conteúdo</p>
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
+                    <Users className="h-6 w-6 text-[#a5c600]" />
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <p className="text-white">Certificado de conclusão reconhecido</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00]/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-5 w-5 text-[#a8ff00]" />
-                    </div>
-                    <p className="text-white">Suporte direto com a equipe do Bispo</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#a8ff00] flex items-center justify-center shrink-0 animate-pulse">
-                      <Gift className="h-5 w-5 text-black" />
-                    </div>
-                    <div>
-                      <p className="text-white font-bold">BÔNUS EXCLUSIVO: Grupo VIP com o Bispo Rinaldo</p>
-                      <p className="text-rose-300 text-sm">Apenas para as próximas 48h - Valor: R$ 497,00</p>
-                    </div>
-                  </div>
+                  <h3 className="font-bold text-lg mb-2">Comunidade VIP</h3>
+                  <p className="text-gray-300">
+                    Grupo exclusivo para tirar dúvidas e compartilhar experiências com outros alunos
+                  </p>
                 </div>
-
-                <div className="pt-2">
-                  <div className="p-4 bg-black/40 rounded-lg border border-white/10">
-                    <p className="text-sm text-white font-medium">Oferta por tempo limitado</p>
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
+                    <Award className="h-6 w-6 text-[#a5c600]" />
                   </div>
+                  <h3 className="font-bold text-lg mb-2">Certificado Oficial</h3>
+                  <p className="text-gray-300">Receba seu certificado reconhecido após a conclusão do curso</p>
                 </div>
               </div>
 
-              {/* Coluna 7/12 */}
-              <Card className="md:col-span-7 border-none rounded-3xl overflow-hidden shadow-xl backdrop-blur-md bg-white/95 text-neutral-900 transform hover:translate-y-[-5px] transition-all duration-300">
-                <CardContent className="p-8 space-y-6">
-                  <div className="bg-gradient-to-r from-[#a8ff00] to-[#c0e500] text-black p-5 -mx-8 -mt-8 mb-6 text-center shadow-md">
-                    <h3 className="font-bold text-2xl mb-2">Oferta Especial - Encerra em:</h3>
-                    <CountdownTimer />
+              {/* Preço e CTA */}
+              <div className="mt-12 bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-8 rounded-2xl border border-gray-700 backdrop-blur-sm max-w-[600px] mx-auto">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+                  <div className="text-left">
+                    <p className="text-gray-400 text-sm">Investimento único:</p>
+                    <div className="flex items-center gap-3">
+                      <span className="text-gray-400 line-through text-lg">R$ 197,00</span>
+                      <span className="bg-[#d4fb00]/20 text-[#d4fb00] px-2 py-1 rounded text-sm font-bold">
+                        50% OFF
+                      </span>
+                    </div>
+                    <div className="text-3xl font-bold text-white">R$ 97,00</div>
+                    <p className="text-sm text-gray-400">ou 3x de R$ 34,29 sem juros</p>
                   </div>
-
-                  <div className="text-center space-y-3 py-2">
-                    <p className="text-neutral-500 line-through text-lg">De R$ 197,00</p>
-                    <div className="text-5xl font-bold text-[#a8ff00]">Por apenas R$ 97,00</div>
-                    <div className="text-base text-neutral-600 font-medium">ou 3x de R$ 34,29 sem juros</div>
-                  </div>
-
-                  <div className="bg-[#a8ff00]/10 p-5 rounded-2xl text-center border border-[#a8ff00]/30">
-                    <p className="font-bold text-lg text-neutral-800">Economize R$ 100,00 (50% OFF)</p>
-                    <p className="text-neutral-600">+ Bônus exclusivo no valor de R$ 497,00</p>
-                  </div>
-
-                  <Button className="bg-[#a8ff00] hover:bg-[#c0e500] text-black w-full h-16 text-xl font-bold shadow-md rounded-full transition-all duration-300 ease-in-out border-b-4 border-[#a8c800] hover:border-[#a8ff00] transform hover:scale-[1.02]">
-                    <span className="hidden sm:inline">QUERO GARANTIR MINHA VAGA AGORA</span>
-                    <span className="inline sm:hidden">GARANTIR VAGA</span>
-                    <ArrowRight className="ml-2 h-6 w-6" />
-                  </Button>
-
-                  <div className="flex items-center justify-center gap-2 text-base text-neutral-600 bg-neutral-100 p-3 rounded-lg">
-                    <Lock className="h-5 w-5 text-[#a8ff00]" />
-                    <span className="font-medium">Pagamento 100% seguro</span>
-                  </div>
-
-                  <div className="pt-2">
-                    <p className="text-center text-neutral-600 font-medium mb-3">Formas de pagamento aceitas:</p>
-                    <div className="flex flex-wrap justify-center gap-3">
-                      <div className="w-16 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shadow-sm border border-neutral-200">
-                        <span className="text-sm font-medium">Visa</span>
-                      </div>
-                      <div className="w-16 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shadow-sm border border-neutral-200">
-                        <span className="text-sm font-medium">Master</span>
-                      </div>
-                      <div className="w-16 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shadow-sm border border-neutral-200">
-                        <span className="text-sm font-medium">Pix</span>
-                      </div>
-                      <div className="w-16 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shadow-sm border border-neutral-200">
-                        <span className="text-sm font-medium">Boleto</span>
-                      </div>
-                      <div className="w-16 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shadow-sm border border-neutral-200">
-                        <span className="text-sm font-medium">PayPal</span>
+                  <div className="h-16 w-px bg-gray-700 hidden md:block"></div>
+                  <div className="text-left">
+                    <div className="flex items-start gap-2 mb-2">
+                      <Gift className="h-5 w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
+                      <div>
+                        <p className="font-bold text-white">BÔNUS EXCLUSIVO:</p>
+                        <p className="text-sm text-gray-300">Grupo VIP com o Bispo Rinaldo</p>
                       </div>
                     </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                      <ShieldCheck className="h-4 w-4 text-[#a5c600]" />
+                      <span>Pagamento 100% seguro</span>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="mt-12 text-neutral-300 text-sm max-w-[700px] mx-auto text-center bg-black/30 p-4 rounded-xl backdrop-blur-sm">
-              <p>
-                Ao se inscrever, você concorda com nossos termos de uso e política de privacidade. Lembre-se que você
-                tem 7 dias de garantia incondicional para solicitar reembolso caso não esteja satisfeito.
-              </p>
+                </div>
+                <a href="https://checkout.escoladedons.com.br" target="_blank" rel="noopener noreferrer">
+                  <Button
+                    size="lg"
+                    className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-8 py-6 text-xl font-bold shadow-xl w-full transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
+                  >
+                    QUERO GARANTIR MINHA VAGA AGORA
+                    <ChevronRight className="ml-2 h-6 w-6" />
+                    <ShineEffect />
+                  </Button>
+                </a>
+                <p className="mt-4 text-gray-400 text-sm">
+                  Restam apenas <span className="text-red-400 font-bold animate-pulse">12 vagas</span> para esta turma!
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 mt-4">
+                  <div className="flex items-center gap-1 text-sm text-gray-400">
+                    <Clock className="h-4 w-4 text-[#d4fb00]" />
+                    <span>Acesso imediato</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-sm text-gray-400">
+                    <CheckCircle2 className="h-4 w-4 text-[#d4fb00]" />
+                    <span>Garantia de 7 dias</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-sm text-gray-400">
+                    <Heart className="h-4 w-4 text-[#d4fb00]" />
+                    <span>Suporte exclusivo</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-12 bg-neutral-900 text-white">
-        <div className="container px-4 sm:px-6 mx-auto">
+      <footer className="w-full py-12 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?key=jsh3t')] opacity-5 bg-cover bg-center mix-blend-overlay"></div>
+
+        <div className="container px-4 sm:px-6 mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <div className="flex items-center gap-2 font-medium text-xl">
-                <div className="w-8 h-8 rounded-full bg-[#a8ff00] flex items-center justify-center text-black">RS</div>
+              <div className="flex items-center gap-2 font-bold text-xl">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center text-black shadow-md shadow-[#d4fb00]/10">
+                  RS
+                </div>
                 <span>Bispo Rinaldo Silva</span>
               </div>
-              <p className="text-neutral-400">Transformando vidas através da palavra de Deus.</p>
+              <p className="text-gray-400">Transformando vidas através da palavra de Deus.</p>
             </div>
 
             <div>
-              <h3 className="font-medium mb-4">Links Rápidos</h3>
+              <h3 className="font-bold mb-4">Links Rápidos</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#sobre" className="text-neutral-400 hover:text-[#a8ff00] transition-colors">
+                  <a
+                    href="#sobre"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                  >
+                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
                     Sobre
                   </a>
                 </li>
                 <li>
-                  <a href="#modulos" className="text-neutral-400 hover:text-[#a8ff00] transition-colors">
+                  <a
+                    href="#modulos"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                  >
+                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
                     Módulos
                   </a>
                 </li>
                 <li>
-                  <a href="#beneficios" className="text-neutral-400 hover:text-[#a8ff00] transition-colors">
+                  <a
+                    href="#beneficios"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                  >
+                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
                     Benefícios
                   </a>
                 </li>
                 <li>
-                  <a href="#depoimentos" className="text-neutral-400 hover:text-[#a8ff00] transition-colors">
+                  <a
+                    href="#depoimentos"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                  >
+                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
                     Depoimentos
                   </a>
                 </li>
                 <li>
-                  <a href="#faq" className="text-neutral-400 hover:text-[#a8ff00] transition-colors">
+                  <a
+                    href="#faq"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                  >
+                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
                     FAQ
                   </a>
                 </li>
@@ -1387,34 +1425,43 @@ export default function EscolaDons() {
             </div>
 
             <div>
-              <h3 className="font-medium mb-4">Contato</h3>
-              <ul className="space-y-2 text-neutral-400">
-                <li>contato@escoladedons.com.br</li>
-                <li>+55 (11) 99999-9999</li>
-                <li>São Paulo, SP - Brasil</li>
+              <h3 className="font-bold mb-4">Contato</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-[#d4fb00]" />
+                  contato@escoladedons.com.br
+                </li>
+                <li className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-[#d4fb00]" />
+                  +55 (11) 99999-9999
+                </li>
+                <li className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-[#d4fb00]" />
+                  São Paulo, SP - Brasil
+                </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-medium mb-4">Formas de Pagamento</h3>
-              <div className="flex flex-wrap gap-2">
-                <div className="w-12 h-8 bg-white/10 rounded flex items-center justify-center">
-                  <span className="text-xs">Visa</span>
+              <h3 className="font-bold mb-4">Formas de Pagamento</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-sm">Visa</span>
                 </div>
-                <div className="w-12 h-8 bg-white/10 rounded flex items-center justify-center">
-                  <span className="text-xs">Master</span>
+                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-sm">Master</span>
                 </div>
-                <div className="w-12 h-8 bg-white/10 rounded flex items-center justify-center">
-                  <span className="text-xs">Pix</span>
+                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-sm">Pix</span>
                 </div>
-                <div className="w-12 h-8 bg-white/10 rounded flex items-center justify-center">
-                  <span className="text-xs">Boleto</span>
+                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-sm">Boleto</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-neutral-800 mt-8 pt-8 text-center text-neutral-400 text-sm">
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
             <p>&copy; {new Date().getFullYear()} Escola de Dons - Bispo Rinaldo Silva. Todos os direitos reservados.</p>
           </div>
         </div>

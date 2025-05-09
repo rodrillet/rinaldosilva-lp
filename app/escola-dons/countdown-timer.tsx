@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -11,68 +11,57 @@ export default function CountdownTimer() {
   })
 
   useEffect(() => {
-    // Set target date to 3 days from now
+    // Data final (7 dias a partir de agora)
     const targetDate = new Date()
-    targetDate.setDate(targetDate.getDate() + 3) // Reduzindo para 3 dias para criar mais urgência
-    targetDate.setHours(23, 59, 59, 0)
+    targetDate.setDate(targetDate.getDate() + 7)
 
-    const calculateTimeLeft = () => {
-      const difference = +targetDate - +new Date()
+    const interval = setInterval(() => {
+      const now = new Date()
+      const difference = targetDate.getTime() - now.getTime()
 
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        })
-      } else {
-        setTimeLeft({
-          days: 0,
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
-        })
+      if (difference <= 0) {
+        clearInterval(interval)
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        return
       }
-    }
 
-    calculateTimeLeft()
-    const timer = setInterval(calculateTimeLeft, 1000)
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
 
-    return () => clearInterval(timer)
+      setTimeLeft({ days, hours, minutes, seconds })
+    }, 1000)
+
+    return () => clearInterval(interval)
   }, [])
 
-  const TimerDigit = ({ value, label }: { value: number; label: string }) => (
-    <div className="text-center">
-      <div className="relative">
-        <div className="bg-black/80 text-white text-xl font-medium w-14 h-14 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-md overflow-hidden border border-[#a8ff00]/30">
-          {String(value).padStart(2, "0")}
-        </div>
-      </div>
-      <div className="text-xs mt-1 font-medium text-white/80">{label}</div>
-    </div>
-  )
-
-  const Separator = () => <div className="flex items-center text-xl font-bold text-white mt-[-8px]">:</div>
-
   return (
-    <div className="space-y-3">
-      <div className="flex justify-center gap-2 mt-2">
-        <TimerDigit value={timeLeft.days} label="Dias" />
-        <Separator />
-        <TimerDigit value={timeLeft.hours} label="Horas" />
-        <Separator />
-        <TimerDigit value={timeLeft.minutes} label="Min" />
-        <Separator />
-        <TimerDigit value={timeLeft.seconds} label="Seg" />
-      </div>
-      {timeLeft.days < 2 && (
-        <div className="flex justify-center mt-3">
-          <p className="text-center text-white text-sm font-medium px-4 py-2 rounded-full bg-white/10 shadow-sm border border-white/20">
-            ⚠️ ATENÇÃO: Inscrições quase encerrando!
-          </p>
+    <div className="flex justify-center gap-3 mt-3">
+      <div className="flex flex-col items-center">
+        <div className="bg-black text-white text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-inner">
+          {String(timeLeft.days).padStart(2, "0")}
         </div>
-      )}
+        <span className="text-xs mt-1 text-gray-300">Dias</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="bg-black text-white text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-inner">
+          {String(timeLeft.hours).padStart(2, "0")}
+        </div>
+        <span className="text-xs mt-1 text-gray-300">Horas</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="bg-black text-white text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-inner">
+          {String(timeLeft.minutes).padStart(2, "0")}
+        </div>
+        <span className="text-xs mt-1 text-gray-300">Min</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="bg-black text-white text-2xl font-bold w-14 h-14 rounded-lg flex items-center justify-center shadow-inner">
+          {String(timeLeft.seconds).padStart(2, "0")}
+        </div>
+        <span className="text-xs mt-1 text-gray-300">Seg</span>
+      </div>
     </div>
   )
 }
