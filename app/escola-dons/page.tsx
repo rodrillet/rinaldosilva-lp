@@ -35,6 +35,11 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import CountdownTimer from "./countdown-timer"
 import { useEffect, useState } from "react"
+import { useOptimizedResources } from "@/hooks/useOptimizedResources"
+import { OptimizedImage } from "@/components/ui/optimized-image"
+import { LazyComponent } from "@/components/ui/lazy-component"
+import { FontOptimizer } from "@/components/ui/font-optimizer"
+import { A11yEnhancer } from "@/components/ui/a11y-enhancer"
 
 // Componente para o card de problema
 function ProblemCard({ icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
@@ -336,18 +341,55 @@ export default function EscolaDonsDark() {
     return () => clearInterval(interval)
   }, [])
 
+  // Otimização de recursos
+  const { resourcesLoaded } = useOptimizedResources({
+    preloadImages: [
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1368.JPG-QIgAJrLgnH6dH16YMLIHJ78cb5E0Zb.jpeg"
+    ],
+    preconnectUrls: [
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com"
+    ],
+    prefetchPages: [
+      "/"
+    ]
+  });
+
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 overflow-x-hidden max-w-[100vw] relative text-white">
+    <div className={`flex flex-col min-h-screen bg-gray-900 overflow-x-hidden max-w-[100vw] relative text-white ${resourcesLoaded ? 'resources-loaded' : ''}`}>
+      {/* Otimizador de fontes */}
+      <FontOptimizer />
+      
+      {/* Melhorias de acessibilidade */}
+      <A11yEnhancer />
+      
+      {/* Banner de urgência */}
+      <div className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] text-black py-1.5 text-center relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <p className="text-xs sm:text-sm font-bold">
+            ⏰ Últimas vagas disponíveis! Oferta especial por tempo limitado
+            <a href="#matricula" className="underline font-bold ml-1 sm:ml-2 hover:text-white transition-colors">
+              Garantir minha vaga
+            </a>
+          </p>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 animate-shine"></div>
+      </div>
+      
       {/* CTA Flutuante */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-r from-black/90 to-black/95 backdrop-blur-md py-3 border-t border-gray-800 transform transition-transform duration-300 shadow-lg shadow-black/30">
-        <div className="container px-4 sm:px-6 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-white text-sm sm:text-base">
-            <span className="text-[#d4fb00] font-bold">Oferta especial:</span> Acesso vitalício por apenas R$ 97,00
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-r from-black/90 to-black/95 backdrop-blur-md py-2 sm:py-3 border-t border-gray-800 transform transition-transform duration-300 shadow-lg shadow-black/30">
+        <div className="container px-2 sm:px-6 mx-auto flex flex-row items-center justify-between gap-2 sm:gap-3">
+          <div className="flex flex-col">
+            <div className="text-white text-[10px] sm:text-xs md:text-sm font-medium">
+              <span className="text-[#d4fb00] font-bold">Oferta exclusiva:</span>
+            </div>
+            <div className="text-white text-xs sm:text-sm font-bold">
+              R$ <span className="text-[#d4fb00]">97,00</span> <span className="text-gray-400 line-through text-[10px]">R$197</span>
+            </div>
           </div>
           <a href="#matricula">
-            <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-sm sm:text-base px-4 py-2 w-full sm:w-auto whitespace-nowrap shadow-md shadow-black/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/30 hover:scale-105">
-              GARANTIR MINHA VAGA
-              <ChevronRight className="ml-1 h-4 w-4" />
+            <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap shadow-md shadow-black/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/30 hover:scale-105">
+              GARANTIR VAGA AGORA
+              <ChevronRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
               <ShineEffect />
             </Button>
           </a>
@@ -359,16 +401,16 @@ export default function EscolaDonsDark() {
         id="top"
         className="sticky top-0 z-50 w-full backdrop-blur-md bg-gradient-to-r from-black/80 to-black/70 border-b border-gray-800 supports-[backdrop-filter]:bg-black/40 shadow-md shadow-black/10"
       >
-        <div className="container px-4 sm:px-6 mx-auto flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center text-black shadow-md shadow-[#d4fb00]/20">
+        <div className="container px-4 sm:px-6 mx-auto flex h-14 sm:h-16 items-center justify-between">
+          <div className="flex items-center gap-1.5 sm:gap-2 font-bold text-base sm:text-xl">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center text-black shadow-md shadow-[#d4fb00]/20 text-xs sm:text-base">
               RS
             </div>
             <span className="text-white">Escola de Dons</span>
           </div>
 
           {/* Menu para desktop */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <a
               href="#sobre"
               className="text-sm font-medium text-white hover:text-[#d4fb00] transition-colors hover:scale-105 transform duration-200"
@@ -401,39 +443,49 @@ export default function EscolaDonsDark() {
             </a>
           </nav>
 
-          {/* Botão de menu para mobile */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-white hover:bg-white/10 hover:text-[#d4fb00] transition-all duration-200"
-            >
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Abrir menu</span>
-            </Button>
-          </div>
+          {/* Botão de menu para mobile e botão de CTA */}
+          <div className="flex items-center gap-2">
+            <a href="#matricula" className="md:hidden">
+              <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-xs px-2.5 py-1 transition-all duration-300 hover:shadow-lg hover:scale-105">
+                Inscrever
+                <ChevronRight className="ml-1 h-3.5 w-3.5" />
+              </Button>
+            </a>
+            
+            <div className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-white/10 hover:text-[#d4fb00] transition-all duration-200 h-8 w-8"
+              >
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Abrir menu</span>
+              </Button>
+            </div>
 
-          <a href="#matricula" className="hidden md:block">
-            <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-sm px-4 py-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
-              Inscrever-se
-              <ChevronRight className="ml-1 h-4 w-4" />
-              <ShineEffect />
-            </Button>
-          </a>
+            <a href="#matricula" className="hidden md:block">
+              <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-sm px-4 py-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
+                Inscrever-se
+                <ChevronRight className="ml-1 h-4 w-4" />
+                <ShineEffect />
+              </Button>
+            </a>
+          </div>
         </div>
       </header>
 
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* Hero Section - Otimizado para mobile */}
         <section className="relative w-full py-16 md:py-24 lg:py-32 overflow-hidden bg-black text-white">
           <div className="absolute inset-0 opacity-70">
-            <Image
+            <OptimizedImage
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1368.JPG-QIgAJrLgnH6dH16YMLIHJ78cb5E0Zb.jpeg"
               alt="Culto Igreja Impactados"
               fill
               className="object-cover"
-              priority
+              priority={true}
               sizes="100vw"
+              lowQualitySrc="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAICAgICAQICAgIDAgIDAwYEAwMDAwcFBQQGCAcJCAgHCAgJCg0LCQoMCggICw8LDA0ODg8OCQsQERAOEQ0ODg7/2wBDAQIDAwMDAwcEBAcOCQgJDg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg7/wgARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgcI/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/2gAMAwEAAhADEAAAALFrqUC5f//EABoQAAEFAQAAAAAAAAAAAAAAAAMAAQIEEhP/2gAIAQEAAQUCQUKjdjAyrH//xAAaEQABBQEAAAAAAAAAAAAAAAABAAIDEUHw/9oACAEDAQE/AXN1rn3P/8QAGREAAgMBAAAAAAAAAAAAAAAAAAECETES/9oACAECAQE/AZNWTLP/xAAeEAACAgEFAQAAAAAAAAAAAAAAAQIRAxIhMUFRYf/aAAgBAQAGPwKnCG9UYw1jVND8Z/Z//8QAGxABAAICAwAAAAAAAAAAAAAAAQARITFBUWH/2gAIAQEAAT8hFwOHJ3KwOBgp2b56dEb/2gAMAwEAAgADAAAAEMf/xAAXEQEAAwAAAAAAAAAAAAAAAAABABEh/9oACAEDAQE/EFayw//EABYRAQEBAAAAAAAAAAAAAAAAAAEAIf/aAAgBAgEBPxA2Xf/EABwQAQACAgMBAAAAAAAAAAAAAAEAESExQVFxkf/aAAgBAQABPxBGzURXUvYA3K9IasGP2I3tHcVTqYLyLMP/2Q=="
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>
@@ -448,14 +500,14 @@ export default function EscolaDonsDark() {
                 <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-lg shadow-[#d4fb00]/20">
                   Matrículas Abertas
                 </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight text-shadow-lg">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-tight text-shadow-lg">
                   Descubra e Desenvolva Seus <span className="text-[#d4fb00]">Dons Espirituais</span>
                 </h1>
-                <p className="text-lg md:text-xl text-gray-300 max-w-[600px] mx-auto lg:mx-0">
+                <p className="text-base md:text-lg text-gray-300 max-w-[600px] mx-auto lg:mx-0">
                   Seja uma ferramenta de transformação através do propósito dos Dons Espirituais.
                 </p>
                 <div className="flex justify-center w-full">
-                  <a href="#matricula">
+                  <a href="#matricula" className="w-full sm:w-auto">
                     <Button
                       size="lg"
                       className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-6 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full transition-all duration-300 hover:shadow-lg hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100"
@@ -476,50 +528,50 @@ export default function EscolaDonsDark() {
               <div className="relative mx-auto lg:mx-0 max-w-md w-full" id="matricula">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#d4fb00]/40 to-[#a5c600]/20 rounded-2xl -rotate-3 shadow-xl shadow-black/30"></div>
                 <Card className="relative border-none rounded-2xl overflow-hidden shadow-2xl bg-gray-800/95 backdrop-blur-md text-white border border-gray-700">
-                  <CardContent className="p-6 space-y-6">
-                    <div className="bg-gradient-to-r from-black to-gray-800 text-white p-4 -mx-6 -mt-6 mb-6 text-center shadow-md border-b border-gray-700">
-                      <h3 className="font-bold text-xl">Oferta Especial - Encerra em:</h3>
+                  <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+                    <div className="bg-gradient-to-r from-black to-gray-800 text-white p-3 sm:p-4 -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 mb-4 sm:mb-6 text-center shadow-md border-b border-gray-700">
+                      <h3 className="font-bold text-base sm:text-xl">Oferta Especial - Encerra em:</h3>
                       <CountdownTimer />
                     </div>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                        <p>Acesso imediato a todo conteúdo</p>
+                    <div className="space-y-3 sm:space-y-4">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p className="text-sm sm:text-base">Acesso imediato a todo conteúdo</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                        <p>Certificado de conclusão</p>
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p className="text-sm sm:text-base">Certificado de conclusão</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                        <p>Suporte direto com a equipe</p>
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p className="text-sm sm:text-base">Suporte direto com a equipe</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                        <p>Acesso vitalício</p>
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#d4fb00] mt-0.5 shrink-0" />
+                        <p className="text-sm sm:text-base">Acesso vitalício</p>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <Gift className="h-5 w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
-                        <p className="font-bold">
-                          BÔNUS: Grupo exclusivo com o Bispo Rinaldo
-                          <span className="text-red-400 text-sm block">Apenas para as próximas 48h</span>
-                        </p>
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <Gift className="h-4 w-4 sm:h-5 sm:w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
+                        <div>
+                          <p className="font-bold text-sm sm:text-base">BÔNUS: Grupo exclusivo com o Bispo Rinaldo</p>
+                          <span className="text-red-400 text-xs sm:text-sm block">Apenas para as próximas 48h</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="pt-4 space-y-3">
+                    <div className="pt-2 sm:pt-4 space-y-2 sm:space-y-3">
                       <div className="text-center">
-                        <span className="text-gray-400 line-through text-lg">De R$ 197,00</span>
-                        <div className="text-3xl font-bold text-white">Por apenas R$ 97,00</div>
-                        <div className="text-sm text-gray-400">ou 3x de R$ 34,29</div>
+                        <span className="text-gray-400 line-through text-base sm:text-lg">De R$ 197,00</span>
+                        <div className="text-2xl sm:text-3xl font-bold text-white">Por apenas R$ 97,00</div>
+                        <div className="text-xs sm:text-sm text-gray-400">ou 3x de R$ 34,29</div>
                       </div>
-                      <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full h-12 text-sm sm:text-base font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
+                      <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full h-10 sm:h-12 text-sm font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
                         <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
                         <span className="inline sm:hidden">INSCREVER AGORA</span>
-                        <ChevronRight className="ml-2 h-5 w-5 flex-shrink-0" />
+                        <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                         <ShineEffect />
                       </Button>
-                      <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
-                        <ShieldCheck className="h-4 w-4 text-[#a5c600]" />
+                      <div className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
+                        <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4 text-[#a5c600]" />
                         <span>Pagamento 100% seguro</span>
                       </div>
                     </div>
@@ -531,221 +583,37 @@ export default function EscolaDonsDark() {
         </section>
 
         {/* Social Proof Section */}
-        <section className="py-8 bg-gradient-to-b from-gray-900 to-gray-800">
+        <section className="py-6 sm:py-8 bg-gradient-to-b from-gray-900 to-gray-800">
           <div className="container px-4 sm:px-6 mx-auto">
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-16">
               <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
                   1500+
                 </div>
-                <p className="text-gray-400">Alunos</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Alunos</p>
               </div>
-              <Separator orientation="vertical" className="h-12 hidden md:block bg-[#d4fb00]/40" />
               <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
                   5
                 </div>
-                <p className="text-gray-400">Módulos</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Módulos</p>
               </div>
-              <Separator orientation="vertical" className="h-12 hidden md:block bg-[#d4fb00]/40" />
               <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
                   40+
                 </div>
-                <p className="text-gray-400">Horas de Conteúdo</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Horas</p>
               </div>
-              <Separator orientation="vertical" className="h-12 hidden md:block bg-[#d4fb00]/40" />
               <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#d4fb00] to-[#a5c600] bg-clip-text text-transparent">
                   4.9/5
                 </div>
-                <div className="flex text-[#d4fb00]">
+                <div className="flex justify-center text-[#d4fb00]">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
+                    <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 fill-current" />
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Prova de Autoridade */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-black via-gray-900 to-black text-white relative overflow-hidden">
-          {/* Elementos decorativos */}
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px]"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px]"></div>
-
-          <div className="container px-4 sm:px-6 mx-auto relative z-10">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-lg">
-                Reconhecimento
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
-                Ministério Reconhecido <span className="text-[#d4fb00]">Internacionalmente</span>
-              </h2>
-              <p className="text-gray-300">
-                O Bispo Rinaldo Silva tem impactado vidas em mais de 40 países através de seu ministério
-              </p>
-            </div>
-
-            {/* Carrossel de Reconhecimento */}
-            <div className="relative mb-12 max-w-[900px] mx-auto">
-              <div className="overflow-hidden rounded-xl">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  id="carousel-container"
-                  style={{ transform: "translateX(0%)" }}
-                >
-                  <div className="min-w-full px-2">
-                    <div className="relative aspect-[9/16] md:aspect-[16/9] rounded-xl overflow-hidden group shadow-xl shadow-black/40 transition-transform duration-300 hover:scale-105 transform">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
-                      <div className="absolute inset-0 flex items-center justify-center z-20">
-                        <div className="w-16 h-16 bg-[#d4fb00]/80 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
-                          <PlayCircle className="h-10 w-10 text-black" />
-                        </div>
-                      </div>
-                      <Image
-                        src="/placeholder.svg?key=kmgxg"
-                        alt="Bispo Rinaldo pregando"
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, 80vw"
-                      />
-                      <div className="absolute bottom-4 left-4 right-4 z-20">
-                        <span className="bg-[#d4fb00] text-black text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">
-                          VÍDEO
-                        </span>
-                        <h3 className="text-xl font-bold">Conferência Aviva Nations</h3>
-                        <p className="text-sm text-gray-300">Mais de 5.000 participantes</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="min-w-full px-2">
-                    <div className="relative aspect-[9/16] md:aspect-[16/9] rounded-xl overflow-hidden group shadow-xl shadow-black/40 transition-transform duration-300 hover:scale-105 transform">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
-                      <div className="absolute inset-0 flex items-center justify-center z-20">
-                        <div className="w-16 h-16 bg-[#d4fb00]/80 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
-                          <PlayCircle className="h-10 w-10 text-black" />
-                        </div>
-                      </div>
-                      <Image
-                        src="/healing-ministration-video-still.png"
-                        alt="Vídeos de curas realizadas"
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, 80vw"
-                      />
-                      <div className="absolute bottom-4 left-4 right-4 z-20">
-                        <span className="bg-[#d4fb00] text-black text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">
-                          VÍDEO
-                        </span>
-                        <h3 className="text-xl font-bold">Vídeos de Curas</h3>
-                        <p className="text-sm text-gray-300">Testemunhos reais de milagres e curas</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="min-w-full px-2">
-                    <div className="relative aspect-[9/16] md:aspect-[16/9] rounded-xl overflow-hidden group shadow-xl shadow-black/40 transition-transform duration-300 hover:scale-105 transform">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
-                      <div className="absolute inset-0 flex items-center justify-center z-20">
-                        <div className="w-16 h-16 bg-[#d4fb00]/80 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-300">
-                          <PlayCircle className="h-10 w-10 text-black" />
-                        </div>
-                      </div>
-                      <Image
-                        src="/placeholder.svg?key=kjv5j"
-                        alt="Bispo Rinaldo em entrevista"
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, 80vw"
-                      />
-                      <div className="absolute bottom-4 left-4 right-4 z-20">
-                        <span className="bg-[#d4fb00] text-black text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">
-                          VÍDEO
-                        </span>
-                        <h3 className="text-xl font-bold">Mídia & Entrevistas</h3>
-                        <p className="text-sm text-gray-300">Presença em canais nacionais</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Controles do carrossel */}
-              <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 z-20"
-                onClick={() => {
-                  const container = document.getElementById("carousel-container")
-                  const currentTransform = container.style.transform
-                  const currentPosition =
-                    Number.parseInt(currentTransform.replace("translateX(", "").replace("%)", "")) || 0
-                  const newPosition = Math.min(currentPosition + 100, 0)
-                  container.style.transform = `translateX(${newPosition}%)`
-                }}
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 z-20"
-                onClick={() => {
-                  const container = document.getElementById("carousel-container")
-                  const currentTransform = container.style.transform
-                  const currentPosition =
-                    Number.parseInt(currentTransform.replace("translateX(", "").replace("%)", "")) || 0
-                  const newPosition = Math.max(currentPosition - 100, -200)
-                  container.style.transform = `translateX(${newPosition}%)`
-                }}
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-
-              {/* Indicadores do carrossel */}
-              <div className="flex justify-center mt-4 gap-2">
-                {[0, 1, 2].map((index) => (
-                  <button
-                    key={index}
-                    className="w-3 h-3 rounded-full bg-gray-600 hover:bg-[#d4fb00] focus:bg-[#d4fb00]"
-                    onClick={() => {
-                      const container = document.getElementById("carousel-container")
-                      container.style.transform = `translateX(${-index * 100}%)`
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-12 text-center">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="text-3xl font-bold text-[#d4fb00]">40+</div>
-                  <p className="text-gray-300">Países</p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="text-3xl font-bold text-[#d4fb00]">27</div>
-                  <p className="text-gray-300">Estados</p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="text-3xl font-bold text-[#d4fb00]">1000+</div>
-                  <p className="text-gray-300">Conferências</p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="text-3xl font-bold text-[#d4fb00]">20+</div>
-                  <p className="text-gray-300">Anos</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-12 text-center">
-              <a href="#matricula">
-                <Button
-                  size="lg"
-                  className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 py-3 text-base font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
-                >
-                  Quero Aprender com o Bispo Rinaldo
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                  <ShineEffect />
-                </Button>
-              </a>
             </div>
           </div>
         </section>
@@ -808,6 +676,8 @@ export default function EscolaDonsDark() {
                   width={600}
                   height={800}
                   className="object-cover rounded-2xl group-hover:scale-105 transition-all duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
                   <h3 className="text-2xl font-bold text-white mb-2">100% Online</h3>
@@ -968,7 +838,8 @@ export default function EscolaDonsDark() {
                     alt="Grupo VIP com o Bispo Rinaldo"
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -1058,6 +929,7 @@ export default function EscolaDonsDark() {
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 1024px) 100vw, 50vw"
+                      loading="lazy"
                     />
                   </div>
                   <CardContent className="p-6 bg-gradient-to-r from-gray-800 to-gray-900">
@@ -1137,287 +1009,295 @@ export default function EscolaDonsDark() {
         </section>
 
         {/* Benefits Section */}
-        <section
-          id="beneficios"
-          className="py-16 md:py-24 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden"
-        >
-          {/* Decoração de fundo */}
-          <div className="absolute -right-32 top-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
-          <div className="absolute -left-32 bottom-1/4 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+        <LazyComponent className="w-full" rootMargin="300px 0px">
+          <section
+            id="beneficios"
+            className="py-16 md:py-24 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden"
+          >
+            {/* Decoração de fundo */}
+            <div className="absolute -right-32 top-1/4 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+            <div className="absolute -left-32 bottom-1/4 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
 
-          <div className="container px-4 sm:px-6 mx-auto relative z-10">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
-                Por que escolher a Escola?
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
-                O Que Você Vai <span className="text-[#a5c600]">Conquistar</span> Com a Escola de Dons
-              </h2>
-              <p className="text-gray-300">
-                Transforme sua vida ministerial e descubra como impactar o Reino de Deus através dos seus dons
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {courseBenefits.map((benefit, index) => (
-                <Card
-                  key={index}
-                  className="border-none rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 transform hover:scale-105 scale-100"
-                >
-                  <CardContent className="p-8 space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shadow-lg">
-                      {React.createElement(benefit.icon, { className: "h-6 w-6 text-[#a5c600]" })}
-                    </div>
-                    <h3 className="text-xl font-bold text-white">{benefit.title}</h3>
-                    <p className="text-gray-300">{benefit.description}</p>
-                    <div className="pt-4 mt-2">
-                      <div className="bg-gradient-to-r from-[#d4fb00]/20 to-[#a5c600]/10 p-3 rounded-lg shadow-inner border border-gray-700">
-                        <p className="font-medium text-sm text-white">Transformação:</p>
-                        <p className="text-gray-200 font-semibold">{benefit.transformation}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <a href="#matricula">
-                <Button
-                  size="lg"
-                  className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 h-12 text-base font-bold shadow-xl w-full sm:w-auto transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
-                >
-                  Quero Desenvolver Meus Dons
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                  <ShineEffect />
-                </Button>
-              </a>
-              <p className="mt-4 text-gray-400 text-sm">
-                Restam apenas <span className="text-red-400 font-bold animate-pulse">12 vagas</span> para esta turma!
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section id="faq" className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
-          {/* Decoração de fundo */}
-          <div className="absolute -left-32 top-1/3 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
-          <div className="absolute -right-32 bottom-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
-
-          <div className="container px-4 sm:px-6 mx-auto relative z-10">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
-                Perguntas Frequentes
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
-                Tire Suas <span className="text-[#a5c600]">Dúvidas</span> Sobre a Escola de Dons
-              </h2>
-              <p className="text-gray-300">
-                Respondemos às perguntas mais comuns para que você possa tomar a melhor decisão
-              </p>
-            </div>
-
-            <div className="max-w-[800px] mx-auto p-8 rounded-2xl backdrop-blur-md bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl border border-gray-700">
-              <Accordion type="single" collapsible className="w-full">
-                {faqs.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    value={`faq-${index}`}
-                    className="border-b border-gray-700 hover:border-[#d4fb00]/50 transition-colors duration-300"
-                  >
-                    <AccordionTrigger className="py-4 text-left font-bold hover:text-[#a5c600] hover:no-underline text-white">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-4 pt-2 text-gray-300">{faq.answer}</AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA Section */}
-        <section
-          id="checkout"
-          className="py-20 md:py-28 bg-gradient-to-b from-black via-gray-900 to-black text-white relative overflow-hidden"
-        >
-          {/* Elementos decorativos de fundo */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30">
-            <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
-            <div className="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
-            <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-[#d4fb00]/40 blur-3xl"></div>
-          </div>
-
-          <div className="container px-4 sm:px-6 mx-auto relative z-10">
-            <div className="max-w-[900px] mx-auto text-center space-y-8">
-              <div className="inline-block animate-pulse">
-                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-6 py-2 text-base rounded-full font-bold shadow-lg shadow-[#d4fb00]/30">
-                  Última Oportunidade
+            <div className="container px-4 sm:px-6 mx-auto relative z-10">
+              <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
+                  Por que escolher a Escola?
                 </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                  O Que Você Vai <span className="text-[#a5c600]">Conquistar</span> Com a Escola de Dons
+                </h2>
+                <p className="text-gray-300">
+                  Transforme sua vida ministerial e descubra como impactar o Reino de Deus através dos seus dons
+                </p>
               </div>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight text-shadow">
-                Transforme Sua Vida Ministerial <span className="text-[#d4fb00] drop-shadow-lg">Hoje Mesmo</span>
-              </h2>
-
-              <p className="text-xl md:text-2xl text-gray-300 max-w-[700px] mx-auto">
-                Mais de <span className="font-bold text-white">1.500 líderes</span> já descobriram seus dons e estão
-                impactando suas igrejas. Chegou a sua vez!
-              </p>
-
-              {/* Benefícios principais */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="h-6 w-6 text-[#a5c600]" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">Acesso Vitalício</h3>
-                  <p className="text-gray-300">
-                    Estude no seu ritmo com acesso ilimitado a todo o conteúdo para sempre
-                  </p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
-                    <Users className="h-6 w-6 text-[#a5c600]" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">Comunidade VIP</h3>
-                  <p className="text-gray-300">
-                    Grupo exclusivo para tirar dúvidas e compartilhar experiências com outros alunos
-                  </p>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
-                    <Award className="h-6 w-6 text-[#a5c600]" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2">Certificado Oficial</h3>
-                  <p className="text-gray-300">Receba seu certificado reconhecido após a conclusão do curso</p>
-                </div>
-              </div>
-
-              {/* Preço e CTA */}
-              <div className="mt-12 bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-8 rounded-2xl border border-gray-700 backdrop-blur-sm max-w-[600px] mx-auto">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-                  <div className="text-left">
-                    <p className="text-gray-400 text-sm">Investimento único:</p>
-                    <div className="flex items-center gap-3">
-                      <span className="text-gray-400 line-through text-lg">R$ 197,00</span>
-                      <span className="bg-[#d4fb00]/20 text-[#d4fb00] px-2 py-1 rounded text-sm font-bold">
-                        50% OFF
-                      </span>
-                    </div>
-                    <div className="text-3xl font-bold text-white">R$ 97,00</div>
-                    <p className="text-sm text-gray-400">ou 3x de R$ 34,29 sem juros</p>
-                  </div>
-                  <div className="h-16 w-px bg-gray-700 hidden md:block"></div>
-                  <div className="text-left">
-                    <div className="flex items-start gap-2 mb-2">
-                      <Gift className="h-5 w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
-                      <div>
-                        <p className="font-bold text-white">BÔNUS EXCLUSIVO:</p>
-                        <p className="text-sm text-gray-300">Grupo VIP com o Bispo Rinaldo</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
+                {courseBenefits.map((benefit, index) => (
+                  <Card
+                    key={index}
+                    className="border-none rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 transform hover:scale-105 scale-100"
+                  >
+                    <CardContent className="p-4 sm:p-8 space-y-3 sm:space-y-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center shadow-lg">
+                        {React.createElement(benefit.icon, { className: "h-5 w-5 sm:h-6 sm:w-6 text-[#a5c600]" })}
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <ShieldCheck className="h-4 w-4 text-[#a5c600]" />
-                      <span>Pagamento 100% seguro</span>
-                    </div>
-                  </div>
-                </div>
-                <a href="https://checkout.escoladedons.com.br" target="_blank" rel="noopener noreferrer">
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{benefit.title}</h3>
+                      <p className="text-sm sm:text-base text-gray-300">{benefit.description}</p>
+                      <div className="pt-2 sm:pt-4 mt-1 sm:mt-2">
+                        <div className="bg-gradient-to-r from-[#d4fb00]/20 to-[#a5c600]/10 p-2 sm:p-3 rounded-lg shadow-inner border border-gray-700">
+                          <p className="font-medium text-xs sm:text-sm text-white">Transformação:</p>
+                          <p className="text-gray-200 font-semibold text-sm sm:text-base">{benefit.transformation}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="mt-8 sm:mt-12 text-center">
+                <a href="#matricula" className="block sm:inline-block">
                   <Button
                     size="lg"
-                    className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-8 py-6 text-xl font-bold shadow-xl w-full transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
+                    className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 h-10 sm:h-12 text-sm sm:text-base font-bold shadow-xl w-full sm:w-auto transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
                   >
-                    QUERO GARANTIR MINHA VAGA AGORA
-                    <ChevronRight className="ml-2 h-6 w-6" />
+                    Quero Desenvolver Meus Dons
+                    <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     <ShineEffect />
                   </Button>
                 </a>
-                <p className="mt-4 text-gray-400 text-sm">
+                <p className="mt-2 sm:mt-4 text-gray-400 text-xs sm:text-sm">
                   Restam apenas <span className="text-red-400 font-bold animate-pulse">12 vagas</span> para esta turma!
                 </p>
-                <div className="flex flex-wrap justify-center gap-4 mt-4">
-                  <div className="flex items-center gap-1 text-sm text-gray-400">
-                    <Clock className="h-4 w-4 text-[#d4fb00]" />
-                    <span>Acesso imediato</span>
+              </div>
+            </div>
+          </section>
+        </LazyComponent>
+
+        {/* FAQ Section */}
+        <LazyComponent className="w-full" rootMargin="300px 0px">
+          <section id="faq" className="py-16 md:py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+            {/* Decoração de fundo */}
+            <div className="absolute -left-32 top-1/3 w-64 h-64 bg-[#d4fb00]/10 rounded-full blur-[80px] z-0"></div>
+            <div className="absolute -right-32 bottom-1/3 w-80 h-80 bg-[#d4fb00]/10 rounded-full blur-[100px] z-0"></div>
+
+            <div className="container px-4 sm:px-6 mx-auto relative z-10">
+              <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
+                <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full shadow-md">
+                  Perguntas Frequentes
+                </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                  Tire Suas <span className="text-[#a5c600]">Dúvidas</span> Sobre a Escola de Dons
+                </h2>
+                <p className="text-gray-300">
+                  Respondemos às perguntas mais comuns para que você possa tomar a melhor decisão
+                </p>
+              </div>
+
+              <div className="max-w-[800px] mx-auto p-4 sm:p-8 rounded-2xl backdrop-blur-md bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl border border-gray-700">
+                <Accordion type="single" collapsible className="w-full">
+                  {faqs.map((faq, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`faq-${index}`}
+                      className="border-b border-gray-700 hover:border-[#d4fb00]/50 transition-colors duration-300"
+                    >
+                      <AccordionTrigger className="py-3 sm:py-4 text-left font-bold hover:text-[#a5c600] hover:no-underline text-white text-sm sm:text-base">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-3 sm:pb-4 pt-1 sm:pt-2 text-gray-300 text-sm sm:text-base">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </div>
+          </section>
+        </LazyComponent>
+
+        {/* Final CTA Section */}
+        <LazyComponent className="w-full" rootMargin="300px 0px">
+          <section
+            id="checkout"
+            className="py-20 md:py-28 bg-gradient-to-b from-black via-gray-900 to-black text-white relative overflow-hidden"
+          >
+            {/* Elementos decorativos de fundo */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30">
+              <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
+              <div className="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#d4fb00]/30 blur-3xl"></div>
+              <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-[#d4fb00]/40 blur-3xl"></div>
+            </div>
+
+            <div className="container px-4 sm:px-6 mx-auto relative z-10">
+              <div className="max-w-[900px] mx-auto text-center space-y-8">
+                <div className="inline-block animate-pulse">
+                  <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-6 py-2 text-base rounded-full font-bold shadow-lg shadow-[#d4fb00]/30">
+                    Última Oportunidade
+                  </Badge>
+                </div>
+
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight text-shadow">
+                  Transforme Sua Vida Ministerial <span className="text-[#d4fb00] drop-shadow-lg">Hoje Mesmo</span>
+                </h2>
+
+                <p className="text-xl md:text-2xl text-gray-300 max-w-[700px] mx-auto">
+                  Mais de <span className="font-bold text-white">1.500 líderes</span> já descobriram seus dons e estão
+                  impactando suas igrejas. Chegou a sua vez!
+                </p>
+
+                {/* Benefícios principais */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                  <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle2 className="h-6 w-6 text-[#a5c600]" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">Acesso Vitalício</h3>
+                    <p className="text-gray-300">
+                      Estude no seu ritmo com acesso ilimitado a todo o conteúdo para sempre
+                    </p>
                   </div>
-                  <div className="flex items-center gap-1 text-sm text-gray-400">
-                    <CheckCircle2 className="h-4 w-4 text-[#d4fb00]" />
-                    <span>Garantia de 7 dias</span>
+                  <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
+                      <Users className="h-6 w-6 text-[#a5c600]" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">Comunidade VIP</h3>
+                    <p className="text-gray-300">
+                      Grupo exclusivo para tirar dúvidas e compartilhar experiências com outros alunos
+                    </p>
                   </div>
-                  <div className="flex items-center gap-1 text-sm text-gray-400">
-                    <Heart className="h-4 w-4 text-[#d4fb00]" />
-                    <span>Suporte exclusivo</span>
+                  <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:border-[#d4fb00]/30 transition-all duration-300 hover:shadow-[#d4fb00]/10 hover:shadow-xl">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#d4fb00]/30 to-[#a5c600]/20 flex items-center justify-center mx-auto mb-4">
+                      <Award className="h-6 w-6 text-[#a5c600]" />
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">Certificado Oficial</h3>
+                    <p className="text-gray-300">Receba seu certificado reconhecido após a conclusão do curso</p>
+                  </div>
+                </div>
+
+                {/* Preço e CTA */}
+                <div className="mt-12 bg-gradient-to-br from-gray-800/80 to-gray-900/80 p-4 sm:p-8 rounded-2xl border border-gray-700 backdrop-blur-sm max-w-[600px] mx-auto">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 mb-4 sm:mb-6">
+                    <div className="text-center md:text-left">
+                      <p className="text-gray-400 text-xs sm:text-sm">Investimento único:</p>
+                      <div className="flex items-center gap-2 sm:gap-3 justify-center md:justify-start">
+                        <span className="text-gray-400 line-through text-sm sm:text-lg">R$ 197,00</span>
+                        <span className="bg-[#d4fb00]/20 text-[#d4fb00] px-2 py-0.5 rounded text-xs sm:text-sm font-bold">
+                          50% OFF
+                        </span>
+                      </div>
+                      <div className="text-2xl sm:text-3xl font-bold text-white">R$ 97,00</div>
+                      <p className="text-xs sm:text-sm text-gray-400">ou 3x de R$ 34,29 sem juros</p>
+                    </div>
+                    <div className="h-0.5 w-full md:h-16 md:w-px bg-gray-700 my-3 md:my-0 md:block"></div>
+                    <div className="text-center md:text-left">
+                      <div className="flex items-start gap-2 mb-1 sm:mb-2 justify-center md:justify-start">
+                        <Gift className="h-4 w-4 sm:h-5 sm:w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
+                        <div>
+                          <p className="font-bold text-white text-sm sm:text-base">BÔNUS EXCLUSIVO:</p>
+                          <p className="text-xs sm:text-sm text-gray-300">Grupo VIP com o Bispo Rinaldo</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400 justify-center md:justify-start">
+                        <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4 text-[#a5c600]" />
+                        <span>Pagamento 100% seguro</span>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="https://checkout.escoladedons.com.br" target="_blank" rel="noopener noreferrer">
+                    <Button
+                      size="lg"
+                      className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 sm:px-8 py-3 sm:py-5 text-base sm:text-xl font-bold shadow-xl w-full transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
+                    >
+                      QUERO GARANTIR MINHA VAGA AGORA
+                      <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-6 sm:w-6" />
+                      <ShineEffect />
+                    </Button>
+                  </a>
+                  <p className="mt-4 text-gray-400 text-sm">
+                    Restam apenas <span className="text-red-400 font-bold animate-pulse">12 vagas</span> para esta turma!
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4 mt-4">
+                    <div className="flex items-center gap-1 text-sm text-gray-400">
+                      <Clock className="h-4 w-4 text-[#d4fb00]" />
+                      <span>Acesso imediato</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-sm text-gray-400">
+                      <CheckCircle2 className="h-4 w-4 text-[#d4fb00]" />
+                      <span>Garantia de 7 dias</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-sm text-gray-400">
+                      <Heart className="h-4 w-4 text-[#d4fb00]" />
+                      <span>Suporte exclusivo</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </LazyComponent>
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-12 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+      <footer className="w-full py-8 sm:py-12 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/placeholder.svg?key=jsh3t')] opacity-5 bg-cover bg-center mix-blend-overlay"></div>
 
         <div className="container px-4 sm:px-6 mx-auto relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 font-bold text-xl">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center text-black shadow-md shadow-[#d4fb00]/10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div className="space-y-3 col-span-2 sm:col-span-2 md:col-span-1">
+              <div className="flex items-center gap-1.5 sm:gap-2 font-bold text-base sm:text-lg">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#d4fb00] to-[#a5c600] flex items-center justify-center text-black shadow-md shadow-[#d4fb00]/10 text-xs sm:text-base">
                   RS
                 </div>
                 <span>Bispo Rinaldo Silva</span>
               </div>
-              <p className="text-gray-400">Transformando vidas através da palavra de Deus.</p>
+              <p className="text-gray-400 text-sm">Transformando vidas através da palavra de Deus.</p>
             </div>
 
             <div>
-              <h3 className="font-bold mb-4">Links Rápidos</h3>
-              <ul className="space-y-2">
+              <h3 className="font-bold mb-2 sm:mb-4 text-sm sm:text-base">Links Rápidos</h3>
+              <ul className="space-y-1 sm:space-y-2">
                 <li>
                   <a
                     href="#sobre"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300 text-xs sm:text-sm"
                   >
-                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                     Sobre
                   </a>
                 </li>
                 <li>
                   <a
                     href="#modulos"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300 text-xs sm:text-sm"
                   >
-                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                     Módulos
                   </a>
                 </li>
                 <li>
                   <a
                     href="#beneficios"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300 text-xs sm:text-sm"
                   >
-                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                     Benefícios
                   </a>
                 </li>
                 <li>
                   <a
                     href="#depoimentos"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300 text-xs sm:text-sm"
                   >
-                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                     Depoimentos
                   </a>
                 </li>
                 <li>
                   <a
                     href="#faq"
-                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300"
+                    className="text-gray-400 hover:text-[#d4fb00] transition-colors flex items-center gap-1 hover:gap-2 duration-300 text-xs sm:text-sm"
                   >
-                    <ArrowRight className="h-4 w-4 text-[#d4fb00]" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                     FAQ
                   </a>
                 </li>
@@ -1425,43 +1305,43 @@ export default function EscolaDonsDark() {
             </div>
 
             <div>
-              <h3 className="font-bold mb-4">Contato</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-[#d4fb00]" />
+              <h3 className="font-bold mb-2 sm:mb-4 text-sm sm:text-base">Contato</h3>
+              <ul className="space-y-1 sm:space-y-2 text-gray-400">
+                <li className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                   contato@escoladedons.com.br
                 </li>
-                <li className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-[#d4fb00]" />
+                <li className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                   +55 (11) 99999-9999
                 </li>
-                <li className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[#d4fb00]" />
+                <li className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
                   São Paulo, SP - Brasil
                 </li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="font-bold mb-4">Formas de Pagamento</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
-                  <span className="text-sm">Visa</span>
+            <div className="col-span-2 sm:col-span-1">
+              <h3 className="font-bold mb-2 sm:mb-4 text-sm sm:text-base">Formas de Pagamento</h3>
+              <div className="grid grid-cols-2 gap-1 sm:gap-2">
+                <div className="w-full h-8 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-xs sm:text-sm">Visa</span>
                 </div>
-                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
-                  <span className="text-sm">Master</span>
+                <div className="w-full h-8 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-xs sm:text-sm">Master</span>
                 </div>
-                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
-                  <span className="text-sm">Pix</span>
+                <div className="w-full h-8 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-xs sm:text-sm">Pix</span>
                 </div>
-                <div className="w-full h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
-                  <span className="text-sm">Boleto</span>
+                <div className="w-full h-8 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded flex items-center justify-center shadow-inner border border-gray-700">
+                  <span className="text-xs sm:text-sm">Boleto</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+          <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400 text-xs sm:text-sm">
             <p>&copy; {new Date().getFullYear()} Escola de Dons - Bispo Rinaldo Silva. Todos os direitos reservados.</p>
           </div>
         </div>
