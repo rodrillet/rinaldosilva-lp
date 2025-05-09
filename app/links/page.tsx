@@ -177,13 +177,14 @@ export default function LinksPage() {
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
                 <Link href="/escola-dons" className="block">
-                  <div className="relative w-full h-[160px]">
+                  <div className="relative w-full h-[200px]">
                     <Image
-                      src="/escola-dons-espirituais.png"
+                      src="/links/escola-dons.png"
                       alt="Escola de Dons"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 p-4 w-full">
@@ -199,13 +200,14 @@ export default function LinksPage() {
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
                 <a href="#livros" className="block">
-                  <div className="relative w-full h-[160px]">
+                  <div className="relative w-full h-[200px]">
                     <Image
-                      src="/livros-dons-espirituais.png"
+                      src="/links/pagina-livros.png"
                       alt="Livros"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-amber-900/70 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 p-4 w-full">
@@ -221,13 +223,14 @@ export default function LinksPage() {
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
                 <a href="#agenda" className="block">
-                  <div className="relative w-full h-[160px]">
+                  <div className="relative w-full h-[200px]">
                     <Image
-                      src="/events-conferences-agenda.png"
+                      src="/links/agenda-eventos.png"
                       alt="Agenda"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 p-4 w-full">
@@ -243,13 +246,14 @@ export default function LinksPage() {
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
                 <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="block">
-                  <div className="relative w-full h-[160px]">
+                  <div className="relative w-full h-[200px]">
                     <Image
-                      src="/contato-palestras-conferencias.png"
+                      src="/links/contato-palestras.png"
                       alt="Contato para Palestras"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 p-4 w-full">
