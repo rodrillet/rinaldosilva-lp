@@ -72,74 +72,65 @@ export default function EscolaDonsDark() {
   // Dados para os módulos do curso
   const courseModules = [
     {
-      title: "Módulo 1: Introdução",
+      title: "Módulo 01: Introdução",
       description: "Fundamentos essenciais para iniciar sua jornada nos dons espirituais.",
       lessons: [
-        "Iniciando nos Dons Espirituais",
-        "A importância da sabedoria na prática dos Dons",
-        "A simplicidade dos Dons",
-        "Desenvolvendo um coração receptivo ao Espírito",
-        "Como identificar qual dom você possui",
+        "1.1.1 Sejam bem-vindos",
+        "1.1.2 Entre para o grupo de alunos no WhatsApp",
+        "1.2 Iniciando nos Dons Espirituais",
+        "1.3 A importância da sabedoria na prática dos Dons Espirituais",
+        "1.4 A simplicidade dos Dons",
       ],
       icon: BookOpen,
       capabilities:
         "Após este módulo você será capaz de entender o propósito dos dons espirituais na igreja atual, identificar seus dons primários e secundários, e criar um ambiente propício para o mover do Espírito.",
     },
     {
-      title: "Módulo 2: Dons de Revelação",
+      title: "Módulo 02: Dons de Revelação",
       description: "Compreenda como Deus revela conhecimento sobrenatural através destes dons.",
       lessons: [
-        "Palavra de Sabedoria - princípios e aplicações",
-        "Palavra do Conhecimento - como receber revelações divinas",
-        "Discernimento de Espíritos - identificando o espiritual",
-        "Exercícios práticos de desenvolvimento",
-        "Testemunhos e estudos de caso reais",
+        "2.1 Palavra de Sabedoria",
+        "2.2 Palavra do Conhecimento",
+        "2.3 Discernimento de Espíritos",
       ],
       icon: Brain,
       capabilities:
         "Você será capaz de reconhecer e operar nos dons de revelação, receber palavras de conhecimento para situações específicas, e discernir influências espirituais em diferentes contextos.",
     },
     {
-      title: "Módulo 3: Dons Vocais",
+      title: "Módulo 03: Dons Vocais",
       description: "Aprenda como Deus fala através de manifestações vocais sobrenaturais.",
       lessons: [
-        "Dom de Profecia - falando a vontade de Deus",
-        "Variedade de Línguas - operando no sobrenatural",
-        "Interpretação de Línguas - revelando mensagens",
-        "Como profetizar com precisão e amor",
-        "Diferença entre profecia do AT e NT",
+        "3.1 Dom de Profecia",
+        "3.2 Dom de variedade de línguas",
+        "3.3 Dom de interpretação de línguas",
       ],
       icon: MessageCircle,
       capabilities:
         "Após este módulo você saberá como entregar profecias de edificação com precisão, desenvolver o dom de línguas para edificação pessoal e comunitária, e interpretar mensagens proféticas com sabedoria.",
     },
     {
-      title: "Módulo 4: Dons de Poder",
+      title: "Módulo 04: Dons de Poder",
       description: "Descubra como manifestar o poder sobrenatural de Deus em situações impossíveis.",
       lessons: [
-        "Dom da Fé - ativando a fé sobrenatural",
-        "Operação de Milagres - manifestando o impossível",
-        "Dons de Cura - restauração física e emocional",
-        "Como ministrar cura passo a passo",
-        "Lidando com aparentes fracassos na ministração",
+        "4.1 Dom da Fé",
+        "4.2 A operação de Milagres",
+        "4.3.1 Dons de Cura",
+        "4.3.2 Fundamentos da Cura Divina",
       ],
       icon: Zap,
       capabilities:
         "Você será capaz de ministrar cura aos enfermos com confiança, operar na fé sobrenatural em circunstâncias desafiadoras, e ver o poder de Deus manifestado em situações impossíveis através do seu ministério.",
     },
     {
-      title: "Módulo 5: Fundamentos e Prática",
-      description: "Aplique os princípios aprendidos e desenvolva uma prática consistente dos dons.",
+      title: "Módulo 05: Encerramento",
+      description: "Aplicação prática e encerramento do curso.",
       lessons: [
-        "Fundamentos da Cura Divina - princípios bíblicos",
-        "Por que devemos buscar os Dons - propósito eterno",
-        "Aplicação prática no ministério cotidiano",
-        "Como formar equipes de ministração",
-        "Avivamento através dos dons - estudos de caso",
+        "5.1 Devemos buscar os Dons",
       ],
       icon: Flame,
       capabilities:
-        "Ao finalizar este módulo você estará preparado para levantar e treinar equipes de ministração na sua igreja, operar consistentemente nos dons em um contexto ministerial estruturado, e ver transformação espiritual na sua comunidade.",
+        "Ao finalizar este módulo você estará preparado para operar consistentemente nos dons em um contexto ministerial estruturado, e ver transformação espiritual na sua comunidade.",
     },
   ]
 
@@ -367,7 +358,7 @@ export default function EscolaDonsDark() {
         <div className="container mx-auto px-4">
           <p className="text-xs sm:text-sm font-bold">
             ⏰ Últimas vagas disponíveis! Oferta especial por tempo limitado
-            <a href="#matricula" className="underline font-bold ml-1 sm:ml-2 hover:text-white transition-colors">
+            <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="underline font-bold ml-1 sm:ml-2 hover:text-white transition-colors">
               Garantir minha vaga
             </a>
           </p>
@@ -386,7 +377,7 @@ export default function EscolaDonsDark() {
               R$ <span className="text-[#d4fb00]">97,00</span> <span className="text-gray-400 line-through text-[10px]">R$197</span>
             </div>
           </div>
-          <a href="#matricula">
+          <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
             <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap shadow-md shadow-black/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/30 hover:scale-105">
               GARANTIR VAGA AGORA
               <ChevronRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
@@ -445,7 +436,7 @@ export default function EscolaDonsDark() {
 
           {/* Botão de menu para mobile e botão de CTA */}
           <div className="flex items-center gap-2">
-            <a href="#matricula" className="md:hidden">
+            <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="md:hidden">
               <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-xs px-2.5 py-1 transition-all duration-300 hover:shadow-lg hover:scale-105">
                 Inscrever
                 <ChevronRight className="ml-1 h-3.5 w-3.5" />
@@ -463,7 +454,7 @@ export default function EscolaDonsDark() {
               </Button>
             </div>
 
-            <a href="#matricula" className="hidden md:block">
+            <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="hidden md:block">
               <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-sm px-4 py-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
                 Inscrever-se
                 <ChevronRight className="ml-1 h-4 w-4" />
@@ -507,7 +498,7 @@ export default function EscolaDonsDark() {
                   Seja uma ferramenta de transformação através do propósito dos Dons Espirituais.
                 </p>
                 <div className="flex justify-center w-full">
-                  <a href="#matricula" className="w-full sm:w-auto">
+                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                     <Button
                       size="lg"
                       className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-6 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full transition-all duration-300 hover:shadow-lg hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100"
@@ -553,8 +544,8 @@ export default function EscolaDonsDark() {
                       <div className="flex items-start gap-2 sm:gap-3">
                         <Gift className="h-4 w-4 sm:h-5 sm:w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
                         <div>
-                          <p className="font-bold text-sm sm:text-base">BÔNUS: Grupo exclusivo com o Bispo Rinaldo</p>
-                          <span className="text-red-400 text-xs sm:text-sm block">Apenas para as próximas 48h</span>
+                          <p className="font-bold text-sm sm:text-base">INCLUSO: Grupo exclusivo com o Bispo Rinaldo</p>
+                          <span className="text-red-400 text-xs sm:text-sm block">Acesso garantido para todos os alunos</span>
                         </div>
                       </div>
                     </div>
@@ -564,12 +555,14 @@ export default function EscolaDonsDark() {
                         <div className="text-2xl sm:text-3xl font-bold text-white">Por apenas R$ 97,00</div>
                         <div className="text-xs sm:text-sm text-gray-400">ou 3x de R$ 34,29</div>
                       </div>
-                      <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full h-10 sm:h-12 text-sm font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
-                        <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
-                        <span className="inline sm:hidden">INSCREVER AGORA</span>
-                        <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                        <ShineEffect />
-                      </Button>
+                      <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+                        <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full h-10 sm:h-12 text-sm font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
+                          <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
+                          <span className="inline sm:hidden">INSCREVER AGORA</span>
+                          <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                          <ShineEffect />
+                        </Button>
+                      </a>
                       <div className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400">
                         <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4 text-[#a5c600]" />
                         <span>Pagamento 100% seguro</span>
@@ -660,7 +653,7 @@ export default function EscolaDonsDark() {
                   Espírito, para curar enfermos, expulsar demônios e manifestar o Reino.
                 </p>
                 <div className="pt-4">
-                  <a href="#matricula">
+                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
                     <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black text-base px-4 py-2 shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100">
                       Quero Fazer Parte
                       <ChevronRight className="ml-2 h-5 w-5" />
@@ -758,7 +751,7 @@ export default function EscolaDonsDark() {
             </div>
 
             <div className="mt-12 text-center">
-              <a href="#matricula">
+              <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"
                   className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black font-bold px-4 py-3 text-sm sm:text-base shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
@@ -787,16 +780,14 @@ export default function EscolaDonsDark() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <Badge className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#d4fb00] hover:to-[#b8db00] text-black px-4 py-1 text-sm rounded-full animate-pulse shadow-lg">
-                  Oferta por Tempo Limitado
+                  Benefício Exclusivo
                 </Badge>
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-white drop-shadow-sm">
-                  BÔNUS EXCLUSIVO: <span className="underline decoration-2 decoration-[#d4fb00]/70">Grupo VIP</span> com
+                  INCLUSO: <span className="underline decoration-2 decoration-[#d4fb00]/70">Grupo VIP</span> com
                   o Bispo Rinaldo
                 </h2>
                 <p className="text-lg text-gray-300">
-                  Inscreva-se <span className="font-bold underline decoration-2 text-white">até sexta-feira</span> e
-                  ganhe acesso ao grupo exclusivo onde o Bispo Rinaldo responde perguntas e compartilha revelações que
-                  não são divulgadas em nenhum outro lugar.
+                  Ao se inscrever, você ganha acesso ao grupo exclusivo onde o Bispo Rinaldo responde perguntas e compartilha revelações que não são divulgadas em nenhum outro lugar.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
@@ -809,32 +800,25 @@ export default function EscolaDonsDark() {
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
-                    <p className="text-gray-300">Encontros online mensais para ministração e ensino</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" />
                     <p className="text-gray-300">
-                      Valor deste bônus: <span className="font-bold text-white">R$ 497,00</span>
+                      Valor deste benefício: <span className="font-bold text-white">R$ 497,00</span> <span className="text-[#d4fb00] font-bold">(GRÁTIS ao comprar o curso!)</span>
                     </p>
                   </div>
                 </div>
                 <div className="pt-4">
-                  <a href="#matricula">
+                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
                     <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black font-bold text-lg px-8 py-6 shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100">
-                      GARANTIR MINHA VAGA + BÔNUS
+                      GARANTIR MINHA VAGA AGORA
                       <ChevronRight className="ml-2 h-5 w-5" />
                       <ShineEffect />
                     </Button>
                   </a>
-                  <p className="mt-4 text-sm text-gray-400">
-                    <Clock className="inline-block mr-1 h-4 w-4" /> Oferta válida por tempo limitado
-                  </p>
                 </div>
               </div>
               <div className="flex justify-center">
                 <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-black/20 transform hover:scale-102 scale-100 transition-all duration-300">
                   <Image
-                    src="/placeholder.svg?key=wyno2"
+                    src="/bonus.jpg"
                     alt="Grupo VIP com o Bispo Rinaldo"
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-700"
@@ -844,7 +828,7 @@ export default function EscolaDonsDark() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <div className="bg-gradient-to-r from-[#d4fb00] to-[#a5c600] text-black font-bold px-4 py-2 rounded-xl inline-block mb-2 shadow-lg">
-                      BÔNUS EXCLUSIVO
+                      BENEFÍCIO EXCLUSIVO
                     </div>
                     <h3 className="text-2xl font-bold">Grupo VIP</h3>
                     <p>Acesso direto ao Bispo Rinaldo</p>
@@ -924,7 +908,7 @@ export default function EscolaDonsDark() {
                       </div>
                     </div>
                     <Image
-                      src="/placeholder.svg?key=dsfaj"
+                      src="/capa-curso.JPG"
                       alt="Apresentação do Curso"
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -952,7 +936,7 @@ export default function EscolaDonsDark() {
                         </div>
                         <div>
                           <p className="font-medium text-white">5 Módulos Completos</p>
-                          <p className="text-sm text-gray-400">Mais de 40 horas de conteúdo em vídeo</p>
+                          <p className="text-sm text-gray-400">Mais de 15 horas de conteúdo em vídeo</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
@@ -993,7 +977,7 @@ export default function EscolaDonsDark() {
                       </div>
                     </div>
                     <div className="pt-4">
-                      <a href="#matricula">
+                      <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
                         <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full py-2 text-base shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100">
                           Quero Acessar o Conteúdo
                           <ArrowRight className="ml-2 h-5 w-5" />
@@ -1055,7 +1039,7 @@ export default function EscolaDonsDark() {
               </div>
 
               <div className="mt-8 sm:mt-12 text-center">
-                <a href="#matricula" className="block sm:inline-block">
+                <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="block sm:inline-block">
                   <Button
                     size="lg"
                     className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 h-10 sm:h-12 text-sm sm:text-base font-bold shadow-xl w-full sm:w-auto transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
@@ -1193,8 +1177,8 @@ export default function EscolaDonsDark() {
                       <div className="flex items-start gap-2 mb-1 sm:mb-2 justify-center md:justify-start">
                         <Gift className="h-4 w-4 sm:h-5 sm:w-5 text-red-500 mt-0.5 shrink-0 animate-pulse" />
                         <div>
-                          <p className="font-bold text-white text-sm sm:text-base">BÔNUS EXCLUSIVO:</p>
-                          <p className="text-xs sm:text-sm text-gray-300">Grupo VIP com o Bispo Rinaldo</p>
+                          <p className="font-bold text-white text-sm sm:text-base">BENEFÍCIO EXCLUSIVO:</p>
+                          <p className="text-xs sm:text-sm text-gray-300">Grupo VIP com o Bispo Rinaldo <span className="text-[#d4fb00]">(GRÁTIS)</span></p>
                         </div>
                       </div>
                       <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-400 justify-center md:justify-start">
@@ -1203,7 +1187,7 @@ export default function EscolaDonsDark() {
                       </div>
                     </div>
                   </div>
-                  <a href="https://checkout.escoladedons.com.br" target="_blank" rel="noopener noreferrer">
+                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
                     <Button
                       size="lg"
                       className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 sm:px-8 py-3 sm:py-5 text-base sm:text-xl font-bold shadow-xl w-full transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
