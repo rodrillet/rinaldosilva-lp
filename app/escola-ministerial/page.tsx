@@ -377,7 +377,7 @@ export default function EscolaMinisterial() {
                   experiente e ungido.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href="#inscricao" aria-label="Inscrever-se agora">
+                  <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer" aria-label="Inscrever-se agora">
                     <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-lg font-bold w-full">
                       QUERO ME INSCREVER AGORA
                       <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -386,7 +386,7 @@ export default function EscolaMinisterial() {
                   <a href="#sobre" aria-label="Saiba mais sobre o curso">
                     <Button
                       variant="outline"
-                      className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg w-full"
+                      className="border-white text-black bg-white hover:bg-white/90 px-8 py-6 text-lg w-full"
                     >
                       Saiba Mais
                       <ChevronDown className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -426,7 +426,7 @@ export default function EscolaMinisterial() {
                         <div className="text-3xl font-bold">12x de R$ 24,80</div>
                         <div className="text-sm text-gray-500">ou R$ 247,00 à vista</div>
                       </div>
-                      <a href="#inscricao" aria-label="Fazer inscrição no curso">
+                      <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer" aria-label="Fazer inscrição no curso">
                         <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full py-6 text-lg font-bold">
                           FAZER MINHA INSCRIÇÃO
                           <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -690,7 +690,7 @@ export default function EscolaMinisterial() {
             </div>
 
             <div className="mt-12 text-center">
-              <a href="#inscricao" aria-label="Fazer parte da escola">
+              <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer" aria-label="Fazer parte da escola">
                 <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-lg font-bold">
                   QUERO FAZER PARTE DESTA ESCOLA
                   <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -794,10 +794,12 @@ export default function EscolaMinisterial() {
                     </div>
                   </div>
                 </div>
-                <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-xl font-bold w-full">
-                  FAÇA SUA INSCRIÇÃO AGORA
-                  <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </Button>
+                <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer">
+                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-xl font-bold w-full">
+                    FAÇA SUA INSCRIÇÃO AGORA
+                    <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
+                  </Button>
+                </a>
                 <p className="mt-4 text-center text-gray-400 text-sm">
                   Garanta sua vaga em um ambiente seguro e espiritual
                 </p>

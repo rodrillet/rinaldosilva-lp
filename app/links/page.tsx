@@ -37,6 +37,9 @@ export default function LinksPage() {
             <Link href="/escola-dons" className="text-gray-600 hover:text-blue-600 transition-colors">
               Escola de Dons
             </Link>
+            <Link href="/escola-ministerial" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Escola Ministerial
+            </Link>
             <Link href="/sobre" className="text-gray-600 hover:text-blue-600 transition-colors">
               Sobre
             </Link>
@@ -80,6 +83,13 @@ export default function LinksPage() {
                 Escola de Dons
               </Link>
               <Link
+                href="/escola-ministerial"
+                className="text-gray-600 hover:text-blue-600 transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Escola Ministerial
+              </Link>
+              <Link
                 href="/sobre"
                 className="text-gray-600 hover:text-blue-600 transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
@@ -121,7 +131,7 @@ export default function LinksPage() {
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Rinaldo Silva</h1>
             <p className="text-gray-600 max-w-md mb-4">
-              Ministro, professor e especialista em Dons Espirituais. Transformando vidas através do propósito divino.
+              Rinaldo Silva é Bispo Sênior da Igreja Impactados. Professor, graduado em Teologia e Filosofia. Conferencista, tendo ministrado em todos os estados brasileiros e em mais de 45 países.
             </p>
 
             {/* Ícones de redes sociais */}
@@ -196,10 +206,33 @@ export default function LinksPage() {
               </CardContent>
             </Card>
 
+            {/* Escola Ministerial */}
+            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-0">
+                <Link href="/escola-ministerial" className="block">
+                  <div className="relative w-full h-[200px]">
+                    <Image
+                      src="/links/escola-ministerial.png"
+                      alt="Escola Ministerial"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-4 w-full">
+                      <h3 className="text-white font-bold text-lg">Escola Ministerial</h3>
+                      <p className="text-gray-200 text-sm">Desenvolva seu ministério com excelência</p>
+                    </div>
+                  </div>
+                </Link>
+              </CardContent>
+            </Card>
+
             {/* Livros */}
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
-                <a href="#livros" className="block">
+                <Link href="/livros" className="block">
                   <div className="relative w-full h-[200px]">
                     <Image
                       src="/links/pagina-livros.png"
@@ -215,7 +248,7 @@ export default function LinksPage() {
                       <p className="text-gray-200 text-sm">Conheça minhas publicações</p>
                     </div>
                   </div>
-                </a>
+                </Link>
               </CardContent>
             </Card>
 
@@ -236,29 +269,6 @@ export default function LinksPage() {
                     <div className="absolute bottom-0 left-0 p-4 w-full">
                       <h3 className="text-white font-bold text-lg">Agenda de Eventos</h3>
                       <p className="text-gray-200 text-sm">Confira próximas conferências</p>
-                    </div>
-                  </div>
-                </a>
-              </CardContent>
-            </Card>
-
-            {/* Contato para Palestras */}
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-0">
-                <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="block">
-                  <div className="relative w-full h-[200px]">
-                    <Image
-                      src="/links/contato-palestras.png"
-                      alt="Contato para Palestras"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      style={{ objectPosition: "center center" }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-4 w-full">
-                      <h3 className="text-white font-bold text-lg">Contato para Palestras</h3>
-                      <p className="text-gray-200 text-sm">Convide para sua igreja ou evento</p>
                     </div>
                   </div>
                 </a>
