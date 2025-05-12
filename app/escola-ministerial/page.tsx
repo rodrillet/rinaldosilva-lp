@@ -444,13 +444,12 @@ export default function EscolaMinisterialPage() {
                   
                   <div className="prose prose-blue">
                     <ul className="space-y-2 text-gray-700">
-                      <li><strong>Nascido em:</strong> 05/02/1994</li>
-                      <li><strong>Família:</strong> Casado com Cecília Silva, pai da Manuela e do Enrico</li>
                       <li><strong>Bispo Sênior:</strong> Igreja Impactados</li>
-                      <li><strong>Empreendedor:</strong> Graduado em Teologia e Filosofia</li>
-                      <li><strong>Conferencista internacional:</strong> Mais de 40 países</li>
+                      <li><strong>Professor:</strong> Graduado em Teologia e Filosofia</li>
+                      <li><strong>Conferencista internacional:</strong> Todos estados brasileiros e mais de 45 países</li>
                       <li><strong>Ministro da palavra:</strong> Desde os 7 anos</li>
                       <li><strong>Sinais, milagres e salvação:</strong> Testemunhados ao longo de seu ministério</li>
+                      <li><strong>Contato:</strong> +55 62 9999-3858</li>
                     </ul>
                     
                     <p className="mt-4 text-gray-700">
@@ -612,6 +611,7 @@ export default function EscolaMinisterialPage() {
               <div>
                 <p className="font-semibold">Escola Ministerial</p>
                 <p className="text-sm text-gray-400">Bispo Rinaldo Silva</p>
+                <p className="text-sm text-gray-400">+55 62 9999-3858</p>
               </div>
             </div>
             

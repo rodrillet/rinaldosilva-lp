@@ -172,17 +172,15 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">Conheça Rinaldo Silva</h2>
                 <div className="space-y-4 text-gray-700">
                   <p>
-                    Nascido em 5 de fevereiro de 1994, Rinaldo Silva é casado com Cecília Silva e pai de Manuela e
-                    Enrico. Além de Bispo Sênior da Igreja Impactados, é empreendedor, graduado em Teologia e Filosofia.
-                  </p>
-                  <p>
-                    Como conferencista, já ministrou em todos os estados brasileiros e em mais de 40 países, impactando
-                    milhares de vidas ao redor do mundo.
+                    Rinaldo Silva é Bispo Sênior da Igreja Impactados. Professor, graduado em Teologia e Filosofia. Conferencista, tendo ministrado em todos os estados brasileiros e em mais de 45 países.
                   </p>
                   <p>
                     Desde os 7 anos, tem exercido o ministério da palavra. Durante esses anos, milhares de pessoas foram
                     salvas por Jesus e puderam testemunhar o agir de Deus. Sinais e maravilhas se manifestaram, como
                     assim é descrito na palavra de Deus, e que ainda acontecem hoje, através do seu ministério.
+                  </p>
+                  <p>
+                    Telefone de contato: +55 62 9999-3858
                   </p>
                 </div>
                 <Button className="bg-black text-white hover:bg-gray-800">
@@ -713,7 +711,8 @@ export default function Home() {
                 <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black">RS</div>
                 <span>Bispo Rinaldo Silva</span>
               </div>
-              <p className="text-gray-400">Transformando vidas através da palavra de Deus.</p>
+              <p className="text-gray-400">Bispo Sênior da Igreja Impactados. Professor, graduado em Teologia e Filosofia.</p>
+              <p className="text-gray-400">Contato: +55 62 9999-3858</p>
             </div>
 
             <div>

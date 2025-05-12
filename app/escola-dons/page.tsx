@@ -1234,7 +1234,7 @@ export default function EscolaDonsDark() {
                 </div>
                 <span>Bispo Rinaldo Silva</span>
               </div>
-              <p className="text-gray-400 text-sm">Transformando vidas através da palavra de Deus.</p>
+              <p className="text-gray-400 text-sm">Bispo Sênior da Igreja Impactados. Professor, graduado em Teologia e Filosofia.</p>
             </div>
 
             <div>
@@ -1297,7 +1297,7 @@ export default function EscolaDonsDark() {
                 </li>
                 <li className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
                   <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
-                  +55 (11) 99999-9999
+                  +55 62 9999-3858
                 </li>
                 <li className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
                   <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-[#d4fb00]" />
