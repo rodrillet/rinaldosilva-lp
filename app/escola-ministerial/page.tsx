@@ -551,7 +551,6 @@ export default function EscolaMinisterial() {
                     salvas por Jesus e puderam testemunhar o agir de Deus. Sinais e maravilhas se manifestaram, como
                     assim é descrito na palavra de Deus, e que ainda acontecem hoje, através do seu ministério.
                   </p>
-                  <p>Telefone de contato: +55 62 9999-3858</p>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">

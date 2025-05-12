@@ -52,7 +52,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://tagmanager.google.com; connect-src 'self' https://www.google-analytics.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com; frame-src https://www.googletagmanager.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://tagmanager.google.com https://*.facebook.com https://*.facebook.net https://connect.facebook.net; connect-src 'self' https://www.google-analytics.com https://*.facebook.com https://*.facebook.net https://connect.facebook.net; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.facebook.com https://*.facebook.net https://*.fbcdn.net; style-src 'self' 'unsafe-inline' https://tagmanager.google.com; frame-src https://www.googletagmanager.com https://*.facebook.com https://*.doubleclick.net;",
           },
         ],
       },
