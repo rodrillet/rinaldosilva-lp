@@ -2,7 +2,7 @@ import type React from "react"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import GoogleTagManager from "@/components/GoogleTagManager"
+import { GoogleTagManager } from "@/lib/tracking"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans`}>
         {/* Google Tag Manager Component */}
-        <GoogleTagManager gtmId="GTM-N5TKRD6W" />
+        <GoogleTagManager />
         
         <ThemeProvider
           attribute="class"

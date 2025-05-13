@@ -3,11 +3,13 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
 
-interface GoogleTagManagerProps {
-  gtmId: string;
-}
-
-export default function GoogleTagManager({ gtmId }: GoogleTagManagerProps) {
+/**
+ * Componente GoogleTagManager
+ * 
+ * Responsável por injetar os scripts do Google Tag Manager no site
+ * Configurado com o GTM-KL4NV4FC
+ */
+export default function GoogleTagManager() {
   useEffect(() => {
     // Inicializa o dataLayer se não existir
     window.dataLayer = window.dataLayer || [];
@@ -25,7 +27,7 @@ export default function GoogleTagManager({ gtmId }: GoogleTagManagerProps) {
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${gtmId}');
+            })(window,document,'script','dataLayer','GTM-KL4NV4FC');
           `,
         }}
       />
@@ -33,7 +35,7 @@ export default function GoogleTagManager({ gtmId }: GoogleTagManagerProps) {
       {/* Iframe noscript do Google Tag Manager */}
       <noscript>
         <iframe
-          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          src="https://www.googletagmanager.com/ns.html?id=GTM-KL4NV4FC"
           height="0"
           width="0"
           style={{ display: 'none', visibility: 'hidden' }}
