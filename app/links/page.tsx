@@ -187,13 +187,20 @@ export default function LinksPage() {
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
                 <a href="https://acuraoficial.com.br" target="_blank" rel="noopener noreferrer" className="block">
-                  <div className="relative w-full h-[200px] bg-gradient-to-r from-teal-500 to-blue-500">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center p-6">
-                        <Badge className="bg-white text-teal-600 px-3 py-1 mb-4">Destaque</Badge>
-                        <h3 className="text-white font-bold text-2xl mb-2">A Cura</h3>
-                        <p className="text-white text-sm">Conheça o ministério de cura e libertação</p>
-                      </div>
+                  <div className="relative w-full h-[200px]">
+                    <Image
+                      src="/links/acura.png"
+                      alt="A Cura"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-4 w-full">
+                      <Badge className="bg-white text-teal-600 px-3 py-1 mb-2">Destaque</Badge>
+                      <h3 className="text-white font-bold text-lg">A Cura</h3>
+                      <p className="text-gray-200 text-sm">Conheça o ministério de cura e libertação</p>
                     </div>
                   </div>
                 </a>
@@ -206,7 +213,7 @@ export default function LinksPage() {
                 <Link href="/eventos/escola-de-cura" className="block">
                   <div className="relative w-full h-[200px]">
                     <Image
-                      src="/links/SYMPLA.jpg"
+                      src="/links/escola-de-cura.jpg"
                       alt="Escola de Cura"
                       fill
                       className="object-cover"

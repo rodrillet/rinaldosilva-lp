@@ -47,7 +47,7 @@ export default function EscolaDeCuraPage() {
             </div>
             <div className="relative w-full h-[400px] rounded-lg overflow-hidden shadow-2xl">
               <Image
-                src="/links/SYMPLA.jpg"
+                src="/links/escola-de-cura.jpg"
                 alt="Escola de Cura"
                 fill
                 className="object-cover"
