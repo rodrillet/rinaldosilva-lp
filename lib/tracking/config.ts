@@ -3,6 +3,9 @@ export const trackingConfig = {
   // ID do Google Tag Manager
   gtmId: 'GTM-KL4NV4FC',
   
+  // Domínio do GTM server-side
+  gtmServerDomain: 'https://gtm.rinaldosilva.com',
+  
   // Configurações para Facebook Pixel
   facebookPixel: {
     enabled: true,

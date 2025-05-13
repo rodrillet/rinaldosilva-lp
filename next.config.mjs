@@ -52,7 +52,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://tagmanager.google.com https://*.google-analytics.com https://*.analytics.google.com https://*.facebook.com https://*.facebook.net https://connect.facebook.net; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.facebook.com https://*.facebook.net https://connect.facebook.net; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.facebook.com https://*.facebook.net https://*.fbcdn.net; style-src 'self' 'unsafe-inline' https://tagmanager.google.com; frame-src https://www.googletagmanager.com https://*.facebook.com https://*.doubleclick.net;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://tagmanager.google.com https://*.facebook.com https://*.facebook.net https://connect.facebook.net; connect-src 'self' https://www.google-analytics.com https://*.facebook.com https://*.facebook.net https://connect.facebook.net https://gtm.rinaldosilva.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://*.facebook.com https://*.facebook.net https://*.fbcdn.net; style-src 'self' 'unsafe-inline' https://tagmanager.google.com; frame-src https://www.googletagmanager.com https://*.facebook.com https://*.doubleclick.net;",
           },
         ],
       },
