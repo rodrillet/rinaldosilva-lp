@@ -2,14 +2,13 @@
 
 import Script from 'next/script';
 import { useEffect } from 'react';
+import { trackingConfig } from './config';
 
-/**
- * Componente GoogleTagManager
- * 
- * Responsável por injetar os scripts do Google Tag Manager no site
- * Configurado com o GTM-KL4NV4FC
- */
-export default function GoogleTagManager() {
+interface GoogleTagManagerProps {
+  gtmId?: string;
+}
+
+export default function GoogleTagManager({ gtmId = trackingConfig.gtmId }: GoogleTagManagerProps) {
   useEffect(() => {
     // Inicializa o dataLayer se não existir
     window.dataLayer = window.dataLayer || [];
@@ -17,23 +16,25 @@ export default function GoogleTagManager() {
 
   return (
     <>
-      {/* Script do Google Tag Manager - colocado no início para garantir execução prioritária */}
+      {/* Script do Google Tag Manager */}
       <Script
         id="gtm-script"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KL4NV4FC');`
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${gtmId}');
+          `,
         }}
       />
       
       {/* Iframe noscript do Google Tag Manager */}
       <noscript>
         <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-KL4NV4FC"
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
           height="0"
           width="0"
           style={{ display: 'none', visibility: 'hidden' }}
@@ -41,4 +42,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </noscript>
     </>
   );
-} 
+}
