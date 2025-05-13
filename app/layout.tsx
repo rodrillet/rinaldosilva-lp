@@ -2,7 +2,8 @@ import type React from "react"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { GoogleTagManager } from "@/lib/tracking"
+import { GoogleTagManager, usePageView } from "@/lib/tracking"
+import Script from "next/script"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,8 +23,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Este hook irá monitorar visualizações de página
+  usePageView("Bispo Rinaldo Silva | Site Oficial");
+
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* Script do GTM no head para garantir carregamento prioritário */}
+        <Script
+          id="gtm-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];`
+          }}
+        />
+      </head>
       <body className={`${inter.variable} font-sans`}>
         {/* Google Tag Manager Component */}
         <GoogleTagManager />
