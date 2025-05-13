@@ -186,7 +186,7 @@ export default function LinksPage() {
             {/* A Cura */}
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
-                <Link href="/eventos/cruzada-a-cura" className="block">
+                <Link href="https://acuraoficial.com.br" className="block">
                   <div className="relative w-full h-[200px]">
                     <Image
                       src="/links/acura.png"
@@ -214,7 +214,7 @@ export default function LinksPage() {
             {/* Escola de Cura */}
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
-                <Link href="/eventos/escola-de-cura" className="block">
+                <Link href="https://igrejaimpactados.com/eventos/escola-de-cura" className="block">
                   <div className="relative w-full h-[200px]">
                     <Image
                       src="/links/escola-de-cura.jpg"
