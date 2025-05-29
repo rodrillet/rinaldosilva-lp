@@ -183,57 +183,7 @@ export default function LinksPage() {
 
           {/* Links */}
           <div className="grid gap-4 max-w-md mx-auto">
-            {/* A Cura */}
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-0">
-                <Link href="https://acuraoficial.com.br" className="block">
-                  <div className="relative w-full h-[200px]">
-                    <Image
-                      src="/links/acura.png"
-                      alt="Cruzada A Cura"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      style={{ objectPosition: "center center" }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-4 w-full">
-                      <Badge className="bg-white text-teal-600 px-3 py-1 mb-2">24 de Maio, 2025</Badge>
-                      <h3 className="text-white font-bold text-lg">Cruzada A Cura</h3>
-                      <p className="text-gray-200 text-sm">Um evento poderoso de cura e libertação</p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
-                        <p className="text-gray-300 text-xs">15:00 • Goiânia Arena</p>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Escola de Cura */}
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-0">
-                <Link href="https://igrejaimpactados.com/eventos/escola-de-cura" className="block">
-                  <div className="relative w-full h-[200px]">
-                    <Image
-                      src="/links/escola-de-cura.jpg"
-                      alt="Escola de Cura"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      style={{ objectPosition: "center center" }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-4 w-full">
-                      <h3 className="text-white font-bold text-lg">ESCOLA DE CURA</h3>
-                      <p className="text-gray-200 text-sm">27 e 28 de Maio | 19h</p>
-                    </div>
-                  </div>
-                </Link>
-              </CardContent>
-            </Card>
-
+ 
             {/* Escola de Dons */}
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
