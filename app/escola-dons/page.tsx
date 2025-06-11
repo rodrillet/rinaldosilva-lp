@@ -358,7 +358,7 @@ export default function EscolaDonsDark() {
         <div className="container mx-auto px-4">
           <p className="text-xs sm:text-sm font-bold">
             ⏰ Últimas vagas disponíveis! Oferta especial por tempo limitado
-            <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="underline font-bold ml-1 sm:ml-2 hover:text-white transition-colors">
+            <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer" className="underline font-bold ml-1 sm:ml-2 hover:text-white transition-colors">
               Garantir minha vaga
             </a>
           </p>
@@ -377,7 +377,7 @@ export default function EscolaDonsDark() {
               R$ <span className="text-[#d4fb00]">97,00</span> <span className="text-gray-400 line-through text-[10px]">R$197</span>
             </div>
           </div>
-          <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+          <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
             <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap shadow-md shadow-black/20 transition-all duration-300 hover:shadow-lg hover:shadow-black/30 hover:scale-105">
               GARANTIR VAGA AGORA
               <ChevronRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
@@ -436,7 +436,7 @@ export default function EscolaDonsDark() {
 
           {/* Botão de menu para mobile e botão de CTA */}
           <div className="flex items-center gap-2">
-            <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="md:hidden">
+            <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer" className="md:hidden">
               <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-xs px-2.5 py-1 transition-all duration-300 hover:shadow-lg hover:scale-105">
                 Inscrever
                 <ChevronRight className="ml-1 h-3.5 w-3.5" />
@@ -454,7 +454,7 @@ export default function EscolaDonsDark() {
               </Button>
             </div>
 
-            <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="hidden md:block">
+            <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer" className="hidden md:block">
               <Button className="relative overflow-hidden bg-[#d4fb00] text-black hover:bg-[#c0e500] font-medium shadow-md text-sm px-4 py-2 transition-all duration-300 hover:shadow-lg hover:scale-105">
                 Inscrever-se
                 <ChevronRight className="ml-1 h-4 w-4" />
@@ -498,7 +498,7 @@ export default function EscolaDonsDark() {
                   Seja uma ferramenta de transformação através do propósito dos Dons Espirituais.
                 </p>
                 <div className="flex justify-center w-full">
-                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                  <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                     <Button
                       size="lg"
                       className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-6 py-3 text-base sm:text-lg font-bold shadow-xl w-full sm:w-auto max-w-full transition-all duration-300 hover:shadow-lg hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100"
@@ -555,7 +555,7 @@ export default function EscolaDonsDark() {
                         <div className="text-2xl sm:text-3xl font-bold text-white">Por apenas R$ 97,00</div>
                         <div className="text-xs sm:text-sm text-gray-400">ou 3x de R$ 34,29</div>
                       </div>
-                      <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+                      <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
                         <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full h-10 sm:h-12 text-sm font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 scale-100">
                           <span className="hidden sm:inline">QUERO ME INSCREVER AGORA</span>
                           <span className="inline sm:hidden">INSCREVER AGORA</span>
@@ -653,7 +653,7 @@ export default function EscolaDonsDark() {
                   Espírito, para curar enfermos, expulsar demônios e manifestar o Reino.
                 </p>
                 <div className="pt-4">
-                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+                  <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
                     <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black text-base px-4 py-2 shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100">
                       Quero Fazer Parte
                       <ChevronRight className="ml-2 h-5 w-5" />
@@ -751,7 +751,7 @@ export default function EscolaDonsDark() {
             </div>
 
             <div className="mt-12 text-center">
-              <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+              <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"
                   className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black font-bold px-4 py-3 text-sm sm:text-base shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
@@ -806,7 +806,7 @@ export default function EscolaDonsDark() {
                   </div>
                 </div>
                 <div className="pt-4">
-                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+                  <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
                     <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black font-bold text-lg px-8 py-6 shadow-lg w-full sm:w-auto transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/30 hover:scale-105 scale-100">
                       GARANTIR MINHA VAGA AGORA
                       <ChevronRight className="ml-2 h-5 w-5" />
@@ -977,7 +977,7 @@ export default function EscolaDonsDark() {
                       </div>
                     </div>
                     <div className="pt-4">
-                      <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+                      <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
                         <Button className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black w-full py-2 text-base shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100">
                           Quero Acessar o Conteúdo
                           <ArrowRight className="ml-2 h-5 w-5" />
@@ -1039,7 +1039,7 @@ export default function EscolaDonsDark() {
               </div>
 
               <div className="mt-8 sm:mt-12 text-center">
-                <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer" className="block sm:inline-block">
+                <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer" className="block sm:inline-block">
                   <Button
                     size="lg"
                     className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 h-10 sm:h-12 text-sm sm:text-base font-bold shadow-xl w-full sm:w-auto transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"
@@ -1187,7 +1187,7 @@ export default function EscolaDonsDark() {
                       </div>
                     </div>
                   </div>
-                  <a href="https://pay.kiwify.com.br/e6jsVAF" target="_blank" rel="noopener noreferrer">
+                  <a href="https://pay.hotmart.com/X99708135T" target="_blank" rel="noopener noreferrer">
                     <Button
                       size="lg"
                       className="relative overflow-hidden bg-gradient-to-r from-[#d4fb00] to-[#a5c600] hover:from-[#c0e500] hover:to-[#98c000] text-black px-4 sm:px-8 py-3 sm:py-5 text-base sm:text-xl font-bold shadow-xl w-full transition-all duration-300 hover:shadow-2xl hover:shadow-[#d4fb00]/20 hover:scale-105 scale-100"

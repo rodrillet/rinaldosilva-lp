@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useMemo, memo, lazy, Suspense } from "react"
+import { useState, useCallback, useMemo, memo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -14,23 +14,17 @@ import {
   GraduationCap,
   Heart,
   Lightbulb,
-  Mail,
-  MapPin,
   Menu,
-  Phone,
   Shield,
   Star,
   Users,
   X,
   Zap,
-  Instagram, 
-  Youtube, 
-  Facebook,
   LucideIcon
 } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
-// Definindo interfaces para props dos componentes
+// Interfaces
 interface NavLink {
   href: string;
   label: string;
@@ -49,25 +43,42 @@ interface CardProps {
   description: string;
 }
 
-// Componente de menu reutilizável memoizado
+// Menu Mobile Component
 const MobileMenu = memo(({ isOpen, links, onLinkClick }: MobileMenuProps) => {
   if (!isOpen) return null
 
   return (
-    <div className="md:hidden">
-      <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-b border-gray-200 shadow-lg">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`block px-3 py-2 rounded-md text-base font-medium ${
-              link.active ? "text-[#d4fb00]" : "text-gray-700 hover:text-[#d4fb00]"
-            } hover:bg-gray-50`}
-            onClick={onLinkClick}
-          >
-            {link.label}
-          </Link>
-        ))}
+    <div className="md:hidden fixed inset-0 z-50 bg-black/50" onClick={onLinkClick}>
+      <div className="bg-white w-64 h-full shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="p-4 border-b">
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-lg">Menu</span>
+            <button onClick={onLinkClick} className="p-2">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+        <div className="p-4 space-y-2">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`block px-3 py-3 rounded-lg text-base font-medium ${
+                link.active ? "text-[#d4fb00] bg-[#d4fb00]/10" : "text-gray-700 hover:bg-gray-100"
+              }`}
+              onClick={onLinkClick}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-4">
+            <a href="#inscricao" onClick={onLinkClick}>
+              <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full py-3 font-bold">
+                Inscreva-se
+              </Button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -75,59 +86,53 @@ const MobileMenu = memo(({ isOpen, links, onLinkClick }: MobileMenuProps) => {
 
 MobileMenu.displayName = "MobileMenu"
 
-// Componente de card de benefício memoizado
+// Benefit Card Component
 const BenefitCard = memo(({ icon: Icon, title, description }: CardProps) => (
-  <Card className="border-none rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-    <CardContent className="p-8 space-y-4">
-      <div className="w-12 h-12 rounded-full bg-[#d4fb00]/20 flex items-center justify-center">
-        <Icon className="h-6 w-6 text-[#d4fb00]" />
+  <Card className="border-none rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+    <CardContent className="p-4 space-y-3">
+      <div className="w-10 h-10 rounded-full bg-[#d4fb00]/20 flex items-center justify-center">
+        <Icon className="h-5 w-5 text-[#d4fb00]" />
       </div>
-      <h3 className="text-xl font-bold">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="text-base font-bold leading-tight">{title}</h3>
+      <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
     </CardContent>
   </Card>
 ))
 
 BenefitCard.displayName = "BenefitCard"
 
-// Componente de card de transformação memoizado
+// Transformation Card Component
 const TransformationCard = memo(({ icon: Icon, title, description }: CardProps) => (
-  <div className="bg-white rounded-xl shadow-md p-8 flex gap-6 items-start">
-    <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center shrink-0">
-      <Icon className="h-6 w-6 text-black" />
+  <div className="bg-white rounded-xl shadow-md p-4 flex gap-3 items-start">
+    <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center shrink-0">
+      <Icon className="h-4 w-4 text-black" />
     </div>
-    <div>
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+    <div className="min-w-0 flex-1">
+      <h3 className="text-base font-bold mb-1 leading-tight">{title}</h3>
+      <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
     </div>
   </div>
 ))
 
 TransformationCard.displayName = "TransformationCard"
 
-// Componente de checklist item memoizado
+// Checklist Item Component
 const ChecklistItem = memo(({ children }: { children: React.ReactNode }) => (
   <li className="flex items-start gap-2">
-    <CheckCircle className="h-5 w-5 text-[#d4fb00] shrink-0 mt-0.5" />
-    <span>{children}</span>
+    <CheckCircle className="h-3 w-3 text-[#d4fb00] shrink-0 mt-1" />
+    <span className="text-xs leading-relaxed">{children}</span>
   </li>
 ))
 
 ChecklistItem.displayName = "ChecklistItem"
 
-// Importação dinâmica de componentes secundários
-const LazyFooter = lazy(() => import('@/components/escola-ministerial/Footer'))
-
 export default function EscolaMinisterial() {
-  // Definindo os estados iniciais
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Handle para abrir/fechar menu mobile
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(prev => !prev)
   }, [])
 
-  // Memoizando os links para evitar re-renderizações
   const navigationLinks = useMemo(() => [
     { href: "#inicio", label: "Início", active: true },
     { href: "#sobre", label: "Sobre", active: false },
@@ -136,7 +141,6 @@ export default function EscolaMinisterial() {
     { href: "#faq", label: "FAQ", active: false },
   ], [])
 
-  // Memoizando os dados para evitar recriar objetos a cada renderização
   const benefitItems = useMemo(() => [
     {
       icon: GraduationCap,
@@ -170,7 +174,6 @@ export default function EscolaMinisterial() {
     }
   ], [])
 
-  // Dados memoizados para transformações
   const transformationItems = useMemo(() => [
     {
       icon: GraduationCap,
@@ -194,7 +197,6 @@ export default function EscolaMinisterial() {
     }
   ], [])
 
-  // Dados memoizados para etapas do curso
   const courseSteps = useMemo(() => [
     {
       number: "1",
@@ -228,7 +230,6 @@ export default function EscolaMinisterial() {
     }
   ], [])
 
-  // Dados memoizados para depoimentos
   const testimonials = useMemo(() => [
     {
       stars: 5,
@@ -250,7 +251,6 @@ export default function EscolaMinisterial() {
     }
   ], [])
 
-  // Dados memoizados para público-alvo
   const targetAudience = useMemo(() => [
     {
       icon: Users,
@@ -274,7 +274,6 @@ export default function EscolaMinisterial() {
     }
   ], [])
 
-  // Dados memoizados para FAQs
   const faqs = useMemo(() => [
     {
       question: "Quanto tempo dura o curso da Escola Ministerial?",
@@ -298,25 +297,21 @@ export default function EscolaMinisterial() {
     }
   ], [])
 
-  // Componente footer com lazy loading
-  const renderFooter = () => (
-    <Suspense fallback={<div className="w-full py-12 bg-black text-white text-center">Carregando...</div>}>
-      <LazyFooter navigationLinks={navigationLinks} />
-    </Suspense>
-  )
-
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Header/Navigation - Otimizado para performance */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black">RS</div>
-            <span>Bispo Rinaldo Silva</span>
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      {/* Header Mobile-First */}
+      <header className="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur-sm shadow-sm">
+        <div className="flex h-14 items-center justify-between px-4">
+          <div className="flex items-center gap-2 font-bold text-base">
+            <div className="w-7 h-7 rounded-full bg-[#d4fb00] flex items-center justify-center text-black text-xs">
+              RS
+            </div>
+            <span className="hidden sm:block">Bispo Rinaldo Silva</span>
+            <span className="sm:hidden text-sm">B. Rinaldo</span>
           </div>
           
-          {/* Menu desktop - Memoizado para evitar re-renderizações */}
-          <nav className="hidden md:flex items-center gap-6">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-6">
             {navigationLinks.map((link) => (
               <Link 
                 key={link.href}
@@ -329,397 +324,416 @@ export default function EscolaMinisterial() {
               </Link>
             ))}
             <a href="#inscricao">
-              <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500]">
+              <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 py-2 text-sm font-bold">
                 Inscreva-se
               </Button>
             </a>
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button 
-            className="block md:hidden"
+            className="lg:hidden p-2 -mr-2"
             onClick={toggleMenu}
             aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-gray-700" aria-hidden="true" />
-            ) : (
-              <Menu className="h-6 w-6 text-gray-700" aria-hidden="true" />
-            )}
+            <Menu className="h-5 w-5 text-gray-700" />
           </button>
         </div>
-
-        {/* Mobile menu */}
-        <MobileMenu isOpen={isMenuOpen} links={navigationLinks} onLinkClick={() => setIsMenuOpen(false)} />
       </header>
 
-      <main className="flex-1">
-        {/* Hero Section - Otimizada para performance e acessibilidade */}
-        <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
-          {/* Elementos decorativos */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-[#d4fb00]/10 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[#d4fb00]/10 rounded-full blur-[100px] transform -translate-x-1/2 translate-y-1/2"></div>
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMenuOpen} links={navigationLinks} onLinkClick={() => setIsMenuOpen(false)} />
+
+      <main>
+        {/* Hero Section - Mobile First */}
+        <section className="relative py-8 md:py-12 lg:py-16 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-[#d4fb00]/10 rounded-full blur-[60px] transform translate-x-1/4 -translate-y-1/4"></div>
+            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-[#d4fb00]/10 rounded-full blur-[60px] transform -translate-x-1/4 translate-y-1/4"></div>
           </div>
 
-          <div className="container relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8 text-center lg:text-left">
-                <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                  Escola Ministerial 2024
+          <div className="relative z-10 px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+                <div className="space-y-4 text-center lg:text-left">
+                  <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                    Escola Ministerial 2024
+                  </div>
+                  <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+                    Cresça em sua caminhada rumo ao chamado de todo cristão:{" "}
+                    <span className="text-[#d4fb00]">Ser igual a Jesus e fazer os milagres que Ele fez!</span>
+                  </h1>
+                  <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+                    Encontre o seu propósito ministerial com aulas 100% online e ao vivo, conduzidas por um líder
+                    experiente e ungido.
+                  </p>
+                  <div className="flex flex-col gap-2 items-center lg:items-start pt-2">
+                    <a href="https://pay.hotmart.com/K99707801K" target="_blank" rel="noopener noreferrer" className="w-full max-w-xs">
+                      <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-4 py-3 text-sm font-bold w-full">
+                        INSCREVER-SE
+                        <ChevronRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                    <a href="#sobre" className="w-full max-w-xs">
+                      <Button
+                        variant="outline"
+                        className="border-white text-white bg-transparent hover:bg-white hover:text-black px-4 py-3 text-sm w-full"
+                      >
+                        Saiba Mais
+                        <ChevronDown className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                  </div>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  Cresça em sua caminhada rumo ao chamado de todo cristão:{" "}
-                  <span className="text-[#d4fb00]">Ser igual a Jesus e fazer os milagres que Ele fez!</span>
-                </h1>
-                <p className="text-xl text-gray-300">
-                  Encontre o seu propósito ministerial com aulas 100% online e ao vivo, conduzidas por um líder
-                  experiente e ungido.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer" aria-label="Inscrever-se agora">
-                    <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-lg font-bold w-full">
-                      QUERO ME INSCREVER AGORA
-                      <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                    </Button>
-                  </a>
-                  <a href="#sobre" aria-label="Saiba mais sobre o curso">
-                    <Button
-                      variant="outline"
-                      className="border-white text-black bg-white hover:bg-white/90 px-8 py-6 text-lg w-full"
-                    >
-                      Saiba Mais
-                      <ChevronDown className="ml-2 h-5 w-5" aria-hidden="true" />
-                    </Button>
-                  </a>
-                </div>
-              </div>
-              <div className="relative mx-auto lg:mx-0 max-w-md w-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#d4fb00]/40 to-[#d4fb00]/20 rounded-2xl -rotate-3 shadow-xl"></div>
-                <Card className="relative border-none rounded-2xl overflow-hidden shadow-2xl bg-white text-black">
-                  <div className="bg-[#d4fb00] text-black p-4 text-center font-bold text-xl">Matrículas Abertas</div>
-                  <CardContent className="p-6 space-y-6">
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" aria-hidden="true" />
-                        <p>Aulas 100% online — assista quando e onde quiser</p>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" aria-hidden="true" />
-                        <p>Encontros semanais ao vivo com o Bispo Rinaldo Silva</p>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" aria-hidden="true" />
-                        <p>Mais de 50 aulas durante 1 ano</p>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" aria-hidden="true" />
-                        <p>Suporte gratuito + material de estudo</p>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" aria-hidden="true" />
-                        <p>Certificado de conclusão</p>
-                      </div>
+
+                <div className="relative mx-auto w-full max-w-sm mt-6 lg:mt-0">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#d4fb00]/40 to-[#d4fb00]/20 rounded-xl -rotate-2 shadow-xl"></div>
+                  <Card className="relative border-none rounded-xl overflow-hidden shadow-2xl bg-white text-black">
+                    <div className="bg-[#d4fb00] text-black p-3 text-center font-bold text-sm">
+                      Matrículas Abertas
                     </div>
-                    <div className="pt-4 space-y-3">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold">12x de R$ 24,80</div>
-                        <div className="text-sm text-gray-500">ou R$ 247,00 à vista</div>
+                    <CardContent className="p-4 space-y-3">
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="h-3 w-3 text-[#d4fb00] mt-1 shrink-0" />
+                          <p className="text-xs">Aulas 100% online — assista quando e onde quiser</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="h-3 w-3 text-[#d4fb00] mt-1 shrink-0" />
+                          <p className="text-xs">Encontros semanais ao vivo</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="h-3 w-3 text-[#d4fb00] mt-1 shrink-0" />
+                          <p className="text-xs">Mais de 50 aulas durante 1 ano</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="h-3 w-3 text-[#d4fb00] mt-1 shrink-0" />
+                          <p className="text-xs">Suporte + material de estudo</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="h-3 w-3 text-[#d4fb00] mt-1 shrink-0" />
+                          <p className="text-xs">Certificado de conclusão</p>
+                        </div>
                       </div>
-                      <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer" aria-label="Fazer inscrição no curso">
-                        <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full py-6 text-lg font-bold">
-                          FAZER MINHA INSCRIÇÃO
-                          <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                        </Button>
-                      </a>
-                      <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-                        <Shield className="h-4 w-4" aria-hidden="true" />
-                        <span>Pagamento 100% seguro</span>
+                      <div className="pt-2 space-y-3">
+                        <div className="text-center">
+                          <div className="text-lg font-bold">12x de R$ 24,80</div>
+                          <div className="text-xs text-gray-500">ou R$ 247,00 à vista</div>
+                        </div>
+                        <a href="https://pay.hotmart.com/K99707801K" target="_blank" rel="noopener noreferrer">
+                          <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] w-full py-3 text-sm font-bold">
+                            FAZER INSCRIÇÃO
+                            <ChevronRight className="ml-1 h-3 w-3" />
+                          </Button>
+                        </a>
+                        <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
+                          <Shield className="h-3 w-3" />
+                          <span>Pagamento 100% seguro</span>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Benefícios Section - Otimizada com componentes memoizados */}
-        <section id="sobre" className="py-20 bg-white">
-          <div className="container">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                Benefícios
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Uma Formação Completa Para <span className="text-[#d4fb00]">Seu Crescimento Ministerial</span>
-              </h2>
-              <p className="text-gray-600">
-                Desenvolvemos um programa completo para te ajudar a crescer em todas as áreas do ministério
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {benefitItems.map((item, index) => (
-                <BenefitCard 
-                  key={index}
-                  icon={item.icon} 
-                  title={item.title} 
-                  description={item.description} 
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Transformações Section - Otimizada com componentes memoizados */}
-        <section className="py-20 bg-gray-50">
-          <div className="container">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                Transformações
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                O Que Você Será <span className="text-[#d4fb00]">Capaz de Fazer</span>
-              </h2>
-              <p className="text-gray-600">
-                Ao final da Escola Ministerial, você estará preparado para exercer seu ministério com excelência
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {transformationItems.map((item, index) => (
-                <TransformationCard 
-                  key={index}
-                  icon={item.icon} 
-                  title={item.title} 
-                  description={item.description} 
-                />
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <a href="#inscricao" aria-label="Inscrever-se no curso">
-                <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-lg font-bold">
-                  QUERO DESENVOLVER MEU MINISTÉRIO
-                  <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </Button>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Sobre o Mentor Section - Otimizada para carregamento de imagem */}
-        <section className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
-          <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="relative aspect-square md:aspect-auto md:h-[600px] rounded-2xl overflow-hidden">
-                <Image
-                  src="/rinaldo-silva-profile.jpeg"
-                  alt="Bispo Rinaldo Silva"
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: "center 2%" }}
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  loading="eager"
-                  priority={true}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 className="text-2xl font-bold mb-2">Bispo Rinaldo Silva</h3>
-                  <p className="text-gray-300">Fundador da Escola Ministerial</p>
+                    </CardContent>
+                  </Card>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="space-y-6">
-                <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                  Seu Mentor
+        {/* Benefícios Section - Mobile First */}
+        <section id="sobre" className="py-8 md:py-12 lg:py-16 bg-white">
+          <div className="px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                  Benefícios
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold">
-                  Aprenda com um <span className="text-[#d4fb00]">Líder Experiente</span>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  Uma Formação Completa Para <span className="text-[#d4fb00]">Seu Crescimento Ministerial</span>
                 </h2>
-                <div className="space-y-4 text-gray-300">
-                  <p>
-                    Rinaldo Silva é Bispo Sênior da Igreja Impactados. Professor, graduado em Teologia e Filosofia. Conferencista, tendo ministrado em todos os estados brasileiros e em mais de 45 países.
-                  </p>
-                  <p>
-                    Como conferencista, já ministrou em todos os estados brasileiros e em mais de 40 países, impactando
-                    milhares de vidas ao redor do mundo.
-                  </p>
-                  <p>
-                    Desde os 7 anos, tem exercido o ministério da palavra. Durante esses anos, milhares de pessoas foram
-                    salvas por Jesus e puderam testemunhar o agir de Deus. Sinais e maravilhas se manifestaram, como
-                    assim é descrito na palavra de Deus, e que ainda acontecem hoje, através do seu ministério.
-                  </p>
-                </div>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Desenvolvemos um programa completo para te ajudar a crescer em todas as áreas do ministério
+                </p>
+              </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="bg-white/10 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-[#d4fb00]">45+</div>
-                    <p className="text-sm text-gray-300">Países</p>
-                  </div>
-                  <div className="bg-white/10 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-[#d4fb00]">20+</div>
-                    <p className="text-sm text-gray-300">Anos de Ministério</p>
-                  </div>
-                  <div className="bg-white/10 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-[#d4fb00]">1000+</div>
-                    <p className="text-sm text-gray-300">Conferências</p>
-                  </div>
-                  <div className="bg-white/10 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-[#d4fb00]">5000+</div>
-                    <p className="text-sm text-gray-300">Alunos</p>
-                  </div>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {benefitItems.map((item, index) => (
+                  <BenefitCard key={index} icon={item.icon} title={item.title} description={item.description} />
+                ))}
+              </div>
+
+              <div className="mt-8 text-center">
+                <a href="#inscricao">
+                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-6 py-3 text-sm font-bold">
+                    QUERO BENEFÍCIOS
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Estrutura do Curso Section - Otimizada com componentes memoizados */}
-        <section className="py-20 bg-white">
-          <div className="container">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                Estrutura do Curso
+        {/* Transformações Section - Mobile First */}
+        <section className="py-8 md:py-12 lg:py-16 bg-gray-50">
+          <div className="px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                  Transformações
+                </div>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  O Que Você Será <span className="text-[#d4fb00]">Capaz de Fazer</span>
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Ao final da Escola Ministerial, você estará preparado para exercer seu ministério com excelência
+                </p>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Como Funciona a <span className="text-[#d4fb00]">Escola Ministerial</span>
-              </h2>
-              <p className="text-gray-600">
-                Um programa estruturado para te levar do conhecimento básico à aplicação avançada
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {courseSteps.map((step, index) => (
-                <Card key={index} className="border-none rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-8 space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center text-black font-bold text-xl">
-                      {step.number}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {transformationItems.map((item, index) => (
+                  <TransformationCard key={index} icon={item.icon} title={item.title} description={item.description} />
+                ))}
+              </div>
+
+              <div className="mt-8 text-center">
+                <a href="#inscricao">
+                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-6 py-3 text-sm font-bold">
+                    COMEÇAR AGORA
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Sobre o Mentor Section - Mobile First */}
+        <section className="py-8 md:py-12 lg:py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
+          <div className="px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                <div className="relative aspect-square max-w-sm mx-auto lg:max-w-none lg:h-80 rounded-xl overflow-hidden">
+                  <Image
+                    src="/rinaldo-silva-profile.jpeg"
+                    alt="Bispo Rinaldo Silva"
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: "center 2%" }}
+                    sizes="(max-width: 1024px) 320px, 320px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-base font-bold mb-1">Bispo Rinaldo Silva</h3>
+                    <p className="text-gray-300 text-xs">Fundador da Escola Ministerial</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4 text-center lg:text-left">
+                  <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                    Seu Mentor
+                  </div>
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                    Aprenda com um <span className="text-[#d4fb00]">Líder Experiente</span>
+                  </h2>
+                  <div className="space-y-3 text-gray-300 text-sm">
+                    <p>
+                      Rinaldo Silva é Bispo Sênior da Igreja Impactados. Professor, graduado em Teologia e Filosofia. Conferencista, tendo ministrado em todos os estados brasileiros e em mais de 45 países.
+                    </p>
+                    <p>
+                      Durante esses anos, milhares de pessoas foram salvas por Jesus e puderam testemunhar o agir de Deus. Sinais e maravilhas se manifestaram através do seu ministério.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <div className="bg-white/10 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-[#d4fb00]">45+</div>
+                      <p className="text-xs text-gray-300">Países</p>
                     </div>
-                    <h3 className="text-xl font-bold">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
-                    <ul className="space-y-2 text-gray-600">
-                      {step.items.map((item, i) => (
-                        <ChecklistItem key={i}>{item}</ChecklistItem>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
+                    <div className="bg-white/10 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-[#d4fb00]">20+</div>
+                      <p className="text-xs text-gray-300">Anos</p>
+                    </div>
+                    <div className="bg-white/10 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-[#d4fb00]">1000+</div>
+                      <p className="text-xs text-gray-300">Conferências</p>
+                    </div>
+                    <div className="bg-white/10 p-3 rounded-lg text-center">
+                      <div className="text-lg font-bold text-[#d4fb00]">5000+</div>
+                      <p className="text-xs text-gray-300">Alunos</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-4">
+                    <a href="#inscricao">
+                      <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-6 py-3 text-sm font-bold">
+                        APRENDER COM ELE
+                        <Users className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Depoimentos Section - Otimizada para performance */}
-        <section className="py-20 bg-gray-50">
-          <div className="container">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                Depoimentos
+        {/* Estrutura do Curso Section - Mobile First */}
+        <section id="modulos" className="py-8 md:py-12 lg:py-16 bg-white">
+          <div className="px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                  Estrutura do Curso
+                </div>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  Como Funciona a <span className="text-[#d4fb00]">Escola Ministerial</span>
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Um programa estruturado para te levar do conhecimento básico à aplicação avançada
+                </p>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                O Que Nossos <span className="text-[#d4fb00]">Alunos Dizem</span>
-              </h2>
-              <p className="text-gray-600">
-                Veja como a Escola Ministerial tem transformado a vida e o ministério de nossos alunos
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((item, index) => (
-                <Card
-                  key={index}
-                  className="border-none rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <CardContent className="p-8 space-y-4">
-                    <div className="flex">
-                      {Array(item.stars)
-                        .fill(0)
-                        .map((_, i) => (
-                          <Star key={i} className="h-5 w-5 text-[#d4fb00] fill-[#d4fb00]" aria-hidden="true" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {courseSteps.map((step, index) => (
+                  <Card key={index} className="border-none rounded-xl shadow-md hover:shadow-lg transition-all">
+                    <CardContent className="p-4 space-y-3">
+                      <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center text-black font-bold text-sm">
+                        {step.number}
+                      </div>
+                      <h3 className="text-base font-bold leading-tight">{step.title}</h3>
+                      <p className="text-gray-600 text-sm">{step.description}</p>
+                      <ul className="space-y-1 text-gray-600">
+                        {step.items.map((item, i) => (
+                          <ChecklistItem key={i}>{item}</ChecklistItem>
                         ))}
-                      <span className="sr-only">{item.stars} de 5 estrelas</span>
-                    </div>
-                    <p className="text-gray-600 italic">"{item.testimony}"</p>
-                    <div className="pt-4 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold">
-                        {item.name.charAt(0)}
-                      </div>
-                      <div>
-                        <h4 className="font-bold">{item.name}</h4>
-                        <p className="text-sm text-gray-500">{item.role}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Para Quem é Section - Otimizada com dados memoizados */}
-        <section className="py-20 bg-white">
-          <div className="container">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                Público-Alvo
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Para Quem é a <span className="text-[#d4fb00]">Escola Ministerial?</span>
-              </h2>
-              <p className="text-gray-600">
-                Se você se identifica com pelo menos um dos perfis abaixo, a Escola Ministerial é para você
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {targetAudience.map((item, index) => (
-                <div key={index} className="bg-gray-50 rounded-xl p-8 flex gap-6 items-start">
-                  <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center shrink-0">
-                    <item.icon className="h-6 w-6 text-black" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-gray-600">{item.description}</p>
-                  </div>
+        {/* Depoimentos Section - Mobile First */}
+        <section className="py-8 md:py-12 lg:py-16 bg-gray-50">
+          <div className="px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                  Depoimentos
                 </div>
-              ))}
-            </div>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  O Que Nossos <span className="text-[#d4fb00]">Alunos Dizem</span>
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Veja como a Escola Ministerial tem transformado a vida e o ministério de nossos alunos
+                </p>
+              </div>
 
-            <div className="mt-12 text-center">
-              <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer" aria-label="Fazer parte da escola">
-                <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-lg font-bold">
-                  QUERO FAZER PARTE DESTA ESCOLA
-                  <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </Button>
-              </a>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {testimonials.map((item, index) => (
+                  <Card key={index} className="border-none rounded-xl shadow-md hover:shadow-lg transition-all">
+                    <CardContent className="p-4 space-y-3">
+                      <div className="flex">
+                        {Array(item.stars)
+                          .fill(0)
+                          .map((_, i) => (
+                            <Star key={i} className="h-3 w-3 text-[#d4fb00] fill-[#d4fb00]" />
+                          ))}
+                      </div>
+                      <p className="text-gray-600 italic text-sm leading-relaxed">"{item.testimony}"</p>
+                      <div className="pt-2 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold text-xs">
+                          {item.name.charAt(0)}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-sm">{item.name}</h4>
+                          <p className="text-xs text-gray-500">{item.role}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="mt-8 text-center">
+                <a href="#inscricao">
+                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-6 py-3 text-sm font-bold">
+                    QUERO RESULTADOS
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section - Otimizada com dados memoizados */}
-        <section className="py-20 bg-gray-50">
-          <div className="container">
-            <div className="text-center max-w-[800px] mx-auto mb-16 space-y-4">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
-                Dúvidas Frequentes
+        {/* Para Quem é Section - Mobile First */}
+        <section className="py-8 md:py-12 lg:py-16 bg-white">
+          <div className="px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                  Público-Alvo
+                </div>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  Para Quem é a <span className="text-[#d4fb00]">Escola Ministerial?</span>
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Se você se identifica com pelo menos um dos perfis abaixo, a Escola Ministerial é para você
+                </p>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Perguntas <span className="text-[#d4fb00]">Frequentes</span>
-              </h2>
-              <p className="text-gray-600">
-                Respondemos às perguntas mais comuns para que você possa tomar a melhor decisão
-              </p>
-            </div>
 
-            <div className="max-w-[800px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {targetAudience.map((item, index) => (
+                  <div key={index} className="bg-gray-50 rounded-xl p-4 flex gap-3 items-start">
+                    <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center shrink-0">
+                      <item.icon className="h-4 w-4 text-black" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-base font-bold mb-1 leading-tight">{item.title}</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 text-center">
+                <a href="https://pay.hotmart.com/K99707801K" target="_blank" rel="noopener noreferrer">
+                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-6 py-3 text-sm font-bold">
+                    FAZER PARTE
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section - Mobile First */}
+        <section id="faq" className="py-8 md:py-12 lg:py-16 bg-gray-50">
+          <div className="px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
+                  Dúvidas Frequentes
+                </div>
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  Perguntas <span className="text-[#d4fb00]">Frequentes</span>
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Respondemos às perguntas mais comuns para que você possa tomar a melhor decisão
+                </p>
+              </div>
+
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index + 1}`} className="border-b border-gray-200">
-                    <AccordionTrigger className="text-lg font-medium py-4">{faq.question}</AccordionTrigger>
-                    <AccordionContent className="text-gray-600 pb-4">
+                    <AccordionTrigger className="text-sm md:text-base font-medium py-4 text-left">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 pb-4 text-sm leading-relaxed">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -729,77 +743,74 @@ export default function EscolaMinisterial() {
           </div>
         </section>
 
-        {/* CTA Final Section - Otimizada para performance */}
-        <section id="inscricao" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
-          <div className="container">
-            <div className="max-w-[900px] mx-auto text-center space-y-8">
-              <div className="inline-block px-4 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-sm">
+        {/* CTA Final Section - Mobile First */}
+        <section id="inscricao" className="py-8 md:py-12 lg:py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
+          <div className="px-4">
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#d4fb00] text-black font-medium text-xs">
                 Matrículas Abertas
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
                 Faça Sua <span className="text-[#d4fb00]">Inscrição Agora</span>
               </h2>
-              <p className="text-xl text-gray-300">
+              <p className="text-sm md:text-base text-gray-300">
                 Garanta sua vaga na Escola Ministerial e transforme sua vida e ministério
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                 {[
                   {
                     icon: CheckCircle,
                     title: "Aulas 100% Online",
-                    description: "Assista quando e onde quiser, no seu próprio ritmo"
+                    description: "Assista quando e onde quiser"
                   },
                   {
                     icon: Users,
                     title: "Encontros Ao Vivo",
-                    description: "Interação direta com o Bispo Rinaldo Silva"
+                    description: "Interação direta com o Bispo"
                   },
                   {
                     icon: GraduationCap,
                     title: "Certificado Oficial",
-                    description: "Receba seu certificado ao concluir o curso"
+                    description: "Receba seu certificado"
                   }
                 ].map((item, index) => (
-                  <div key={index} className="bg-white/10 p-6 rounded-xl">
-                    <div className="w-12 h-12 rounded-full bg-[#d4fb00] flex items-center justify-center mx-auto mb-4">
-                      <item.icon className="h-6 w-6 text-black" aria-hidden="true" />
+                  <div key={index} className="bg-white/10 p-4 rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-[#d4fb00] flex items-center justify-center mx-auto mb-3">
+                      <item.icon className="h-4 w-4 text-black" />
                     </div>
-                    <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                    <p className="text-gray-300">{item.description}</p>
+                    <h3 className="font-bold text-sm mb-2">{item.title}</h3>
+                    <p className="text-gray-300 text-xs">{item.description}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-12 bg-white/10 p-8 rounded-2xl border border-white/20 backdrop-blur-sm max-w-[600px] mx-auto">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-                  <div className="text-left">
-                    <p className="text-gray-400 text-sm">Investimento:</p>
-                    <div className="text-3xl font-bold text-white">12x de R$ 24,80</div>
-                    <p className="text-sm text-gray-400">ou R$ 247,00 à vista</p>
+              <div className="mt-8 bg-white/10 p-4 md:p-6 rounded-xl border border-white/20 backdrop-blur-sm max-w-lg mx-auto">
+                <div className="flex flex-col gap-4 mb-4">
+                  <div className="text-center">
+                    <p className="text-gray-400 text-xs">Investimento:</p>
+                    <div className="text-xl font-bold text-white">12x de R$ 24,80</div>
+                    <p className="text-xs text-gray-400">ou R$ 247,00 à vista</p>
                   </div>
-                  <div className="h-16 w-px bg-white/20 hidden md:block"></div>
-                  <div className="text-left">
-                    <div className="flex items-start gap-2 mb-2">
-                      <Clock className="h-5 w-5 text-[#d4fb00] mt-0.5 shrink-0" aria-hidden="true" />
-                      <div>
-                        <p className="font-bold text-white">ACESSO POR 18 MESES</p>
-                        <p className="text-sm text-gray-300">Tempo suficiente para absorver todo o conteúdo</p>
-                      </div>
+                  <div className="h-px bg-white/20"></div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Clock className="h-3 w-3 text-[#d4fb00]" />
+                      <p className="font-bold text-white text-xs">ACESSO POR 18 MESES</p>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <Shield className="h-4 w-4 text-[#d4fb00]" aria-hidden="true" />
+                    <div className="flex items-center justify-center gap-1 text-xs text-gray-400">
+                      <Shield className="h-3 w-3 text-[#d4fb00]" />
                       <span>Pagamento 100% seguro</span>
                     </div>
                   </div>
                 </div>
-                <a href="https://pay.kiwify.com.br/Xgs9lmk" target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-8 py-6 text-xl font-bold w-full">
-                    FAÇA SUA INSCRIÇÃO AGORA
-                    <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
+                <a href="https://pay.hotmart.com/K99707801K" target="_blank" rel="noopener noreferrer">
+                  <Button className="bg-[#d4fb00] text-black hover:bg-[#c0e500] px-6 py-4 text-sm font-bold w-full">
+                    INSCREVER-SE AGORA
+                    <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
-                <p className="mt-4 text-center text-gray-400 text-sm">
+                <p className="mt-3 text-center text-gray-400 text-xs">
                   Garanta sua vaga em um ambiente seguro e espiritual
                 </p>
               </div>
@@ -808,8 +819,22 @@ export default function EscolaMinisterial() {
         </section>
       </main>
 
-      {/* Footer com lazy loading */}
-      {renderFooter()}
+      {/* Footer Simples */}
+      <footer className="bg-black text-white py-6">
+        <div className="px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded-full bg-[#d4fb00] flex items-center justify-center text-black text-xs font-bold">
+                RS
+              </div>
+              <span className="font-bold text-sm">Bispo Rinaldo Silva</span>
+            </div>
+            <p className="text-gray-400 text-xs">
+              © 2024 Escola Ministerial. Todos os direitos reservados.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
