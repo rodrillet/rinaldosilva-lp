@@ -2,6 +2,7 @@
 
 import { useMemo, memo } from "react"
 import Image from "next/image"
+import Script from "next/script"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -201,8 +202,20 @@ export default function EscolaDonsPG2() {
   ], [])
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
-      <main>
+    <>
+      {/* Microsoft Clarity Script */}
+      <Script id="clarity-script" strategy="afterInteractive">
+        {`
+          (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "rxlgvp94cz");
+        `}
+      </Script>
+
+      <div className="min-h-screen bg-white overflow-x-hidden">
+        <main>
         {/* Hero Section - Mobile First */}
         <section id="inicio" className="relative py-8 md:py-12 lg:py-16 overflow-hidden">
           <div className="absolute inset-0">
@@ -657,6 +670,7 @@ export default function EscolaDonsPG2() {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   )
 } 
