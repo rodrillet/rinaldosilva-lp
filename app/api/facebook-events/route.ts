@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createFacebookCAPIService, FacebookConversionEvent, UserData, CustomData } from '@/services/facebook-capi.service';
+import { createFacebookCAPIService, FacebookCAPIService, FacebookConversionEvent, UserData, CustomData } from '@/services/facebook-capi.service';
 
 // Interface para dados recebidos do frontend
 interface FacebookEventRequest {
@@ -112,75 +112,7 @@ function validateEventData(data: any): { valid: boolean; errors: string[] } {
   };
 }
 
-/**
- * Processa dados do usuário para formato da CAPI
- */
-function processUserDataForCAPI(
-  frontendUserData: FacebookEventRequest['user_data'], 
-  clientIP: string, 
-  userAgent: string
-): UserData {
-  const userData: UserData = {
-    // Dados obrigatórios extraídos do servidor
-    client_ip_address: clientIP,
-    client_user_agent: userAgent,
-  };
 
-  // Dados opcionais do frontend
-  if (frontendUserData.external_id) {
-    userData.external_id = frontendUserData.external_id;
-  }
-
-  if (frontendUserData.email) {
-    userData.em = frontendUserData.email;
-  }
-
-  if (frontendUserData.phone) {
-    userData.ph = frontendUserData.phone;
-  }
-
-  if (frontendUserData.first_name) {
-    userData.fn = frontendUserData.first_name;
-  }
-
-  if (frontendUserData.last_name) {
-    userData.ln = frontendUserData.last_name;
-  }
-
-  if (frontendUserData.city) {
-    userData.ct = frontendUserData.city;
-  }
-
-  if (frontendUserData.state) {
-    userData.st = frontendUserData.state;
-  }
-
-  if (frontendUserData.zip_code) {
-    userData.zp = frontendUserData.zip_code;
-  }
-
-  if (frontendUserData.country) {
-    userData.country = frontendUserData.country;
-  }
-
-  if (frontendUserData.date_of_birth) {
-    userData.db = frontendUserData.date_of_birth;
-  }
-
-  if (frontendUserData.gender) {
-    userData.ge = frontendUserData.gender;
-  }
-
-  if (frontendUserData.fbc) {
-    userData.fbc = frontendUserData.fbc;
-  }
-
-  if (frontendUserData.fbp) {
-    userData.fbp = frontendUserData.fbp;
-  }
-
-  return userData;
-}
 
 /**
  * Handler para requisições POST
@@ -215,17 +147,13 @@ export async function POST(request: NextRequest) {
 
     console.log(`🌐 Cliente: IP=${clientIP}, UA=${userAgent.substring(0, 50)}...`);
 
-    // Processar dados do usuário
-    const userData = processUserDataForCAPI(body.user_data, clientIP, userAgent);
-
-    // Montar evento para CAPI
-    const event: FacebookConversionEvent = {
+    // Montar evento para CAPI (sem user_data pois será processado pelo serviço)
+    const event: Omit<FacebookConversionEvent, 'user_data'> = {
       event_name: body.event_name,
       event_id: body.event_id,
       event_time: body.timestamp ? Math.floor(body.timestamp / 1000) : Math.floor(Date.now() / 1000),
       event_source_url: body.event_source_url,
       action_source: 'website',
-      user_data: userData,
       custom_data: body.custom_data || {}
     };
 
@@ -251,15 +179,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Preparar dados brutos do usuário para o serviço processar
+    const rawUserData = {
+      ...body.user_data,
+      client_ip_address: clientIP,
+      client_user_agent: userAgent
+    };
+
     // Enviar evento para Facebook
-    const result = await facebookCAPI.sendEvent(event);
+    const result = await facebookCAPI.sendEvents([event], rawUserData);
 
     if (result.success) {
       console.log(`✅ Evento ${body.event_name} enviado com sucesso para Facebook CAPI`);
       return NextResponse.json({
         success: true,
         message: 'Evento enviado com sucesso',
-        facebook_response: result.response
+        facebook_response: {
+          events_received: result.events_received,
+          fbtrace_id: result.fbtrace_id,
+          messages: result.messages
+        }
       });
     } else {
       console.error(`❌ Falha ao enviar evento ${body.event_name}:`, result.error);
