@@ -40,25 +40,29 @@
 - ✅ Geração automática de _fbp se não existir
 - ✅ Cookies com duração de 90 dias
 
+### ✅ 4. Pixel ID Atualizado
+- ✅ ID anterior (549718907556036) substituído pelo correto (324585577142752)
+- ✅ Atualizado em todos os arquivos de configuração e código
+
 ## 🔧 Configuração Atualizada
 
 ### Variáveis de Ambiente (.env.local)
 ```bash
 # Meta Pixel Configuration
-NEXT_PUBLIC_META_PIXEL_ID=549718907556036
+NEXT_PUBLIC_META_PIXEL_ID=324585577142752
 
 # Facebook Conversions API
 META_CONVERSIONS_API_ACCESS_TOKEN=EAAFaduqZCLpUBOZB2CmjdCCZC74Olg6yMCh14XXosZBleZC4kKcoRDHUb9lyhs5V9jSavfB2ZAcLJZC0jInCrWdczxsspk7lwWFRquyuCkmhQMgC80ozmSAzQWN8skElN0dNi3COKNHi6XdhI6G7U4yD4jqUNnYdL9QmTQCkz7IUKAOrZCROLD895dJC233u3AZDZD
 
 # Facebook CAPI Configuration
-FACEBOOK_PIXEL_ID=549718907556036
+FACEBOOK_PIXEL_ID=324585577142752
 FACEBOOK_ACCESS_TOKEN=EAAFaduqZCLpUBOZB2CmjdCCZC74Olg6yMCh14XXosZBleZC4kKcoRDHUb9lyhs5V9jSavfB2ZAcLJZC0jInCrWdczxsspk7lwWFRquyuCkmhQMgC80ozmSAzQWN8skElN0dNi3COKNHi6XdhI6G7U4yD4jqUNnYdL9QmTQCkz7IUKAOrZCROLD895dJC233u3AZDZD
 
 # Versão atual da API (ATUALIZADA)
 FACEBOOK_API_VERSION=v20.0
 
 # Test Event Code (APENAS para desenvolvimento)
-FACEBOOK_TEST_EVENT_CODE=TEST12345
+FACEBOOK_TEST_EVENT_CODE=TEST58634
 
 # Environment
 NODE_ENV=production
@@ -149,10 +153,10 @@ GET /api/facebook-events
 
 ### Checklist Final:
 - ✅ NODE_ENV=production
-- ✅ FACEBOOK_TEST_EVENT_CODE removido ou vazio
+- ✅ FACEBOOK_TEST_EVENT_CODE configurado corretamente para testes (TEST58634)
 - ✅ FACEBOOK_API_VERSION=v20.0
 - ✅ Token de acesso válido e com permissões
-- ✅ Pixel ID correto
+- ✅ Pixel ID correto (324585577142752)
 
 ### Monitoramento no Facebook:
 1. **Events Manager**: Verificar qualidade dos eventos
