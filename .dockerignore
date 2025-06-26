@@ -1,0 +1,64 @@
+# Arquivos e pastas do Node.js
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Arquivos do Next.js
+.next/
+out/
+
+# Arquivos de desenvolvimento
+.env*.local
+.env.development
+.env.test
+
+# Arquivos de IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de git
+.git
+.gitignore
+
+# Arquivos de build e cache
+.cache
+.vercel
+*.tgz
+*.tar.gz
+
+# Arquivos de documentação
+README.md
+docs/
+*.md
+
+# Arquivos de teste
+test/
+tests/
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Arquivos de configuração de desenvolvimento
+.eslintrc*
+.prettierrc*
+jest.config.*
+cypress/
+e2e/
+
+# Scripts
+scripts/
+cleanup-images.ps1
+
+# Outros
+coverage/
+.nyc_output/ 

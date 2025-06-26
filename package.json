@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:prod": "NODE_ENV=production next build",
+    "start:prod": "NODE_ENV=production next start",
+    "docker:build": "docker build -t rinaldosilva-lp:latest .",
+    "docker:run": "docker run -p 3000:3000 rinaldosilva-lp:latest",
+    "deploy:test": "./scripts/deploy.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
