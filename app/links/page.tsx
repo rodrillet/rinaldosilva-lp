@@ -184,29 +184,6 @@ export default function LinksPage() {
           {/* Links */}
           <div className="grid gap-4 max-w-md mx-auto">
  
-            {/* Escola de Dons */}
-            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-0">
-                <Link href="/escola-dons" className="block">
-                  <div className="relative w-full h-[200px]">
-                    <Image
-                      src="/links/escola-dons.png"
-                      alt="Escola de Dons"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      style={{ objectPosition: "center center" }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-4 w-full">
-                      <h3 className="text-white font-bold text-lg">Escola de Dons</h3>
-                      <p className="text-gray-200 text-sm">Desenvolva seus dons espirituais</p>
-                    </div>
-                  </div>
-                </Link>
-              </CardContent>
-            </Card>
-
             {/* Escola Ministerial */}
             <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardContent className="p-0">
@@ -224,6 +201,29 @@ export default function LinksPage() {
                     <div className="absolute bottom-0 left-0 p-4 w-full">
                       <h3 className="text-white font-bold text-lg">Escola Ministerial</h3>
                       <p className="text-gray-200 text-sm">Desenvolva seu ministério com excelência</p>
+                    </div>
+                  </div>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Escola de Dons */}
+            <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardContent className="p-0">
+                <Link href="/escola-dons" className="block">
+                  <div className="relative w-full h-[200px]">
+                    <Image
+                      src="/links/escola-dons.png"
+                      alt="Escola de Dons"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      style={{ objectPosition: "center center" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-4 w-full">
+                      <h3 className="text-white font-bold text-lg">Escola de Dons</h3>
+                      <p className="text-gray-200 text-sm">Desenvolva seus dons espirituais</p>
                     </div>
                   </div>
                 </Link>
