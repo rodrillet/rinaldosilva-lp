@@ -47,7 +47,10 @@ fi
 
 echo "🎉 Deploy preparado com sucesso!"
 echo "💡 Para fazer deploy no Dokploy:"
-echo "   1. Faça push do código para o repositório Git"
+echo "   1. Faça commit e push do código para o repositório Git:"
+echo "      git add ."
+echo "      git commit -m 'fix: corrigir dependências e Dockerfile para produção'"
+echo "      git push origin main"
 echo "   2. Configure o projeto no Dokploy apontando para este repositório"
 echo "   3. Configure as variáveis de ambiente necessárias"
 echo "   4. Execute o deploy através da interface do Dokploy" 
